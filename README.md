@@ -20,6 +20,7 @@ Schema Task
 
 Schema Interval
 
+    changes: string
     start: Date
     end: Date
 
