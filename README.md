@@ -38,6 +38,7 @@ getProject(TaskID)
 getProjects()
 getProjekt(Name)
 getTasksInProject(ProjektID)
+addTaskToProjekt(TaskID)
 
 getInterval():
 ```
