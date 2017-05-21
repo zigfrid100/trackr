@@ -15,6 +15,7 @@ Schema Task
 
     Taskname: String
     t_description: String
+    status: boolean        //true if ongoing, false if finished
     interval: [Interval]
  
 
