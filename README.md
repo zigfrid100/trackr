@@ -44,4 +44,11 @@ addTaskToProjekt(TaskID)
 getInterval():
 ```
 
+# Jenkins CI
+____________
+
+jenkins läuft nun auf 185.47.61.184:8081
+
+sobald ich mit dem einrichten fertig bin bekommt ihr die user accounts von mir.
+
 
