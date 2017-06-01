@@ -6,11 +6,11 @@ const Schema = mongoose.Schema;
 
 // Defining schema for the model Task
 const ProjectSchema = new Schema({
-    projectName: {
+    name: {
         type: String,
         required: true
     },
-    p_description: {
+    description: {
         type: String,
         required: true
     },

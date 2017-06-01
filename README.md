@@ -6,15 +6,15 @@ __________________________
 Schema Projekt
 
     name: String
-    p_description: String
+    description: String
     …
     tasks: [Task]
 
 
 Schema Task
 
-    Taskname: String
-    t_description: String
+    name: String
+    description: String
     status: Numbedr        //0 if done, 1 if ongoing, 2 if open
     interval: [Interval]
  
