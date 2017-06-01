@@ -3,6 +3,14 @@
 # Mongoose Schema
 __________________________
 
+Schema User
+
+    firstName: String
+    lastName: String
+    email: String
+    password: String
+    
+
 Schema Projekt
 
     name: String
