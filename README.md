@@ -3,19 +3,28 @@
 # Mongoose Schema
 __________________________
 
+Schema User
+
+    firstName: String
+    lastName: String
+    email: String
+    password: String
+    
+
 Schema Projekt
 
     name: String
-    p_description: String
+    description: String
     …
     tasks: [Task]
 
 
 Schema Task
 
-    Taskname: String
-    t_description: String
-    status: boolean        //true if ongoing, false if finished
+    name: String
+    description: String
+    status: Number        //0 if done, 1 if ongoing, 2 if open
+    status: Number        //0 if done, 1 if ongoing, 2 if open
     interval: [Interval]
  
 

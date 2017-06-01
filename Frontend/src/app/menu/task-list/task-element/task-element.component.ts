@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { TaskService } from '../../task.service';
 
 @Component({
   selector: 'app-task-element',
@@ -7,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TaskElementComponent implements OnInit {
 
-  constructor() { }
+  @Input() joke: any;
+  private showDetails: any;
+
+  constructor(private taskService: TaskService) {
+    this.showDetails = false;
+  }
 
   ngOnInit() {
   }
