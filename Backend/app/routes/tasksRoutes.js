@@ -1,24 +1,24 @@
 const express = require('express');
 const router = express.Router();
 
-const projectsController = require('../controllers/tasksController');
+const tasksController = require('../controllers/tasksController');
 
 router.route('/task')			
-    .get(projectsController.getTasks)
-    .post(projectsController.postTask);
+    .get(tasksController.getTasks)
+    .post(tasksController.postTask);
 
 router.route('/task/:id')
-	.get(projectsController.getTask)
-	.delete(projectsController.deleteTask)
-	.put(projectsController.patchTask);
+	.get(tasksController.getTask)
+	.delete(tasksController.deleteTask)
+	.put(tasksController.patchTask);
 
 router.route('/task/:id/start')
-	.get(projectsController.startTask);
+	.get(tasksController.startTask);
 
 router.route('/task/:id/pause')
-	.get(projectsController.pauseTask);
+	.get(tasksController.pauseTask);
 
 router.route('/task/:id/stop')
-	.get(projectsController.stopTask);
+	.get(tasksController.stopTask);
 
 module.exports = router;
