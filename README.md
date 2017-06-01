@@ -3,6 +3,14 @@
 # Mongoose Schema
 __________________________
 
+Schema User
+
+    firstName: String
+    lastName: String
+    email: String
+    password: String
+    
+
 Schema Projekt
 
     name: String
@@ -13,9 +21,15 @@ Schema Projekt
 
 Schema Task
 
+<<<<<<< HEAD
     name: String
     description: String
     status: Numbedr        //0 if done, 1 if ongoing, 2 if open
+=======
+    Taskname: String
+    t_description: String
+    status: Number        //0 if done, 1 if ongoing, 2 if open
+>>>>>>> 4e912e36499ecb97ed595e60324feeffd1193423
     interval: [Interval]
  
 
