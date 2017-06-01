@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "the backend of the webapp timetracker ",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "config": "^1.26.1",
+    "express": "^4.15.3",
+    "mongoose": "^4.10.4"
+  },
+  "devDependencies": {
+    "chai": "^4.0.1",
+    "chai-http": "^3.0.0",
+    "mocha": "^3.4.2"
+  },
+  "scripts": {
+    "test": "mocha --timeout 10000"
+  },
+  "author": "Leon Günther, Chropher",
+  "license": "MIT"
+}
