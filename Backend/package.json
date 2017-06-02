@@ -2,7 +2,7 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "the backend of the webapp timetracker ",
-  "main": "app/server.js",
+  "main": "server.js",
   "dependencies": {
     "body-parser": "^1.17.2",
     "config": "^1.26.1",
