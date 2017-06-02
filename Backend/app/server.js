@@ -28,8 +28,8 @@ const projectsRoutes = require('./routes/projectsRoutes');
 const tasksRoutes = require('./routes/tasksRoutes');
 const usersRoutes = require('./routes/usersRoutes');
 
-app.use('/api', projectsRoutes);
-app.use('/btc', tasksRoutes);
-app.use('/api', usersRoutes);
+//app.use('/api', projectsRoutes);          //uncomment after controller implementation
+//app.use('/btc', tasksRoutes);
+//app.use('/api', usersRoutes);
 
 module.exports = app;
