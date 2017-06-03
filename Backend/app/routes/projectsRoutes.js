@@ -10,7 +10,7 @@ router.route('/')
 router.route('/:id')
 	.get(projectsController.getProject)
 	.delete(projectsController.deleteProject)
-	.put(projectsController.patchProject);
+	.put(projectsController.putProject);
 
 router.route('/addtask')
 	.get(projectsController.addtask);
