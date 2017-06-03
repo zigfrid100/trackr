@@ -1,4 +1,5 @@
 const projectModel = require('./../models/project');
+const taskModel = require('./../models/task');
 
 exports.getProjects = (req, res) => {
     projectModel.find()
@@ -27,9 +28,9 @@ exports.postProject = (req, res) => {
 
 exports.getProject = (req, res) => {
     projectModel.findById(req.params.id)
-        .then(joke => {
+        .then(project => {
             res.status(200)
-                .json(joke)
+                .json(project)
         })
         .catch(err => {
             res.status(400)
@@ -69,7 +70,24 @@ exports.putProject = (req, res) => {
 };
 
 exports.addtask = (req, res) => {
-
+    projectModel.findById(req.params.id)
+        .then( project => {
+            var task = new taskModel({name: "testTask", description: "be", status: 3});
+            console.log(task);
+            Object.assign(project.tasks, task).save()
+                .then(project => {
+                    res.status(200)
+                        .json({message: "Project successfully updated!", project});
+                })
+                .catch(err => {
+                    res.status(400)
+                        .send(err);
+                })
+        })
+        .catch(err => {
+            res.status(400)
+                .send(err);
+        });
 };
 
 exports.gettasks = (req, res) => {
