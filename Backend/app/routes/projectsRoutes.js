@@ -12,7 +12,7 @@ router.route('/:id')
 	.delete(projectsController.deleteProject)
 	.put(projectsController.putProject);
 
-router.route('/addtask')
+router.route('/:id/:taskid/addtask')
 	.get(projectsController.addtask);
 
 router.route('/:id/gettasks')

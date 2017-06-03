@@ -10,7 +10,7 @@ router.route('/')
 router.route('/:id')
 	.get(tasksController.getTask)
 	.delete(tasksController.deleteTask)
-	.put(tasksController.patchTask);
+	.put(tasksController.putTask);
 
 router.route('/:id/start')
 	.get(tasksController.startTask);
