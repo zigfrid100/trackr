@@ -8,7 +8,7 @@ mongoose.Promise = global.Promise;
 mongoose.connect(config.db);
 
 app.use((req, res, next) => {
-	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');						//add frontends address here
+	res.setHeader('Access-Control-Allow-Origin', config.frontend);						//add frontends address here
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     res.setHeader('Access-Control-Allow-Credentials', true);
@@ -24,11 +24,11 @@ app.listen(config.port, () => {
     console.log('Serv running');
 });
 
-const projectsRoutes = require('./routes/projectsRoutes');
-const tasksRoutes = require('./routes/tasksRoutes');
-const usersRoutes = require('./routes/usersRoutes');
+const projectsRoutes = require('./app/routes/projectsRoutes');
+const tasksRoutes = require('./app/routes/tasksRoutes');
+const usersRoutes = require('./app/routes/usersRoutes');
 
-//app.use('/api', projectsRoutes);          //uncomment after controller implementation
+//app.use('/project', projectsRoutes);          //uncomment after controller implementation
 //app.use('/btc', tasksRoutes);
 //app.use('/api', usersRoutes);
 

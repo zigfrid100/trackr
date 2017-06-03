@@ -3,6 +3,7 @@
  */
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const TaskSchema = require('./task');
 
 // Defining schema for the model Task
 const ProjectSchema = new Schema({
@@ -14,7 +15,10 @@ const ProjectSchema = new Schema({
         type: String,
         required: true
     },
-    tasks: [TaskSchema]
+    tasks: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'TaskSchema'
+    }
 });
 
 // Registering a model Task with given mongoose schema

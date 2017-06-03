@@ -1,15 +1,21 @@
 const express = require('express');
 const router = express.Router();
 
-const projectsController = require('../controllers/projectsController');
+const projectsController = require('./../controllers/projectsController');
 
-router.route('/project')			
+router.route('/')
     .get(projectsController.getProjects)
     .post(projectsController.postProject);
 
-router.route('/project/:id')
+router.route('/:id')
 	.get(projectsController.getProject)
 	.delete(projectsController.deleteProject)
 	.put(projectsController.patchProject);
+
+router.route('/addtask')
+	.get(projectsController.addtask);
+
+router.route('/:id/gettasks')
+    .get(projectsController.gettasks);
 
 module.exports = router;

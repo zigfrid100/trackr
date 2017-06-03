@@ -2,7 +2,7 @@
 
 // Model & server
 const Joke = require('../models/task');
-const server = require('../server');
+const server = require('../../server');
 
 // Require our dev-dependencies
 const chai = require('chai');
