@@ -74,9 +74,9 @@ exports.addtask = (req, res) => {
         .then( project => {
             taskModel.findById(req.params.taskid)
                 .then (task => {
-                    var exists = false;
-                    for (var i=0; i<project.tasks.length; i++) {
-                        if(JSON.stringify(project.tasks[i]) == JSON.stringify(task)) {
+                    let exists = false;
+                    for (let i=0; i<project.tasks.length; i++) {
+                        if(JSON.stringify(project.tasks[i]) === JSON.stringify(task._id)) {
                             exists = true;
                             res.status(400)
                                 .json({error: "Element exists"});
@@ -84,16 +84,17 @@ exports.addtask = (req, res) => {
                         } else {
                             exists = false;                        }
                     }
-                    console.log(exists);
-                    Object.assign(project, project.tasks.push(task)).save()
-                        .then(project => {
-                            res.status(200)
-                                .json({message: "Project successfully updated!", project});
-                        })
-                        .catch(err => {
-                            res.status(400)
-                                .send(err);
-                        })
+                    if(!exists) {
+                        Object.assign(project, project.tasks.push(task)).save()
+                            .then(project => {
+                                res.status(200)
+                                    .json({message: "Task successfully added to project!", project});
+                            })
+                            .catch(err => {
+                                res.status(400)
+                                    .send(err);
+                            })
+                    }
                 })
                 .catch(err => {
                     res.status(400)
@@ -106,6 +107,71 @@ exports.addtask = (req, res) => {
         });
 };
 
-exports.gettasks = (req, res) => {
+exports.removeTask = (req, res) => {
+    projectModel.findById(req.params.id)
+        .then( project => {
+            taskModel.findById(req.params.taskid)
+                .then (task => {
+                    let exists = false;
+                    for (let i=0; i<project.tasks.length; i++) {
+                        if(JSON.stringify(project.tasks[i]) === JSON.stringify(task._id)) {
+                            exists = true;
+                        } else {
+                            exists = false;                        }
+                    }
+                    if(exists) {
+                        Object.assign(project, project.tasks.pop(task)).save()
+                            .then(project => {
+                                res.status(200)
+                                    .json({message: "Task successfully removed from project!", project});
+                            })
+                            .catch(err => {
+                                res.status(400)
+                                    .send(err);
+                            })
+                    } else {
+                        res.status(400)
+                            .json({error: "Task not exists in project!"});
+                    }
+                })
+                .catch(err => {
+                    res.status(400)
+                        .send(err);
+                })
+        })
+        .catch(err => {
+            res.status(400)
+                .send(err);
+        });
+};
 
+exports.getTasks = (req, res) => {
+    projectModel.findById(req.params.id)
+        .then(project => {
+            /*var tmp = [{name: "hallo1"}, {name: "hallo2"}];
+            project.tasks.forEach(taskid => {
+                taskModel.findById(taskid, (err, task) => {
+                        console.log(JSON.stringify(task));
+                        tmp.push(task);
+                    })
+                    .catch(err => {
+                        res.status(400)
+                            .send(err);
+                    })
+            })*/
+
+            let taskids = [];
+            project.tasks.forEach(taskid => {
+                taskids.push( new mongoose.Types.ObjectId(taskid));
+            });
+            taskModel.find( {_id: {$in: taskids}} ).then(tasks => {
+                console.log("-------" + JSON.stringify(tasks));
+                res.status(200)
+                    .json(tasks)
+            });
+        })
+        .catch(err => {
+            res.status(400)
+                .send(err);
+        });
 };

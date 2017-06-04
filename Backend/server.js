@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.text());
 
 app.listen(config.port, () => {
-    console.log('Serv running');
+    console.log('Server running');
 });
 
 const projectsRoutes = require('./app/routes/projectsRoutes');
