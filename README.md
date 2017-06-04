@@ -60,20 +60,17 @@ ____________
 
 user    |   KD7!nd_J89ds
 
-
-## trackr api
-
 # project api
 
 51.254.103.142:3000/project 
 ___________________________
-
+```bash
 GET	    - gets all projects
 POST	- post json object	required: 	name && description
 			                optional:	tasks
 	
 usage:	{"name": "some name", "description": "some description", "tasks": ["task_object_id", "another one"]}
-
+```
 51.254.103.142:3000/project/gettasks/:id
 ________________________________________
 
