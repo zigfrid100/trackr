@@ -159,16 +159,6 @@ exports.getTasks = (req, res) => {
                             .send(err);
                     })
             })*/
-
-            let taskids = [];
-            project.tasks.forEach(taskid => {
-                taskids.push( new mongoose.Types.ObjectId(taskid));
-            });
-            taskModel.find( {_id: {$in: taskids}} ).then(tasks => {
-                console.log("-------" + JSON.stringify(tasks));
-                res.status(200)
-                    .json(tasks)
-            });
         })
         .catch(err => {
             res.status(400)
