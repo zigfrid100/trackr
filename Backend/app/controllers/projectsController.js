@@ -72,12 +72,28 @@ exports.putProject = (req, res) => {
 exports.addtask = (req, res) => {
     projectModel.findById(req.params.id)
         .then( project => {
-            var task = new taskModel({name: "testTask", description: "be", status: 3});
-            console.log(task);
-            Object.assign(project.tasks, task).save()
-                .then(project => {
-                    res.status(200)
-                        .json({message: "Project successfully updated!", project});
+            taskModel.findById(req.params.taskid)
+                .then (task => {
+                    var exists = false;
+                    for (var i=0; i<project.tasks.length; i++) {
+                        if(JSON.stringify(project.tasks[i]) == JSON.stringify(task)) {
+                            exists = true;
+                            res.status(400)
+                                .json({error: "Element exists"});
+                            return;
+                        } else {
+                            exists = false;                        }
+                    }
+                    console.log(exists);
+                    Object.assign(project, project.tasks.push(task)).save()
+                        .then(project => {
+                            res.status(200)
+                                .json({message: "Project successfully updated!", project});
+                        })
+                        .catch(err => {
+                            res.status(400)
+                                .send(err);
+                        })
                 })
                 .catch(err => {
                     res.status(400)

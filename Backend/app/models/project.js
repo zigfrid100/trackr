@@ -15,11 +15,11 @@ const ProjectSchema = new Schema({
         type: String,
         required: true
     },
-    tasks: {
+    tasks: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'TaskSchema',
         required: false
-    }
+    }]
 });
 
 // Registering a model Task with given mongoose schema

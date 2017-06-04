@@ -12,10 +12,10 @@ router.route('/:id')
 	.delete(projectsController.deleteProject)
 	.put(projectsController.putProject);
 
-router.route('/:id/:taskid/addtask')
+router.route('/addtask/:id/:taskid')
 	.get(projectsController.addtask);
 
-router.route('/:id/gettasks')
+router.route('/gettasks/:id')
     .get(projectsController.gettasks);
 
 module.exports = router;

@@ -12,13 +12,13 @@ router.route('/:id')
 	.delete(tasksController.deleteTask)
 	.put(tasksController.putTask);
 
-router.route('/:id/start')
+router.route('/start/:id')
 	.get(tasksController.startTask);
 
-router.route('/:id/pause')
+router.route('/pause/:id')
 	.get(tasksController.pauseTask);
 
-router.route('/:id/stop')
+router.route('/stop/:id')
 	.get(tasksController.stopTask);
 
 module.exports = router;
