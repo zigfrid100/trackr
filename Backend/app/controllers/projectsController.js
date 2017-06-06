@@ -146,19 +146,10 @@ exports.removeTask = (req, res) => {
 };
 
 exports.getTasks = (req, res) => {
-    projectModel.findById(req.params.id)
-        .then(project => {
-            /*var tmp = [{name: "hallo1"}, {name: "hallo2"}];
-            project.tasks.forEach(taskid => {
-                taskModel.findById(taskid, (err, task) => {
-                        console.log(JSON.stringify(task));
-                        tmp.push(task);
-                    })
-                    .catch(err => {
-                        res.status(400)
-                            .send(err);
-                    })
-            })*/
+    projectModel.findById(req.params.id).populate('tasks')
+        .exec((err, project) => {
+            res.status(200)
+                .json(project.tasks);
         })
         .catch(err => {
             res.status(400)

@@ -21,7 +21,7 @@ const TaskSchema = new Schema({
     },
     interval: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'IntervalSchema',
+        ref: 'Interval',
         required: false
     }]
 });
