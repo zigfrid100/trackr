@@ -2,13 +2,13 @@ const taskModel = require('./../models/task');
 const intervalModel = require('../models/interval');
 
 exports.getTasks = (req, res) => {
-    taskModel.find()//.populate('interval')
+    taskModel.find()
         .then(tasks => {
             res.status(200)
                 .json(tasks);
         })
         .catch(err => {
-            res.status(400)
+            res.status(500)
                 .send(err);
         });
 };
