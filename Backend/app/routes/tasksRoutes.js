@@ -8,13 +8,13 @@ router.route('/')
     .post(tasksController.postTask);
 
 router.route('/start/:id')
-	.post(tasksController.startTask);
+	.put(tasksController.startTask);
 
 router.route('/pause/:id')
-	.get(tasksController.pauseTask);
+	.put(tasksController.pauseTask);
 
 router.route('/stop/:id')
-	.get(tasksController.stopTask);
+	.put(tasksController.stopTask);
 
 router.route('/:id')
     .get(tasksController.getTask)
