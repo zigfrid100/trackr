@@ -1,6 +1,13 @@
-## Trackr
+# Trackr
 
-# Mongoose Schema
+## Backend
+
+### Tests
+__________________________
+
+Run `npm run test` from the `/Backend` folder.
+
+### Mongoose Schema
 __________________________
 
 Schema User
@@ -35,7 +42,7 @@ Schema Interval
     end: Date
 
 
-# Funktionen des Backends
+### Funktionen des Backends
 ___________________________
 ```bash
 getTasks()
