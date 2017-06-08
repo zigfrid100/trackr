@@ -7,13 +7,8 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 mongoose.connect(config.db);
 
-app.use((req, res, next) => {
-	res.setHeader('Access-Control-Allow-Origin', config.frontend);						//add frontends address here
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
-});
+const cors = require('cors');
+app.use(cors());
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
@@ -28,8 +23,8 @@ const projectsRoutes = require('./app/routes/projectsRoutes');
 const tasksRoutes = require('./app/routes/tasksRoutes');
 const usersRoutes = require('./app/routes/usersRoutes');
 
-app.use('/projects', projectsRoutes);          //uncomment after controller implementation
+app.use('/projects', projectsRoutes);
 app.use('/tasks', tasksRoutes);
-//app.use('/api', usersRoutes);
+app.use('/users', usersRoutes);
 
 module.exports = app;

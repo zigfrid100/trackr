@@ -1,6 +1,3 @@
-/**
- * Created by Leon on 01.06.2017.
- */
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -21,6 +18,10 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: true
+    },
+    pgpPublicKey: {
+        type: String,
+        required: false
     }
 });
 
