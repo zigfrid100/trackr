@@ -69,7 +69,7 @@ exports.putProject = (req, res) => {
         });
 };
 
-exports.addtask = (req, res) => {
+exports.addTask = (req, res) => {
     projectModel.findById(req.params.id)
         .then( project => {
             taskModel.findById(req.params.taskid)
