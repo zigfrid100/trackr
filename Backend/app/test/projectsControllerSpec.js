@@ -136,4 +136,21 @@ describe('projects', () => {
             });
         });
     });
+
+    describe('PUT /projects/:id', () => {
+        it('should update an existing project', (done) => {
+            let project = new Project({ name: 'Testproject' });
+
+            project.save((_err, project) => {
+                chai.request(server)
+                    .put(`/projects/${project.id}`)
+                    .send({ name: 'Updated Testproject' })
+                    .end((_err, res) => {
+                        res.should.have.status(200);
+                        res.body.project.name.should.eql('Updated Testproject');
+                        done();
+                    });
+            });
+        });
+    });
 });
