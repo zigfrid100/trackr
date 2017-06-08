@@ -79,7 +79,7 @@ exports.addtask = (req, res) => {
                         if(JSON.stringify(project.tasks[i]) === JSON.stringify(task._id)) {
                             exists = true;
                             res.status(400)
-                                .json({error: "Element exists"});
+                                .json({error: "Element already exists"});
                             return;
                         } else {
                             exists = false;                        }
@@ -147,7 +147,7 @@ exports.removeTask = (req, res) => {
 
 exports.getTasks = (req, res) => {
     projectModel.findById(req.params.id).populate('tasks')
-        .exec((err, project) => {
+        .then(project => {
             res.status(200)
                 .json(project.tasks);
         })

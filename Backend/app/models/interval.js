@@ -18,6 +18,10 @@ const IntervalSchema = new Schema({
     stopDate: {
         type: Date,
         required: false
+    },
+    run: {
+        type: Boolean,
+        required: true
     }
 });
 

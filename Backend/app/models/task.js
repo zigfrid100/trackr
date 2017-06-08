@@ -3,7 +3,7 @@
  */
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const IntervalSchema = require('./intervall');
+const IntervalSchema = require('./interval');
 
 // Defining schema for the model Task
 const TaskSchema = new Schema({
@@ -18,6 +18,10 @@ const TaskSchema = new Schema({
     status: {
         type: Number,
         required: true
+    },
+    runPauseStop: {
+        type: Number,
+        required: false
     },
     interval: [{
         type: mongoose.Schema.Types.ObjectId,
