@@ -55,7 +55,7 @@ exports.putUser = (req, res) => {
             Object.assign(user, req.body).save()
                 .then(user => {
                     res.status(200)
-                        .json({message: "Task successfully updated!", user});
+                        .json({message: "User successfully updated!", user});
                 })
                 .catch(err => {
                     res.status(400)
