@@ -13,11 +13,11 @@ const TaskSchema = new Schema({
     },
     description: {
         type: String,
-        required: true
+        required: false
     },
     status: {
         type: Number,
-        required: true
+        required: false
     },
     interval: [{
         type: mongoose.Schema.Types.ObjectId,
