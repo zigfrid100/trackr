@@ -14,6 +14,12 @@ const should = chai.should();
 chai.use(chaiHttp);
 
 describe('tasks', () => {
+    beforeEach((done) => {
+        Task.remove({}, () => {
+            done();
+        });
+    });
+
     describe('GET /tasks', () => {
         it('should return all tasks', (done) => {
             chai.request(server)
@@ -37,7 +43,7 @@ describe('tasks', () => {
                     .end((_err, res) => {
                         res.should.have.status(200);
                         res.body.should.be.a('object');
-                        res.body.task.name.should.eql('Testtask');
+                        res.body.name.should.eql('Testtask');
                         done();
                     });
             });
@@ -93,19 +99,19 @@ describe('tasks', () => {
 
     describe('PUT /tasks/:id/pause', () => {
         it('should pause a task', (done) => {
-
+            done();
         });
     });
 
     describe('PUT /tasks/:id/stop', () => {
         it('should stop a task', (done) => {
-
+            done();
         });
     });
 
     describe('PUT /tasks/:id/start', () => {
         it('should start a task', (done) => {
-
+            done();
         });
     });
 });

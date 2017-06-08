@@ -2,13 +2,13 @@ const taskModel = require('./../models/task');
 const intervalModel = require('../models/interval');
 
 exports.getTasks = (req, res) => {
-    taskModel.find()//.populate('interval')
+    taskModel.find()
         .then(tasks => {
             res.status(200)
                 .json(tasks);
         })
         .catch(err => {
-            res.status(400)
+            res.status(500)
                 .send(err);
         });
 };
@@ -29,7 +29,6 @@ exports.postTask = (req, res) => {
 exports.getTask = (req, res) => {
     taskModel.findById(req.params.id).populate('interval')
         .then(task => {
-            console.log("task: " + task);
             res.status(200)
                 .json(task)
         })
@@ -79,7 +78,6 @@ exports.startTask = (req, res) => {
                         if (interval != null || interval != undefined) {
                             Object.assign(interval, {stopDate: Date.now(), run: false}).save();
                         }
-                        console.log("interval: " + interval);
                     })
                     .catch(err => {
                         res.status(400)
@@ -120,7 +118,6 @@ exports.pauseTask = (req, res) => {
                     for (let i=0; i<task.interval.length; i++){
                         intervalModel.findOne({_id: task.interval[i]._id, run: true})
                             .then(interval => {
-                                console.log("has: " + hasInterval);
                                 if (interval != null || interval != undefined || hasInterval) {
                                     hasInterval = true;
                                 } else {
@@ -132,7 +129,6 @@ exports.pauseTask = (req, res) => {
                                     .send(err);
                             })
                     }
-                    console.log(hasInterval);
                     if (hasInterval) {
                         Object.assign(interval, {stopDate: Date.now(), run: false}).save()
                             .then(interval => {
@@ -164,7 +160,6 @@ exports.stopTask = (req, res) => {
         .then(task => {
             Object.assign(task, {runPauseStop: 2 }).save()
                 .then(task => {
-                    console.log("Task: " + task);
                     for (let i=0; i < task.interval.length; i++){
                         intervalModel.findOne({_id: task.interval[i]._id, run: true})
                             .then(interval => {
@@ -179,7 +174,6 @@ exports.stopTask = (req, res) => {
                                             .send(err);
                                     });
                             }
-                                console.log("interval: " + interval);
                             })
                             .catch(err => {
                                 res.status(400)
