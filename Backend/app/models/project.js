@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const TaskSchema = require('./task');
 
-// Defining schema for the model Task
+// Defining schema for the model Project
 const ProjectSchema = new Schema({
     name: {
         type: String,
@@ -13,7 +13,7 @@ const ProjectSchema = new Schema({
     },
     description: {
         type: String,
-        required: true
+        required: false
     },
     tasks: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -22,5 +22,5 @@ const ProjectSchema = new Schema({
     }]
 });
 
-// Registering a model Task with given mongoose schema
+// Registering a model Project with given mongoose schema
 module.exports = mongoose.model('Project', ProjectSchema);

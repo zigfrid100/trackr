@@ -1,6 +1,13 @@
-## Trackr
+# Trackr
 
-# Mongoose Schema
+## Backend
+
+### Tests
+__________________________
+
+Run `npm run test` from the `/Backend` folder.
+
+### Mongoose Schema
 __________________________
 
 Schema User
@@ -35,7 +42,7 @@ Schema Interval
     end: Date
 
 
-# Funktionen des Backends
+### Funktionen des Backends
 ___________________________
 ```bash
 getTasks()
@@ -62,7 +69,7 @@ user    |   KD7!nd_J89ds
 
 # Project API
 
-## 51.254.103.142:3000/project 
+## 51.254.103.142:3000/projects 
 ___________________________
 ```bash
 GET	    - gets all projects
@@ -71,12 +78,12 @@ POST	- post json object	required: 	name && description
 	
 usage:	{"name": "some name", "description": "some description", "tasks": ["task_object_id", "another one"]}
 ```
-## 51.254.103.142:3000/project/gettasks/:id
+## 51.254.103.142:3000/projects/tasks/:id
 ________________________________________
 ```bash
 GET	- gets all tasks of a specific project by :id
 ```
-## 51.254.103.142:3000/project/:id
+## 51.254.103.142:3000/projects/:id
 _______________________________
 ```bash
 GET	    - gets a project by :id
@@ -85,7 +92,7 @@ PUT	    - updates a project by :id (see example above)
 
 usage:	{"name": "updated name", "description": "updated description", "tasks": ["new_task_object_id", "another one"]}
 ```
-## 51.254.103.142:3000/project/:id/:taskid
+## 51.254.103.142:3000/projects/:id/tasks/:taskid
 _______________________________________
 ```bash
 GET	    - adds a new task(:taskid) to a project(:id)
@@ -93,7 +100,7 @@ DELETE	- removes a task(:taskid) from a project(:id)
 ```
 # task api
 
-## 51.254.103.142:3000/task 
+## 51.254.103.142:3000/tasks 
 ________________________
 ```bash
 GET	    - gets all tasks
@@ -102,14 +109,14 @@ POST	- post json object	required: 	name && description && status
 	
 usage:	{"name": "some name", "description": "some description", "status": 0, "interval": ["interval_object_id", "another one"]}
 ```
-## 51.254.103.142:3000/task/:id
+## 51.254.103.142:3000/tasks/:id
 ____________________________
 ```bash
 GET	    - gets a task by :id
 DELETE	- deletes a task by :id
 PUT	    - updates a task by :id (see example above)
 ```
-## 51.254.103.142:3000/task/[OPTION]/:id
+## 51.254.103.142:3000/tasks/[OPTION]/:id
 _____________________________________
 ```bash
 OPTIONS:	start	- starts timetracking for a task(:id)
