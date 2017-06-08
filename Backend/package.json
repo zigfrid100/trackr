@@ -15,7 +15,7 @@
     "mocha": "^3.4.2"
   },
   "scripts": {
-    "test": "mocha --timeout 10000"
+    "test": "NODE_ENV=test mocha app/test --timeout 10000"
   },
   "author": "Leon Günther, Chropher",
   "license": "MIT"
