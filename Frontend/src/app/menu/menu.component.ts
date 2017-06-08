@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TaskService } from './task.service';
+import { TaskService } from '../task.service';
 
 @Component({
   selector: 'app-menu',
@@ -11,6 +11,10 @@ export class MenuComponent implements OnInit {
   constructor(private taskService: TaskService) { }
 
   ngOnInit() {
+  }
+
+  getProjects() {
+    this.taskService.getProjects();
   }
 
 }

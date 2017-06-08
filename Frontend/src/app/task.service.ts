@@ -23,8 +23,8 @@ export class TaskService {
   }
 
   getProjects() {
-    console.log('get Jokes');
-    this.http.get('http://51.254.103.142:3000/project')
+    console.log('get Project');
+    this.http.get('http://51.254.103.142:3000/projects')
       .map(response => response.json()).subscribe(
       (responseItems: any[]) => {
         responseItems.forEach((responseItem: any) => {
@@ -44,9 +44,28 @@ export class TaskService {
     );
   }
 
+  postProject(name, description) {
+    console.log('post Project');
+    const headers = new Headers({'Content-Type': 'application/json'});
+    this.http.post('http://51.254.103.142:3000/projects', {name, description}, headers)
+      .map(response => response.json()).subscribe(
+      (responseItem: any) => {
+        console.log(responseItem);
+      },
+      (err: any) => {
+        if(err.status == 0){
+          alert('Server down')
+        }else {
+          alert('Error: ' + err.json().message);
+          console.log('Error: ' + err.json().message);
+        }
+      }
+    );
+  }
+
   getProject(id) {
-    console.log('get Jokes:id');
-    this.http.get('http://51.254.103.142:3000/project' + id)
+    console.log('get Project:id');
+    this.http.get('http://51.254.103.142:3000/projects/' + id)
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         responseItem.statusVal = 'active';
@@ -62,6 +81,27 @@ export class TaskService {
       }
     );
   }
+
+  getTasksOfProject(id) {
+    console.log('get TasksOfProject:id');
+    this.http.get('http://51.254.103.142:3000/projects/tasks/' + id)
+      .map(response => response.json()).subscribe(
+      (responseItem: any) => {
+        responseItem.statusVal = 'active';
+        this.projects.push(responseItem);
+      },
+      (err: any) => {
+        if(err.status == 0){
+          alert('Server down')
+        }else {
+          alert('Error: ' + err.json().message);
+          console.log('Error: ' + err.json().message);
+        }
+      }
+    );
+  }
+
+
 
 
 
