@@ -17,4 +17,49 @@ export class MenuComponent implements OnInit {
     this.taskService.getProjects();
   }
 
+  postProject(name, description) {
+    this.taskService.postProject(name, description);
+  }
+
+  deleteProject(id) {
+    this.taskService.deleteProject(id);
+  }
+
+  addTask(pid, tid) {
+    this.taskService.addTaskToProject(pid, tid);
+  }
+
+  getTasks() {
+    this.taskService.getTasks();
+  }
+
+  postTask(name, desc, status) {
+    this.taskService.postTask(name, desc, status);
+  }
+
+  getTask(id) {
+    this.taskService.getTask(id);
+  }
+
+  deleteTask(id) {
+    this.taskService.deleteTask(id);
+  }
+
+  putTask(id) {
+    this.taskService.putTask(id, 'puttest', 'testing', 0);
+  }
+
+  startTask(id) {
+    this.taskService.startTask(id);
+  }
+
+  pauseTask(id) {
+    this.taskService.pauseTask(id);
+  }
+
+  stopTask(id) {
+    this.taskService.stopTask(id);
+  }
+
+
 }
