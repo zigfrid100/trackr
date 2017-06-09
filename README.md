@@ -95,7 +95,7 @@ usage:	{"name": "updated name", "description": "updated description", "tasks": [
 ## 51.254.103.142:3000/projects/:id/tasks/:taskid
 _______________________________________
 ```bash
-GET	    - adds a new task(:taskid) to a project(:id)
+POST	    - adds a new task(:taskid) to a project(:id)
 DELETE	- removes a task(:taskid) from a project(:id)
 ```
 # task api
@@ -119,9 +119,11 @@ PUT	    - updates a task by :id (see example above)
 ## 51.254.103.142:3000/tasks/[OPTION]/:id
 _____________________________________
 ```bash
-OPTIONS:	start	- starts timetracking for a task(:id)
-		    pause	- pauses timetracking for a task(:id)
-		    stop	- stops timetracking for a task(:id)
+OPTIONS:	start	- starts timetracking for a task(:id), required changes
+		    pause	- pauses timetracking for a task(:id), optional changes
+		    stop	- stops timetracking for a task(:id), optional changes
+
+All are PUT requests.
 ```
 
 
