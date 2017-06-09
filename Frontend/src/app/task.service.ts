@@ -245,8 +245,9 @@ export class TaskService {
     this.http.get('http://'+this.server+':3000/tasks/' + id)
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
+        if(responseItem!=null){
         responseItem.statusVal = 'active';
-        this.tasks.push(responseItem);
+        this.tasks.push(responseItem);}
         console.log(responseItem);
       },
       (err: any) => {
