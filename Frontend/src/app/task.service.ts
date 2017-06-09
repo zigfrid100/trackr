@@ -166,7 +166,7 @@ export class TaskService {
 
   addTaskToProject(projectid, taskid) {
     console.log('add task to project');
-    this.http.get('http://'+this.server+':3000/projects/' + projectid + '/tasks/' + taskid)
+    this.http.post('http://'+this.server+':3000/projects/' + projectid + '/tasks/' + taskid, {})
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem);
@@ -298,9 +298,9 @@ export class TaskService {
     );
   }
 
-  startTask(id) {
+  startTask(id, changes) {
     console.log('get Task:id');
-    this.http.put('http://'+this.server+':3000/tasks/start/' + id, {})
+    this.http.put('http://'+this.server+':3000/tasks/start/' + id, {changes})
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem);
