@@ -272,8 +272,8 @@ export class TaskService {
         if(err.status == 0){
           alert('Server down')
         }else {
-          alert('Error: ' + err.json().message);
-          console.log('Error: ' + err.json().message);
+          alert('Error: ' + err.json().error);
+          console.log('Error: ' + err.json().error);
         }
       }
     );
@@ -291,8 +291,8 @@ export class TaskService {
         if(err.status == 0){
           alert('Server down')
         }else {
-          alert('Error: ' + err.json().message);
-          console.log('Error: ' + err.json().message);
+          alert('Error: ' + err.json().error);
+          console.log('Error: ' + err.json().error);
         }
       }
     );
@@ -300,7 +300,7 @@ export class TaskService {
 
   startTask(id) {
     console.log('get Task:id');
-    this.http.get('http://'+this.server+':3000/tasks/start/' + id)
+    this.http.put('http://'+this.server+':3000/tasks/start/' + id, {})
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem);
@@ -309,8 +309,8 @@ export class TaskService {
         if(err.status == 0){
           alert('Server down')
         }else {
-          alert('Error: ' + err.json().message);
-          console.log('Error: ' + err.json().message);
+          alert('Error: ' + err.json().error);
+          console.log('Error: ' + err.json().error);
         }
       }
     );
@@ -318,7 +318,7 @@ export class TaskService {
 
   pauseTask(id) {
     console.log('get Task:id');
-    this.http.get('http://'+this.server+':3000/tasks/pause/' + id)
+    this.http.put('http://'+this.server+':3000/tasks/pause/' + id, {})
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem);
@@ -336,7 +336,7 @@ export class TaskService {
 
   stopTask(id) {
     console.log('get Task:id');
-    this.http.get('http://'+this.server+':3000/tasks/stop/' + id)
+    this.http.put('http://'+this.server+':3000/tasks/stop/' + id, {})
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem);
