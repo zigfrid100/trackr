@@ -1,3 +1,13 @@
 <p>
   menu works!
+  <button md-button (click)="getTasks()">Test getTasks</button>
+  <button md-button (click)="postTask('test', 'test', 0)">Test post</button>
+  <button md-button (click)="addTask('593b088437fc768f4f034980', '593b0d8c37fc768f4f034983')">Test add</button>
+  <button md-button (click)="getTask('593b0d8c37fc768f4f034983')">Test getTask:id</button>
+  <button md-button (click)="putTask('593b0d8c37fc768f4f034983')">Test puTask</button>
+  <button md-button (click)="deleteTask('593b0d8c37fc768f4f034983')">Test delete Task</button>
+  <button md-button (click)="startTask('593b0daa37fc768f4f034984')">start</button>
+  <button md-button (click)="pauseTask('593b0daa37fc768f4f034984')">pause</button>
+  <button md-button (click)="stopTask('593b0daa37fc768f4f034984')">stop</button>
+
 </p>
