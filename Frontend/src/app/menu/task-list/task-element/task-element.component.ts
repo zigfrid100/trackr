@@ -8,11 +8,9 @@ import { TaskService } from '../../../task.service';
 })
 export class TaskElementComponent implements OnInit {
 
-  @Input() joke: any;
-  private showDetails: any;
+  @Input() project: any;
+  constructor() {
 
-  constructor(private taskService: TaskService) {
-    this.showDetails = false;
   }
 
   ngOnInit() {

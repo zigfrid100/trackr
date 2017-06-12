@@ -8,6 +8,9 @@ import { MenuComponent } from './menu/menu.component';
 import { TaskListComponent } from './menu/task-list/task-list.component';
 import { TaskElementComponent } from './menu/task-list/task-element/task-element.component';
 import {TaskService} from "./task.service";
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { MdCheckboxModule, MdButtonModule, MdCardModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,8 @@ import {TaskService} from "./task.service";
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    MdButtonModule, MdCheckboxModule, MdCardModule,BrowserAnimationsModule,Ng2SearchPipeModule
   ],
   providers: [TaskService],
   bootstrap: [AppComponent]

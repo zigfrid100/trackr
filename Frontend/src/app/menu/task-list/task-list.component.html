@@ -1,3 +1,5 @@
-<p>
-  task-list works!
-</p>
+<div *ngFor="let project of projects">
+  <div class="card-float-left" [@projectState]="project.statusVal">
+    <app-task-element [project]="project" (click)="test()" ></app-task-element>
+  </div>
+</div>
