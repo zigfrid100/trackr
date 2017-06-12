@@ -1,4 +1,5 @@
-<div *ngFor="let project of projects">
+<input class="input-filter" type="search" id="search" placeholder="Tippe hier, um eine Aufgabe zu suchen oder zu erstellen" [(ngModel)]="term">
+<div *ngFor="let project of projects |filter:term">
   <div class="card-float-left" [@projectState]="project.statusVal">
     <app-task-element [project]="project" (click)="test()" ></app-task-element>
   </div>
