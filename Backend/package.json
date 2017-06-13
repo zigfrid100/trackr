@@ -4,11 +4,17 @@
   "description": "the backend of the webapp timetracker ",
   "main": "server.js",
   "dependencies": {
+    "bcrypt-nodejs": "latest",
     "body-parser": "^1.17.2",
     "config": "^1.26.1",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
     "cors": "^2.8.3",
     "express": "^4.15.3",
-    "mongoose": "^4.10.4"
+    "express-session": "^1.15.3",
+    "mongoose": "^4.10.4",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "chai": "^4.0.1",
