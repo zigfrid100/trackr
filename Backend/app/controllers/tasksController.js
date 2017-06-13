@@ -71,28 +71,22 @@ exports.putTask = (req, res) => {
 exports.startTask = (req, res) => {
     taskModel.findById(req.params.id).populate('interval')
         .then(task => {
-            if(task.runPauseStop === 2) {
+            // Stop all running intervals
+            task.interval.filter(interval => interval.run).map((interval) => {
+                Object.assign(interval, {stopDate: Date.now(), run: false})
+            });
+
+            // Add a new interval
+            task.interval.push({startDate: Date.now(), run:true});
+
+            task.save().then(task => {
+                res.status(200)
+                    .json({message: "Task successfully started!"});
+            })
+            .catch(err => {
                 res.status(400)
-                    .json({error: "Task is stopped!"});
-            } else {
-                // Stop all running intervals
-                task.interval.filter(interval => interval.run).map((interval) => {
-                    Object.assign(interval, {stopDate: Date.now(), run: false})
-                });
-
-                // Add a new interval
-                task.interval.push({startDate: Date.now(), run:true});
-                task.runPauseStop = 2;
-
-                task.save().then(task => {
-                    res.status(200)
-                        .json({message: "Task successfully started!"});
-                })
-                .catch(err => {
-                    res.status(400)
-                        .send(err)
-                });
-            }
+                    .send(err)
+            });
         })
         .catch(err => {
             res.status(400)
