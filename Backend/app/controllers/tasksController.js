@@ -76,16 +76,19 @@ exports.startTask = (req, res) => {
                 res.status(400)
                     .json({error: "Task is stopped!"});
             } else {
+                let intervalId = "";
                 for (let i = 0; i < task.interval.length; i++) {
                     intervalModel.findOne({_id: task.interval[i]._id, run: true})
                         .then(interval => {
-                            if (interval !== null || interval !== undefined) {
+                            if (interval != null || interval != undefined) {
+                                task.interval[i].run = false;
                                 Object.assign(interval, {stopDate: Date.now(), run: false}).save();
                             }
                         })
                         .catch(err => {
                             res.status(400)
                                 .send(err);
+                            return;
                         })
                 }
                 const newinterval = new intervalModel({changes: req.body.changes, startDate: Date.now(), run: true});
