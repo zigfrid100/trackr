@@ -1,6 +1,7 @@
 <md-card class="example-card">
-  <md-card-title class="example-card-title">{{project.name}}</md-card-title>
-  <span class="fa fa-play btn btn-default btn-start" aria-hidden="true"></span>
+  <md-card-title class="example-card-title">{{task.name}}</md-card-title>
+  <div class="fa fa-play btn btn-default btn-start" aria-hidden="true" *ngIf="startbtn" (click)="start(); startbtn =false; pausebtn=true;"></div>
+  <div class="fa fa-pause btn btn-default btn-start" aria-hidden="true" *ngIf="pausebtn" (click)="pause(); startbtn =true; pausebtn=false;"></div>
   <md-card-content class="example-card-content">
     <p>23 Minuten</p>
   </md-card-content>
@@ -8,7 +9,7 @@
 
   <br>
   <div *ngIf="show">
-    show = {{project.description}}
+    show = {{task.description}}
     Text to show
     It is possible to set the rowspan and colspan of each md-grid-tile
     individually, using the rowspan and colspan properties. If not set,

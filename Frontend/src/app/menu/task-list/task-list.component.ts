@@ -21,36 +21,33 @@ import { trigger, state, style } from '@angular/animations';
 })
 export class TaskListComponent implements OnInit {
 
-  //taskService_:TaskService;
+  // taskService_:TaskService;
   show: boolean = true;
-  private projects: any[] = [];
+  private tasks: any[] = [];
 
   constructor(private taskService: TaskService) {
-    this.projects = taskService.projects;
+    this.tasks = taskService.tasks;
   }
 
-  getProjects(){
-    this.taskService.getProjects();
+  getTasks(){
+    this.taskService.getTasks();
   }
 
-  postNewProject(name:string){
-    if (!name) { return; }
-    this.taskService.postProject(name,"description");
-    //this.projects = this.taskService_.projects;
-    //console.log(this.projects);
+  postNewTask(name: string) {
+    this.taskService.postTask(name, 'empty', 2);
   }
 
-  deleteProject(pos:number,id:string){
+  deleteTask(pos: number, id: string) {
     if (!id) { return; }
-    this.taskService.deleteProject(id)
-    this.projects.splice(pos,1);
+    this.taskService.deleteTask(id)
+    this.tasks.splice(pos, 1);
   }
 
   ngOnInit() {
-    this.getProjects();
+    this.getTasks();
   }
 
   test(){
-    console.log("pushed test button");
+    console.log('pushed test button');
   }
 }

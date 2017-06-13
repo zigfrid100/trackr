@@ -8,14 +8,28 @@ import { TaskService } from '../../../task.service';
 })
 export class TaskElementComponent implements OnInit {
 
-  @Input() project: any;
-  constructor() {
+  @Input() task: any;
+  constructor(private taskService: TaskService) {
 
   }
 
   show: boolean = false;
+  startbtn: boolean = true;
+  pausebtn: boolean = false;
 
   ngOnInit() {
+  }
+
+  start() {
+    this.taskService.startTask(this.task._id, 'something');
+  }
+
+  pause() {
+    this.taskService.pauseTask(this.task._id);
+  }
+
+  stop() {
+    this.taskService.stopTask(this.task._id);
   }
 
 }

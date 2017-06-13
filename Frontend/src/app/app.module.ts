@@ -11,13 +11,15 @@ import {TaskService} from "./task.service";
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { MdCheckboxModule, MdButtonModule, MdCardModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StatisticsComponent } from './menu/statistics/statistics.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
     TaskListComponent,
-    TaskElementComponent
+    TaskElementComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,
