@@ -6,17 +6,12 @@
     <p>{{(totaltime)/1000}} s</p>
   </md-card-content>
   <md-card-actions><button md-button class="example-card-button" (click)="show = !show">Details</button></md-card-actions>
-
   <br>
   <div *ngIf="show">
-    show = {{task.description}}
-    Text to show
-    It is possible to set the rowspan and colspan of each md-grid-tile
-    individually, using the rowspan and colspan properties. If not set,
-    they both default to 1. The colspan must not exceed the number of cols
-    in the md-grid-list. There is no such restriction on the rowspan however,
-    more rows will simply be added for it the tile to fill.
-
+    <md-card class="card-detaisls">
+      description = {{task.description}}
+      <br>
+      totaltime = {{(totaltime)/1000}} s
+    </md-card>
   </div>
-
 </md-card>

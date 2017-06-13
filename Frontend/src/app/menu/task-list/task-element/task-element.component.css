@@ -10,7 +10,7 @@
   border-radius: 35px;
   background-color: white;
   text-align: center;
-  font-size: 15pt; /* Размер шрифта */
+  font-size: 15pt;
   font-family: sans-serif;
   width: 300px;
   border: 1px solid #000;
@@ -45,4 +45,14 @@
   position: relative;
   font-size: 40pt;
   background-color:transparent;
+}
+
+/* for ngIf*/
+.card-detaisls{
+  border-radius: 25px;
+  width: 300px;
+  height: 200px;
+  background-color: darkgray;
+  margin: -180px -30px -100px -25px;
+  border: 1px solid #000;
 }
