@@ -3,7 +3,26 @@
  */
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const IntervalSchema = require('./interval');
+
+const IntervalSchema = new Schema({
+    changes: {
+        type: String,
+        required: false
+    },
+    startDate: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
+    stopDate: {
+        type: Date,
+        required: false
+    },
+    run: {
+        type: Boolean,
+        required: true
+    }
+});
 
 // Defining schema for the model Task
 const TaskSchema = new Schema({
@@ -23,11 +42,7 @@ const TaskSchema = new Schema({
         type: Number,
         required: false
     },
-    interval: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Interval',
-        required: false
-    }]
+    interval: [IntervalSchema]
 });
 
 // Registering a model Task with given mongoose schema
