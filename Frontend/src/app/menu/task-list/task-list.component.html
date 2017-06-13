@@ -1,7 +1,15 @@
-<input class="input-filter" type="search" id="search" #newProject newProject.value='' placeholder="Tippe hier, um eine Aufgabe zu suchen oder zu erstellen" [(ngModel)]="term">
+<input class="input-filter" type="search" id="search" #newProject newProject.value=''
+       placeholder="Tippe hier, um eine Aufgabe zu suchen oder zu erstellen" [(ngModel)]="term">
 <button class="plus-create" (click)="postNewProject(newProject.value)">+ Erstellen</button>
 <div *ngFor="let project of projects |filter:term; index as i">
   <div class="card-float-left" [@projectState]="project.statusVal">
-    <app-task-element [project]="project" (click)="deleteProject(i,project._id)" ></app-task-element>
+    <app-task-element [project]="project" ></app-task-element>
   </div>
 </div>
+
+
+
+
+
+
+<!--<app-task-element [project]="project" (click)="deleteProject(i,project._id)" ></app-task-element>-->

@@ -21,22 +21,23 @@ import { trigger, state, style } from '@angular/animations';
 })
 export class TaskListComponent implements OnInit {
 
-  taskService_:TaskService;
+  //taskService_:TaskService;
+  show: boolean = true;
+  private projects: any[] = [];
 
   constructor(private taskService: TaskService) {
     this.projects = taskService.projects;
   }
 
-  private projects: any[] = [];
-  public project : any;
   getProjects(){
     this.taskService.getProjects();
   }
 
   postNewProject(name:string){
     if (!name) { return; }
-    this.project = this.taskService.postProject(name,"description");
-    console.log(this.project);
+    this.taskService.postProject(name,"description");
+    //this.projects = this.taskService_.projects;
+    //console.log(this.projects);
   }
 
   deleteProject(pos:number,id:string){

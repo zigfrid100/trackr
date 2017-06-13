@@ -13,6 +13,8 @@ export class TaskElementComponent implements OnInit {
 
   }
 
+  show: boolean = false;
+
   ngOnInit() {
   }
 

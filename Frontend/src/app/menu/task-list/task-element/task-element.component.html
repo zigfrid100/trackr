@@ -4,5 +4,18 @@
   <md-card-content class="example-card-content">
     <p>23 Minuten</p>
   </md-card-content>
-  <md-card-actions><button md-button class="example-card-button">Details</button></md-card-actions>
+  <md-card-actions><button md-button class="example-card-button" (click)="show = !show">Details</button></md-card-actions>
+
+  <br>
+  <div *ngIf="show">
+    show = {{project.description}}
+    Text to show
+    It is possible to set the rowspan and colspan of each md-grid-tile
+    individually, using the rowspan and colspan properties. If not set,
+    they both default to 1. The colspan must not exceed the number of cols
+    in the md-grid-list. There is no such restriction on the rowspan however,
+    more rows will simply be added for it the tile to fill.
+
+  </div>
+
 </md-card>
