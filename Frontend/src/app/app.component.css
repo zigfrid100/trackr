@@ -1,0 +1,30 @@
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+.navi{
+  background-color: white;
+  width: 80%;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  font-size: 25pt;
+}
+
+.active {
+  color:#FF650F;
+}
+
+.menu-bar{
+  text-decoration: none;
+  padding: 14px 16px;
+}

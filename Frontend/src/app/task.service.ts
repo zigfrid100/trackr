@@ -230,7 +230,8 @@ export class TaskService {
     this.http.post('http://'+this.server+':3000/tasks', {name, description, status}, headers)
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
-        console.log(responseItem);
+        console.log(responseItem.task);
+        this.tasks.push(responseItem.task);
       },
       (err: any) => {
         if(err.status == 0){

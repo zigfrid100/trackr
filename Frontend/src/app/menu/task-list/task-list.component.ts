@@ -21,12 +21,13 @@ import { trigger, state, style } from '@angular/animations';
 })
 export class TaskListComponent implements OnInit {
 
-  // taskService_:TaskService;
+  taskService_:TaskService;
   show: boolean = true;
-  private tasks: any[] = [];
+  private tasks: any[];// = [];
 
   constructor(private taskService: TaskService) {
     this.tasks = taskService.tasks;
+    console.log(this.taskService.tasks);
   }
 
   getTasks(){
@@ -35,11 +36,16 @@ export class TaskListComponent implements OnInit {
 
   postNewTask(name: string) {
     this.taskService.postTask(name, 'empty', 2);
+    //this.tasks = [];
+    //this.getTasks();
+    //console.log(this.taskService.tasks);
+    location.reload();
+    //this.tasks.push(this.taskService.tasks[this.taskService.tasks.length]);
   }
 
   deleteTask(pos: number, id: string) {
     if (!id) { return; }
-    this.taskService.deleteTask(id)
+    this.taskService.deleteTask(id);
     this.tasks.splice(pos, 1);
   }
 
