@@ -8,7 +8,7 @@ const Schema = mongoose.Schema;
 const IntervalSchema = new Schema({
     changes: {
         type: String,
-        required: true
+        required: false
     },
     startDate: {
         type: Date,
