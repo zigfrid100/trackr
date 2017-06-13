@@ -12,12 +12,16 @@ export class TaskElementComponent implements OnInit {
   show: boolean = false;
   startbtn: boolean = true;
   pausebtn: boolean = false;
+  running: boolean = false;
   totaltime: any;
   starttime: any;
   endtime: any;
   constructor(private taskService: TaskService) {}
   ngOnInit() {
     this.totaltime = Date.now() - Date.now();
+    this.running = this.isRunning();
+    this.startbtn = !this.running;
+    this.pausebtn = this.running;
   }
 
   start() {
@@ -35,4 +39,13 @@ export class TaskElementComponent implements OnInit {
     this.taskService.stopTask(this.task._id);
   }
 
+  isRunning() {
+    for (const i of this.task.interval) {
+      if (i.run) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 }
