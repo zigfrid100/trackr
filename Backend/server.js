@@ -19,10 +19,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(bodyParser.text());
 
-
-
-
-
+// error handling
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).send('Something broke!');
+  next(err);
+});
 
 /*===================== ROUTES ============================*/
 const projectsRoutes = require('./app/routes/projectsRoutes');

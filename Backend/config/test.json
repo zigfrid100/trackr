@@ -1,5 +1,5 @@
 {
-  "db": "mongodb://localhost:27017/trackr",
+  "db": "mongodb://localhost:27017/trackr_test",
   "port": 3000,
   "frontend": "http://localhost:4200"
 }
