@@ -6,6 +6,7 @@ import { trigger, state, style } from '@angular/animations';
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css'],
+  providers:[TaskService],
   animations: [
     trigger('projectState', [
       state('inactive', style({
@@ -20,14 +21,28 @@ import { trigger, state, style } from '@angular/animations';
 })
 export class TaskListComponent implements OnInit {
 
+  taskService_:TaskService;
+
   constructor(private taskService: TaskService) {
     this.projects = taskService.projects;
   }
 
   private projects: any[] = [];
-
+  public project : any;
   getProjects(){
     this.taskService.getProjects();
+  }
+
+  postNewProject(name:string){
+    if (!name) { return; }
+    this.project = this.taskService.postProject(name,"description");
+    console.log(this.project);
+  }
+
+  deleteProject(pos:number,id:string){
+    if (!id) { return; }
+    this.taskService.deleteProject(id)
+    this.projects.splice(pos,1);
   }
 
   ngOnInit() {

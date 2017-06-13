@@ -56,6 +56,7 @@ export class TaskService {
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem);
+        this.projects.push(responseItem);
       },
       (err: any) => {
         if(err.status == 0){
