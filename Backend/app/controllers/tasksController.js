@@ -1,5 +1,4 @@
 const taskModel = require('./../models/task');
-const intervalModel = require('../models/interval');
 
 exports.getTasks = (req, res) => {
     taskModel.find()
@@ -72,44 +71,22 @@ exports.putTask = (req, res) => {
 exports.startTask = (req, res) => {
     taskModel.findById(req.params.id).populate('interval')
         .then(task => {
-            if(task.runPauseStop === 2) {
+            // Stop all running intervals
+            task.interval.filter(interval => interval.run).map((interval) => {
+                Object.assign(interval, {stopDate: Date.now(), run: false})
+            });
+
+            // Add a new interval
+            task.interval.push({startDate: Date.now(), run:true});
+
+            task.save().then(task => {
+                res.status(200)
+                    .json({message: "Task successfully started!"});
+            })
+            .catch(err => {
                 res.status(400)
-                    .json({error: "Task is stopped!"});
-            } else {
-                let intervalId = "";
-                for (let i = 0; i < task.interval.length; i++) {
-                    intervalModel.findOne({_id: task.interval[i]._id, run: true})
-                        .then(interval => {
-                            if (interval != null || interval != undefined) {
-                                task.interval[i].run = false;
-                                Object.assign(interval, {stopDate: Date.now(), run: false}).save();
-                            }
-                        })
-                        .catch(err => {
-                            res.status(400)
-                                .send(err);
-                            return;
-                        })
-                }
-                const newinterval = new intervalModel({changes: req.body.changes, startDate: Date.now(), run: true});
-                newinterval.save()
-                    .then(interval => {
-                        task.interval.push(interval);
-                        Object.assign(task, {interval: task.interval, runPauseStop: 0}).save()
-                            .then(task => {
-                                res.status(200)
-                                    .json({message: "Task successfully started!", task});
-                            })
-                            .catch(err => {
-                                res.status(400)
-                                    .send(err);
-                            })
-                    })
-                    .catch(err => {
-                        res.status(400)
-                            .send(err);
-                    })
-            }
+                    .send(err)
+            });
         })
         .catch(err => {
             res.status(400)
@@ -118,66 +95,48 @@ exports.startTask = (req, res) => {
 };
 
 exports.pauseTask = (req, res) => {
-    pauseStopTask("Task successfully paused!", 1, req, res);
+    taskModel.findById(req.params.id).populate('interval')
+        .then(task => {
+            // Stop all running intervals
+            task.interval.filter(interval => interval.run).map((interval) => {
+                Object.assign(interval, {stopDate: Date.now(), run: false})
+            });
+
+            task.runPauseStop = 2;
+
+            task.save().then(task => {
+                res.status(200)
+                    .json({message: "Task successfully stopped"});
+            })
+            .catch(err => {
+                res.status(400)
+                    .send(err)
+            });
+        })
+        .catch(err => {
+            res.status(400)
+                .send(err);
+        });
 };
 
 exports.stopTask = (req, res) => {
-    pauseStopTask("Task successfully stopped!", 2, req, res);
-};
-
-
-const pauseStopTask = (message, runPauseStop, req, res) => {
     taskModel.findById(req.params.id).populate('interval')
         .then(task => {
-            if(task.runPauseStop === 2) {
+            // Stop all running intervals
+            task.interval.filter(interval => interval.run).map((interval) => {
+                Object.assign(interval, {stopDate: Date.now(), run: false})
+            });
+
+            task.runPauseStop = 2;
+
+            task.save().then(task => {
+                res.status(200)
+                    .json({message: "Task successfully stopped"});
+            })
+            .catch(err => {
                 res.status(400)
-                    .json({error: "Task is stopped!"});
-            } else {
-                Object.assign(task, {runPauseStop: runPauseStop}).save()
-                    .then(task => {
-                        var run = false;
-                        var intervalId = "";
-                        task.interval.forEach(interval => {
-                            if (interval.run) {
-                                intervalId = interval._id;
-                                interval.run = false;
-                                run = true;
-                            } else {
-                                run = false;
-                            }
-                        });
-                        if (run) {
-                            intervalModel.findById(intervalId)
-                                .then(interval => {
-                                    Object.assign(interval, {stopDate: Date.now(), run: false}).save()
-                                        .then(() => {
-                                            res.status(200)
-                                                .json({message: message, task});
-                                        })
-                                        .catch(err => {
-                                            res.status(400)
-                                                .send(err);
-                                        })
-                                })
-                                .catch(err => {
-                                    res.status(400)
-                                        .send(err);
-                                })
-                        } else {
-                            if (runPauseStop === 1) {
-                                res.status(400)
-                                    .json({error: "Task not running!"});
-                            } else if (runPauseStop === 2) {
-                                res.status(200)
-                                    .json({message: message, task})
-                            }
-                        }
-                    })
-                    .catch(err => {
-                        res.status(400)
-                            .send(err);
-                    })
-            }
+                    .send(err)
+            });
         })
         .catch(err => {
             res.status(400)
