@@ -81,7 +81,7 @@ exports.startTask = (req, res) => {
 
             task.save().then(task => {
                 res.status(200)
-                    .json({message: "Task successfully started!"});
+                    .json({message: "Task successfully started!", task});
             })
             .catch(err => {
                 res.status(400)
@@ -106,7 +106,7 @@ exports.pauseTask = (req, res) => {
 
             task.save().then(task => {
                 res.status(200)
-                    .json({message: "Task successfully stopped"});
+                    .json({message: "Task successfully paused", task});
             })
             .catch(err => {
                 res.status(400)
@@ -131,7 +131,7 @@ exports.stopTask = (req, res) => {
 
             task.save().then(task => {
                 res.status(200)
-                    .json({message: "Task successfully stopped"});
+                    .json({message: "Task successfully stopped", task});
             })
             .catch(err => {
                 res.status(400)
