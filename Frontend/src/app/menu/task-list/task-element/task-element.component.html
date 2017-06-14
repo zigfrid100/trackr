@@ -11,12 +11,10 @@
     <md-card class="card-detaisls">
       description = {{task.description}}
       <br>
-      totaltime = {{(totaltime)/1000}} s
+      totaltime = {{(totaltime)/1000}} s <br>
       Intevals: <br>
       <div *ngFor="let inter of task.interval |filter:term; index as i">
-        <div class="card-float-left">
           {{inter.startDate}} bis {{inter.stopDate}}
-        </div>
       </div>
     </md-card>
   </div>
