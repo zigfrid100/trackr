@@ -19,6 +19,12 @@ export class TaskElementComponent implements OnInit {
   constructor(private taskService: TaskService) {}
   ngOnInit() {
     this.totaltime = Date.now() - Date.now();
+    this.task.interval.forEach((inter: any) => {
+      if (inter.stopDate != null && inter.stopDate !== '') {
+        this.totaltime += Date.parse(inter.stopDate) - Date.parse(inter.startDate);
+      }
+    } );
+    this.totaltime = Math.round(this.totaltime / 100) * 100;
     this.running = this.isRunning();
     this.startbtn = !this.running;
     this.pausebtn = this.running;
@@ -33,6 +39,7 @@ export class TaskElementComponent implements OnInit {
     this.taskService.pauseTask(this.task._id);
     this.endtime = Date.now();
     this.totaltime += this.endtime - this.starttime;
+    this.totaltime = Math.round(this.totaltime / 100) * 100;
   }
 
   stop() {
