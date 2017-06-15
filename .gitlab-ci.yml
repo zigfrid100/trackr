@@ -1,25 +1,11 @@
 stages:
-  - buildBackend
-  - tests
-  - deploy
-buildBackend:
-  stage: buildBackend
+  - build
+build:
+  stage: build
   script:
     - cd Backend/
     - apt-get update
     - apt-get install -y npm
     - npm install
-  only:
-    - production
-tests:
-  stage: tests
-  script:
-    - cd Backend/
-    - npm test
-deploy:
-  image: ubuntu:latest
-  stage: deploy
-  script:
-    - apt-get update
   only:
     - production
