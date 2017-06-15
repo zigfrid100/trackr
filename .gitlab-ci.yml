@@ -9,6 +9,8 @@ deploy:
   stage: deploy
   script:
     - cd Backend/
+    - apt-get update
+    - apt-get install -y -qq npm
     - npm install
     - npm start
   environment:
