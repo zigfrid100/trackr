@@ -1,17 +1,16 @@
 stages:
   - buildBackend
-  - buildFrontend
   - tests
   - deploy
 buildBackend:
   stage: buildBackend
   script:
     - cd Backend/
-    - ng serve
+    - apt-get update
+    - apt-get install -y npm
+    - npm install
   only:
     - production
-  tags:
-    - docker
 tests:
   stage: tests
   script:
@@ -24,5 +23,3 @@ deploy:
     - apt-get update
   only:
     - production
-  tags:
-    - docker
