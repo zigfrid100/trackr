@@ -8,7 +8,9 @@ build:
 deploy:
   stage: deploy
   script:
-    - echo "tst"
+    - cd Backend/
+    - npm install
+    - npm start
   environment:
     name: production
     url: https://51.254.103.142
