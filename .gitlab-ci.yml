@@ -10,6 +10,7 @@ tests:
   stage: tests
   script:
     - cd Backend/
+    - npm install -g mocha
     - npm run test
   environment:
     name: production
