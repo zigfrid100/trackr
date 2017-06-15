@@ -10,7 +10,7 @@ deploy:
   script:
     - cd Backend/
     - apt-get update
-    - apt-get install -y npm
+    - apt-get install -y npm nodejs
     - npm install
     - npm start
   environment:
