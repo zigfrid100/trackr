@@ -12,11 +12,6 @@ buildBackend:
     - production
   tags:
     - docker
-buildFrontend:
-  stage: buildFrontend
-  script: 
-    - cd Frontend/
-    - ng build
 tests:
   stage: tests
   script:
