@@ -1,6 +1,16 @@
 stages:
   - build
+  - deploy
 build:
   stage: build
   script:
     - echo "test"
+deploy:
+  stage: deploy
+  script:
+    - echo "tst"
+  environment:
+    name: production
+    url: https://51.254.103.142
+  only:
+  - master
