@@ -10,10 +10,10 @@ tests:
   stage: tests
   script:
     - apt-get update
-    - apt-get install -y -qq nodejs npm node
+    - apt-get install -y -qq nodejs npm build-essential
     - cd Backend/
     - npm install
-    - npm run test
+    - npm test
 deploy:
   stage: deploy
   script:
