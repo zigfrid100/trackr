@@ -3,9 +3,4 @@ stages:
 build:
   stage: build
   script:
-    - cd Backend/
-    - apt-get update
-    - apt-get install -y npm
-    - npm install
-  only:
-    - production
+    - echo "test"
