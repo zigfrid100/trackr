@@ -10,15 +10,10 @@ tests:
   stage: tests
   script:
     - apt-get update
-    - apt-get install -y nodejs npm
+    - apt-get install -y nodejs
     - cd Backend/
     - npm install -g mocha
     - npm run test
-  environment:
-    name: production
-    url: https://51.254.103.142
-  only:
-  - master
 deploy:
   stage: deploy
   script:
