@@ -14,7 +14,7 @@ tests:
     - ln -s /usr/bin/nodejs /usr/bin/node
     - cd Backend/
     - npm install
-    - npm test
+    - npm run test
 deploy:
   stage: deploy
   script:
