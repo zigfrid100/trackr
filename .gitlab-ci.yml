@@ -1,0 +1,33 @@
+stages:
+  - buildBackend
+  - buildFrontend
+  - tests
+  - deploy
+buildBackend:
+  stage: buildBackend
+  script:
+    - cd Backend/
+    - npm install
+  only:
+    - production
+  tags:
+    - docker
+buildFrontend:
+  stage: buildFrontend
+  script: 
+    - cd Frontend/
+    - ng build
+tests:
+  stage: tests
+  script:
+    - cd Backend/
+    - npm test
+deploy:
+  image: ubuntu:latest
+  stage: deploy
+  script:
+    - apt-get update
+  only:
+    - production
+  tags:
+    - docker
