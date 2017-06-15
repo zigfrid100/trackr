@@ -1,17 +1,20 @@
 stages:
   - build
+  - tests
   - deploy
 build:
   stage: build
   script:
     - echo "test"
+tests:
+  stage: tests
+  script:
+    - cd Backend/
+    - npm run test
 deploy:
   stage: deploy
   script:
     - cd Backend/
-    - apt-get update
-    - apt-get install -y npm nodejs
-    - npm install
     - npm start
   environment:
     name: production
