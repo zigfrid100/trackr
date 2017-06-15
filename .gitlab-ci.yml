@@ -9,6 +9,7 @@ build:
 tests:
   stage: tests
   script:
+    - apt-get update
     - apt-get install -y sudo
     - curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
     - apt-get update
