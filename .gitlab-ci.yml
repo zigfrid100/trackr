@@ -9,6 +9,8 @@ build:
 tests:
   stage: tests
   script:
+    - apt-get update
+    - apt-get install npm
     - cd Backend/
     - npm install -g mocha
     - npm run test
