@@ -11,6 +11,11 @@ tests:
   script:
     - cd Backend/
     - npm run test
+  environment:
+    name: production
+    url: https://51.254.103.142
+  only:
+  - master
 deploy:
   stage: deploy
   script:
