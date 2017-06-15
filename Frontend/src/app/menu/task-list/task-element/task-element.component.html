@@ -5,17 +5,5 @@
   <md-card-content class="example-card-content">
     <p>{{(totaltime)/1000}} s</p>
   </md-card-content>
-  <md-card-actions><button md-button class="example-card-button" (click)="show = !show">Details</button></md-card-actions>
-  <br>
-  <div *ngIf="show">
-    <md-card class="card-detaisls">
-      description = {{task.description}}
-      <br>
-      totaltime = {{(totaltime)/1000}} s <br>
-      Intevals: <br>
-      <div *ngFor="let inter of task.interval |filter:term; index as i">
-          {{inter.startDate}} bis {{inter.stopDate}}
-      </div>
-    </md-card>
-  </div>
+  <md-card-actions><button md-raised-button md-button class="example-card-button" (click)="openDetails()" >Details</button></md-card-actions>
 </md-card>

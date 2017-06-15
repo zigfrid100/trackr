@@ -1,3 +1,4 @@
+/*
 .example-card {
   border-radius: 25px;
   width: 300px;
@@ -47,12 +48,4 @@
   background-color:transparent;
 }
 
-/* for ngIf*/
-.card-detaisls{
-  border-radius: 25px;
-  width: 300px;
-  height: 200px;
-  background-color: darkgray;
-  margin: -180px -30px -100px -25px;
-  border: 1px solid #000;
-}
+*/

@@ -13,6 +13,9 @@ import { MdCheckboxModule, MdButtonModule, MdCardModule } from '@angular/materia
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StatisticsComponent } from './menu/statistics/statistics.component';
 import { RouterModule, Routes } from '@angular/router';
+import { MdDialogModule } from '@angular/material';
+import { DialogDetailsComponent } from './menu/task-list/dialog-details/dialog-details.component';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 const appRoutes: Routes = [
   { path: 'task-list', component: TaskListComponent },
@@ -25,7 +28,8 @@ const appRoutes: Routes = [
     MenuComponent,
     TaskListComponent,
     TaskElementComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    DialogDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -36,8 +40,10 @@ const appRoutes: Routes = [
     MdCardModule,
     BrowserAnimationsModule,
     Ng2SearchPipeModule,
-    RouterModule.forRoot(appRoutes)
+    MdDialogModule,
+    RouterModule.forRoot(appRoutes),
   ],
+  entryComponents: [DialogDetailsComponent],
   providers: [TaskService],
   bootstrap: [AppComponent]
 })

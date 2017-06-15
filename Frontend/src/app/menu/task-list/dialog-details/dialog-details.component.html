@@ -1,0 +1,14 @@
+<div class="dialog-details">
+<h1> Details by Task: {{task.name}} </h1>
+<h2>
+  <div *ngFor="let inter of task.interval ">
+  {{inter.startDate}} bis {{inter.stopDate}}
+  </div>
+</h2>
+  <button md-button (click)="dialogRef.close()">Cancel</button>
+</div>
+
+
+
+
+

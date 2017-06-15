@@ -3,7 +3,7 @@
 <button class="plus-create" (click)="postNewTask(newTask.value)" >+Erstellen</button>
 <div *ngFor="let task of tasks |filter:term; index as i">
   <div class="card-float-left" [@projectState]="task.statusVal">
-    <app-task-element [task]="task"></app-task-element>
+    <app-task-element [task]="task" ></app-task-element>
   </div>
 </div>
 
@@ -11,5 +11,4 @@
 
 
 
-
-<!--<app-task-element [project]="project" (click)="deleteProject(i,project._id)" ></app-task-element>-->
+<!--<app-task-element [task]="task" (click)="deleteTask(i,task._id)"></app-task-element>-->

@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TaskService } from '../../../task.service';
+import { DialogDetailsComponent } from '../dialog-details/dialog-details.component';
+import { MdDialog } from '@angular/material';
+
 
 @Component({
   selector: 'app-task-element',
@@ -9,14 +12,14 @@ import { TaskService } from '../../../task.service';
 export class TaskElementComponent implements OnInit {
 
   @Input() task: any;
-  show: boolean = false;
   startbtn: boolean = true;
   pausebtn: boolean = false;
   running: boolean = false;
   totaltime: any;
   starttime: any;
   endtime: any;
-  constructor(private taskService: TaskService) {}
+
+  constructor(private taskService: TaskService,public dialog: MdDialog) {}
   ngOnInit() {
     this.totaltime = Date.now() - Date.now();
     this.task.interval.forEach((inter: any) => {
@@ -55,4 +58,12 @@ export class TaskElementComponent implements OnInit {
 
     return false;
   }
+
+  openDetails() {
+    let dialogRef = this.dialog.open(DialogDetailsComponent);
+    let instance = dialogRef.componentInstance;
+    instance.task  = this.task;
+    console.log('dialogRef',dialogRef);
+  }
+
 }
