@@ -9,8 +9,7 @@ build:
 tests:
   stage: tests
   script:
-    - apt-get install sudo
-    - curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+    - curl -sL https://deb.nodesource.com/setup_6.x | -E bash -
     - apt-get update
     - apt-get install -y -qq nodejs npm build-essential
     - ln -s /usr/bin/nodejs /usr/bin/node
