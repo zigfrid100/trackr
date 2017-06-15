@@ -7,7 +7,7 @@ buildBackend:
   stage: buildBackend
   script:
     - cd Backend/
-    - npm install
+    - ng serve
   only:
     - production
   tags:
