@@ -15,7 +15,8 @@ import { StatisticsComponent } from './menu/statistics/statistics.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MdDialogModule } from '@angular/material';
 import { DialogDetailsComponent } from './menu/task-list/dialog-details/dialog-details.component';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import { GoogleChart } from 'angular2-google-chart/directives/angular2-google-chart.directive';
+
 
 const appRoutes: Routes = [
   { path: 'task-list', component: TaskListComponent },
@@ -29,7 +30,8 @@ const appRoutes: Routes = [
     TaskListComponent,
     TaskElementComponent,
     StatisticsComponent,
-    DialogDetailsComponent
+    DialogDetailsComponent,
+    GoogleChart
   ],
   imports: [
     BrowserModule,
