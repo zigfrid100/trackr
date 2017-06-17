@@ -1,6 +1,9 @@
-<h1>
-  {{title}}
+<ul class="navi">
+  <li><a class="menu-bar" routerLink="/task-list" routerLinkActive="active">Dashboard</a> </li>
+  <li><a class="menu-bar" routerLink="/statistics" routerLinkActive="active">Statistiken</a></li>
+  <li><a class="menu-bar">Benutzer</a></li>
+</ul>
 
-</h1>
+<router-outlet></router-outlet>
 
-<app-menu></app-menu>
+<!--<app-menu></app-menu>-->

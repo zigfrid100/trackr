@@ -50,7 +50,7 @@ export class MenuComponent implements OnInit {
   }
 
   startTask(id) {
-    this.taskService.startTask(id);
+   // this.taskService.startTask(id);
   }
 
   pauseTask(id) {

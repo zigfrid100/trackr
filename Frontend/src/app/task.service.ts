@@ -56,6 +56,7 @@ export class TaskService {
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem);
+        this.projects.push(responseItem);
       },
       (err: any) => {
         if(err.status == 0){
@@ -204,10 +205,12 @@ export class TaskService {
     console.log('get Tasks');
     this.http.get('http://'+this.server+':3000/tasks/')
       .map(response => response.json()).subscribe(
-      (responseItem: any) => {
-        responseItem.statusVal = 'active';
-        this.tasks.push(responseItem);
-        console.log(responseItem);
+      (responseItems: any[]) => {
+        responseItems.forEach((responseItem: any) => {
+          responseItem.statusVal = 'active';
+          this.tasks.push(responseItem);
+          console.log(responseItem);
+        });
       },
       (err: any) => {
         if(err.status == 0){
@@ -227,7 +230,8 @@ export class TaskService {
     this.http.post('http://'+this.server+':3000/tasks', {name, description, status}, headers)
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
-        console.log(responseItem);
+        console.log(responseItem.task);
+        this.tasks.push(responseItem.task);
       },
       (err: any) => {
         if(err.status == 0){
@@ -299,7 +303,7 @@ export class TaskService {
   }
 
   startTask(id, changes) {
-    console.log('get Task:id');
+    console.log('start Task');
     this.http.put('http://'+this.server+':3000/tasks/start/' + id, {changes})
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
@@ -317,7 +321,7 @@ export class TaskService {
   }
 
   pauseTask(id) {
-    console.log('get Task:id');
+    console.log('pause Task');
     this.http.put('http://'+this.server+':3000/tasks/pause/' + id, {})
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
@@ -335,7 +339,7 @@ export class TaskService {
   }
 
   stopTask(id) {
-    console.log('get Task:id');
+    console.log('stop Task');
     this.http.put('http://'+this.server+':3000/tasks/stop/' + id, {})
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
