@@ -23,7 +23,7 @@ deploy:
     - cd Backend/
     - npm start
   environment:
-    name: production
-    url: https://51.254.103.142
+    name: $CI_ENVIRONMENT_NAME
+    url: $CI_ENVIRONMENT_URL
   only:
   - 36-fix-gitlab-ci-yml
