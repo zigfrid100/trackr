@@ -21,6 +21,7 @@ deploy:
   stage: deploy
   script:
     - cd Backend/
+    - npm install
     - npm start
   environment:
     name: $CI_ENVIRONMENT_NAME
