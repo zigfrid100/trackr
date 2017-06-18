@@ -21,4 +21,4 @@ deploy:
     name: production
     url: https://51.254.103.142
   only:
-  - master
+  - 36-fix-gitlab-ci-yml
