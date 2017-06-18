@@ -9,10 +9,6 @@ build:
 tests:
   stage: tests
   script:
-    - curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-    - apt-get update
-    - apt-get install -y -qq nodejs npm build-essential
-    - ln -s /usr/bin/nodejs /usr/bin/node
     - cd Backend/
     - npm install
     - npm run test
