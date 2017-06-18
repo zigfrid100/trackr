@@ -36,4 +36,4 @@ deploy:
     name: $CI_ENVIRONMENT_NAME
     url: $CI_ENVIRONMENT_URL
   only:
-  - $BRANCH
+    - $BRANCH
