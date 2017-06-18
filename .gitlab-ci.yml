@@ -6,11 +6,6 @@ build:
   stage: build
   script:
     echo "fails but tests run, why :("
-  environment:
-    name: production
-    url: https://51.254.103.142
-  only:
-  - 36-fix-gitlab-ci-yml
 tests:
   stage: tests
   script:
@@ -18,8 +13,8 @@ tests:
     - npm install
     - npm run test
   environment:
-    name: production
-    url: https://51.254.103.142
+    name: $CI_ENVIRONMENT_NAME
+    url: $CI_ENVIRONMENT_URL
   only:
   - 36-fix-gitlab-ci-yml
 deploy:
