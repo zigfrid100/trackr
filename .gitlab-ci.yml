@@ -5,11 +5,12 @@ stages:
 build:
   stage: build
   script:
-    - cd Backend/
-    - npm install
+    echo "fails but tests run, why :("
 tests:
   stage: tests
   script:
+    - cd Backend/
+    - npm install
     - npm run test
 deploy:
   stage: deploy
