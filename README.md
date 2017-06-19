@@ -75,7 +75,7 @@ putUser(userID)
 signupUser() // User want register itself
 loginUser()
 
-// logged in user functions
+// authenticated user functions
 getProfile()
 deleteProfile()
 putProfile()
