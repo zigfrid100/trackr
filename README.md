@@ -15,7 +15,9 @@ Schema User
     firstName: String
     lastName: String
     email: String
-    password: String
+    password: String,
+    right: Number // 0 if default user, 1 if master user
+    
     
 
 Schema Projekt
@@ -30,8 +32,7 @@ Schema Task
 
     name: String
     description: String
-    status: Number        //0 if done, 1 if ongoing, 2 if open
-    status: Number        //0 if done, 1 if ongoing, 2 if open
+    runPauseStop: Number        //0 if run, 1 if pause, 2 if stop
     interval: [Interval]
  
 
@@ -58,6 +59,27 @@ getTasksInProject(ProjektID)
 addTaskToProjekt(TaskID)
 
 getInterval():
+```
+
+#### User Functions
+___________________________
+```bash
+// only master user functions
+getUsers()
+postUser() 
+getUser(userID)
+deleteUser(userID)
+putUser(userID)
+
+// open funcions
+signupUser() // User want register itself
+loginUser()
+
+// logged in user functions
+getProfile()
+deleteProfile()
+putProfile()
+logoutUser()
 ```
 
 # Jenkins CI
@@ -98,7 +120,7 @@ _______________________________________
 POST	    - adds a new task(:taskid) to a project(:id)
 DELETE	- removes a task(:taskid) from a project(:id)
 ```
-# task api
+# Task API
 
 ## 51.254.103.142:3000/tasks 
 ________________________
@@ -126,4 +148,52 @@ OPTIONS:	start	- starts timetracking for a task(:id), required changes
 All are PUT requests.
 ```
 
+# User API
+
+## 51.254.103.142:3000/users - master functions
+________________________
+```bash
+GET	    - gets all users
+POST	- post json object	required: 	firstname, lastname, right, email && password
+	
+usage:	{"firstname": "some name", "lastname": "some name", "right": 0 or 1, "email": "some email", "password": "some passord"}
+```
+
+## 51.254.103.142:3000/users/:id - master function
+____________________________
+```bash
+GET	    - gets a user by :id
+DELETE	- deletes a user by :id
+PUT	    - updates a user by :id (see example above)
+```
+
+## 51.254.103.142:3000/users/signup - open function
+________________________
+```bash
+POST	- post json object	required: 	firstname, lastname, right, email && password
+	
+usage:	{"firstname": "some name", "lastname": "some name", "right": 0, "email": "some email", "password": "some passord"}
+```
+
+## 51.254.103.142:3000/users/login - open function
+________________________
+```bash
+POST	- post json object	required: email && password
+	
+usage:	{"email": "some email", "password": "some passord"}
+```
+
+## 51.254.103.142:3000/users/profile - authenticated user function
+____________________________
+```bash
+GET	    - gets authenticated user
+DELETE	- deletes authenticated user
+PUT	    - updates authenticated user (see example signup above)
+```
+
+## 51.254.103.142:3000/users/logout - authenticated user function
+____________________________
+```bash
+POST	- logout authenticated user,	required: none
+```
 
