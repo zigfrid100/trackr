@@ -155,8 +155,9 @@ ________________________
 ```bash
 GET	    - gets all users
 POST	- post json object	required: 	firstname, lastname, right, email && password
-	
-usage:	{"firstname": "some name", "lastname": "some name", "right": 0 or 1, "email": "some email", "password": "some passord"}
+
+usage (post default user):	{"firstname": "some name", "lastname": "some name", "right": 0, "email": "some email", "password": "some passord"}
+usage (post master user):	{"firstname": "some name", "lastname": "some name", "right": 1, "email": "some email", "password": "some passord"}
 ```
 
 ## 51.254.103.142:3000/users/:id - master function
@@ -183,7 +184,7 @@ POST	- post json object	required: email && password
 usage:	{"email": "some email", "password": "some passord"}
 ```
 
-## 51.254.103.142:3000/users/profile - authenticated user function
+## 51.254.103.142:3000/users/profile - authenticated user functions
 ____________________________
 ```bash
 GET	    - gets authenticated user
