@@ -11,12 +11,12 @@
     <button md-button (click)="save">Save</button>
   </div>
   <div>
-    <select name="intervalSelction">
+    <select name="intervalSelction" [(ngModel)]="selectedInterval" (change)="updateTime()">
       <option *ngFor="let inter of task.interval">
         {{inter.startDate}} bis {{inter.stopDate}}
       </option>
     </select>
-    Time: {{intervalTime}}
+    Time: {{intervalTime/1000}}s
   </div>
 
   Totaltime: {{task.totaltime/1000}}s

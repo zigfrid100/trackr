@@ -41,7 +41,9 @@ export class DialogDetailsComponent implements OnInit {
     this.taskService.putTask(this.task._id, this.task.name, this.task.description, this.task.runPauseStop);
   }
   updateTime () {
-      this.intervalTime = Date.parse(this.selectedInterval.stopDate) - Date.parse(this.selectedInterval.startDate);
+      this.intervalTime = Date.now() - Date.now();
+      this.intervalTime = Date.parse(this.selectedInterval.split(' bis ')[1]) - Date.parse(this.selectedInterval.split(' bis ')[0]);
+      this.intervalTime = Math.round(this.intervalTime / 100) * 100;
   }
 
 
