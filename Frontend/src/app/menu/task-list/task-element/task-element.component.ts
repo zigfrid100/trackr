@@ -13,14 +13,13 @@ export class TaskElementComponent implements OnInit {
 
   @Input() task: any;
   @Input() index: any;
-  startbtn: boolean = true;
-  pausebtn: boolean = false;
   running: boolean = false;
   totaltime: any;
   starttime: any;
   endtime: any;
 
-  constructor(private taskService: TaskService,public dialog: MdDialog) {}
+  constructor(private taskService: TaskService, public dialog: MdDialog) {}
+
   ngOnInit() {
     this.totaltime = Date.now() - Date.now();
     this.task.interval.forEach((inter: any) => {
@@ -30,8 +29,6 @@ export class TaskElementComponent implements OnInit {
     } );
     this.totaltime = Math.round(this.totaltime / 100) * 100;
     this.running = this.isRunning();
-    this.startbtn = !this.running;
-    this.pausebtn = this.running;
   }
 
   start() {
@@ -61,11 +58,9 @@ export class TaskElementComponent implements OnInit {
   }
 
   openDetails() {
-    let dialogRef = this.dialog.open(DialogDetailsComponent);
-    let instance = dialogRef.componentInstance;
+    const dialogRef = this.dialog.open(DialogDetailsComponent);
+    const instance = dialogRef.componentInstance;
     instance.task  = this.task;
     instance.index = this.index;
-    console.log('dialogRef',dialogRef);
   }
-
 }

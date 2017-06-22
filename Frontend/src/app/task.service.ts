@@ -266,19 +266,17 @@ export class TaskService {
   }
 
   deleteTask(id,index) {
-    console.log('delete Task:id');
     this.http.delete('http://'+this.server+':3000/tasks/' + id)
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
-        console.log(responseItem);
         this.tasks.splice(index,1);
+        console.log(this.tasks);
       },
       (err: any) => {
         if(err.status == 0){
           alert('Server down')
         }else {
           alert('Error: ' + err.json().error);
-          console.log('Error: ' + err.json().error);
         }
       }
     );
