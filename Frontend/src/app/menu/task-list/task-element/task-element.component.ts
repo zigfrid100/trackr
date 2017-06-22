@@ -12,6 +12,7 @@ import { MdDialog } from '@angular/material';
 export class TaskElementComponent implements OnInit {
 
   @Input() task: any;
+  @Input() index: any;
   startbtn: boolean = true;
   pausebtn: boolean = false;
   running: boolean = false;
@@ -63,6 +64,7 @@ export class TaskElementComponent implements OnInit {
     let dialogRef = this.dialog.open(DialogDetailsComponent);
     let instance = dialogRef.componentInstance;
     instance.task  = this.task;
+    instance.index = this.index;
     console.log('dialogRef',dialogRef);
   }
 
