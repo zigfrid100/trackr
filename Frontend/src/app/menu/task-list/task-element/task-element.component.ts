@@ -93,6 +93,7 @@ export class TaskElementComponent implements OnInit {
       }
     } );
     this.totaltime = Math.round(this.totaltime / 100) * 100;
+    this.task.totaltime = this.totaltime;
   }
 
 }
