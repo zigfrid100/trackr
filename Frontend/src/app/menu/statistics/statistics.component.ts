@@ -23,22 +23,26 @@ export class StatisticsComponent implements OnInit {
 
   getTasks(){
     this.taskService.getTasks();
+    console.log(this.taskService.tasks);
   }
 
   ngOnInit() {
     this.getTasks();
+    this.showChart();
   }
 
   showChart(){
-    this.taskService.tasks.forEach((task : any) => {
-      task.interval.forEach((inter: any) => {
-        if (inter.stopDate != null && inter.stopDate !== '') {
-          this.totaltime += Date.parse(inter.stopDate) - Date.parse(inter.startDate);
-        }
+    setTimeout(()=>{
+      this.taskService.tasks.forEach((task : any) => {
+        task.interval.forEach((inter: any) => {
+          if (inter.stopDate != null && inter.stopDate !== '') {
+            this.totaltime += Date.parse(inter.stopDate) - Date.parse(inter.startDate);
+          }
+        });
+        this.pie_ChartData.push([task.name,this.totaltime]);
+        this.totaltime = 0;
       });
-      this.pie_ChartData.push([task.name,this.totaltime]);
-      this.totaltime = 0;
-    });
+    },1);
   }
 
   showUsedTime(){

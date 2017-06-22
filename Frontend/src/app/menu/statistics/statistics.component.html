@@ -5,9 +5,7 @@
   </tr>
 </table>
 
-<p>If you want to see Chart, push the button!</p>
-<button (click)="show = !show; showChart()" > Show Chart </button>
 <br><br>
-<div *ngIf="show">
+<div >
   <div id="pie_chart" [chartData]="pie_ChartData" [chartOptions] = "pie_ChartOptions" chartType="PieChart" GoogleChart></div>
 </div>
