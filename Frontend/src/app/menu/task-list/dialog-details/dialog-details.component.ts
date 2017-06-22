@@ -24,7 +24,6 @@ export class DialogDetailsComponent implements OnInit {
   constructor(
     public dialogRef: MdDialogRef<DialogDetailsComponent>,
     public taskService: TaskService,
-    public taskList : TaskListComponent
   ) {}
 
   ngOnInit() {
@@ -43,5 +42,6 @@ export class DialogDetailsComponent implements OnInit {
   deleteTask(id: string) {
     if (!id) { return; }
     this.taskService.deleteTask(id, this.index);
+    this.task.statusVal = "inactive";
   }
 }
