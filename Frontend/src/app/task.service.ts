@@ -1,20 +1,21 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Http, Headers, Response, RequestOptions} from '@angular/http';
 
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import {forEach} from '@angular/router/src/utils/collection';
-import {errorHandler} from "@angular/platform-browser/src/browser";
+import {errorHandler} from '@angular/platform-browser/src/browser';
 
 @Injectable()
 export class TaskService {
-  private server = "localhost";
+  private server = 'localhost';
 
   public online: Observable<boolean>;
   public isonline: boolean;
 
   public projects: any[];
   public tasks: any[];
+  public task: any;
 
   constructor(private http: Http) {
     this.projects = [];
@@ -29,7 +30,7 @@ export class TaskService {
 
   getProjects() {
     console.log('get Project');
-    this.http.get('http://'+this.server+':3000/projects')
+    this.http.get('http://' + this.server + ':3000/projects')
       .map(response => response.json()).subscribe(
       (responseItems: any[]) => {
         responseItems.forEach((responseItem: any) => {
@@ -39,9 +40,9 @@ export class TaskService {
         });
       },
       (err: any) => {
-        if(err.status == 0){
-          alert('Server down')
-        }else {
+        if (err.status == 0) {
+          alert('Server down');
+        } else {
           alert('Error: ' + err.json().message);
           console.log('Error: ' + err.json().message);
         }
@@ -52,15 +53,16 @@ export class TaskService {
   postProject(name, description) {
     console.log('post Project');
     const headers = new Headers({'Content-Type': 'application/json'});
-    this.http.post('http://'+this.server+':3000/projects', {name, description}, headers)
+    this.http.post('http://' + this.server + ':3000/projects', {name, description}, headers)
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem);
+        this.projects.push(responseItem);
       },
       (err: any) => {
-        if(err.status == 0){
-          alert('Server down')
-        }else {
+        if (err.status == 0) {
+          alert('Server down');
+        } else {
           alert('Error: ' + err.json().message);
           console.log('Error: ' + err.json().message);
         }
@@ -71,15 +73,15 @@ export class TaskService {
   postProjectWithTasks(name, description, tasks) {
     console.log('post Project');
     const headers = new Headers({'Content-Type': 'application/json'});
-    this.http.post('http://'+this.server+':3000/projects', {name, description, tasks}, headers)
+    this.http.post('http://' + this.server + ':3000/projects', {name, description, tasks}, headers)
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem);
       },
       (err: any) => {
-        if(err.status == 0){
-          alert('Server down')
-        }else {
+        if (err.status == 0) {
+          alert('Server down');
+        } else {
           alert('Error: ' + err.json().message);
           console.log('Error: ' + err.json().message);
         }
@@ -89,16 +91,16 @@ export class TaskService {
 
   getTasksOfProject(id) {
     console.log('get TasksOfProject:id');
-    this.http.get('http://'+this.server+':3000/projects/tasks/' + id)
+    this.http.get('http://' + this.server + ':3000/projects/tasks/' + id)
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         responseItem.statusVal = 'active';
         this.projects.push(responseItem);
       },
       (err: any) => {
-        if(err.status == 0){
-          alert('Server down')
-        }else {
+        if (err.status == 0) {
+          alert('Server down');
+        } else {
           alert('Error: ' + err.json().message);
           console.log('Error: ' + err.json().message);
         }
@@ -108,16 +110,16 @@ export class TaskService {
 
   getProject(id) {
     console.log('get Project:id');
-    this.http.get('http://'+this.server+':3000/projects/' + id)
+    this.http.get('http://' + this.server + ':3000/projects/' + id)
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         responseItem.statusVal = 'active';
         this.projects.push(responseItem);
       },
       (err: any) => {
-        if(err.status == 0){
-          alert('Server down')
-        }else {
+        if (err.status == 0) {
+          alert('Server down');
+        } else {
           alert('Error: ' + err.json().message);
           console.log('Error: ' + err.json().message);
         }
@@ -127,16 +129,16 @@ export class TaskService {
 
   deleteProject(id) {
     console.log('delete Jokes:id');
-    this.http.delete('http://'+this.server+':3000/projects/' + id)
+    this.http.delete('http://' + this.server + ':3000/projects/' + id)
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem.message);
         alert(responseItem.message);
       },
       (err: any) => {
-        if(err.status == 0){
-          alert('Server down')
-        }else {
+        if (err.status == 0) {
+          alert('Server down');
+        } else {
           alert('Error: ' + err.json().message);
           console.log('Error: ' + err.json().message);
         }
@@ -148,15 +150,15 @@ export class TaskService {
   putProject(id, name, description, tasks) {
     console.log('put Project');
     const headers = new Headers({'Content-Type': 'application/json'});
-    this.http.put('http://'+this.server+':3000/projects/' + id, {name, description, tasks})
+    this.http.put('http://' + this.server + ':3000/projects/' + id, {name, description, tasks})
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem);
       },
       (err: any) => {
-        if(err.status == 0){
-          alert('Server down')
-        }else {
+        if (err.status == 0) {
+          alert('Server down');
+        } else {
           alert('Error: ' + err.json().message);
           console.log('Error: ' + err.json().message);
         }
@@ -166,15 +168,15 @@ export class TaskService {
 
   addTaskToProject(projectid, taskid) {
     console.log('add task to project');
-    this.http.post('http://'+this.server+':3000/projects/' + projectid + '/tasks/' + taskid, {})
+    this.http.post('http://' + this.server + ':3000/projects/' + projectid + '/tasks/' + taskid, {})
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem);
       },
       (err: any) => {
-        if(err.status == 0){
-          alert('Server down')
-        }else {
+        if (err.status == 0) {
+          alert('Server down');
+        } else {
           alert('Error: ' + err.json().message);
           console.log('Error: ' + err.json().message);
         }
@@ -184,15 +186,15 @@ export class TaskService {
 
   removeTaskFromProject(projectid, taskid) {
     console.log('remove task from project');
-    this.http.delete('http://'+this.server+':3000/projects/' + projectid + '/tasks/' + taskid)
+    this.http.delete('http://' + this.server + ':3000/projects/' + projectid + '/tasks/' + taskid)
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem);
       },
       (err: any) => {
-        if(err.status == 0){
-          alert('Server down')
-        }else {
+        if (err.status == 0) {
+          alert('Server down');
+        } else {
           alert('Error: ' + err.json().message);
           console.log('Error: ' + err.json().message);
         }
@@ -202,17 +204,19 @@ export class TaskService {
 
   getTasks() {
     console.log('get Tasks');
-    this.http.get('http://'+this.server+':3000/tasks/')
+    this.http.get('http://' + this.server + ':3000/tasks/')
       .map(response => response.json()).subscribe(
-      (responseItem: any) => {
-        responseItem.statusVal = 'active';
-        this.tasks.push(responseItem);
-        console.log(responseItem);
+      (responseItems: any[]) => {
+        console.log(responseItems);
+        responseItems.forEach((responseItem: any) => {
+          responseItem.statusVal = 'active';
+          this.tasks.push(responseItem);
+        });
       },
       (err: any) => {
-        if(err.status == 0){
-          alert('Server down')
-        }else {
+        if (err.status == 0) {
+          alert('Server down');
+        } else {
           alert('Error: ' + err.json().message);
           console.log('Error: ' + err.json().message);
         }
@@ -224,15 +228,16 @@ export class TaskService {
   postTask(name, description, status) {
     console.log('post Task');
     const headers = new Headers({'Content-Type': 'application/json'});
-    this.http.post('http://'+this.server+':3000/tasks', {name, description, status}, headers)
+    this.http.post('http://' + this.server + ':3000/tasks', {name, description, status}, headers)
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
-        console.log(responseItem);
+        console.log(responseItem.task);
+        this.tasks.push(responseItem.task);
       },
       (err: any) => {
-        if(err.status == 0){
-          alert('Server down')
-        }else {
+        if (err.status == 0) {
+          alert('Server down');
+        } else {
           alert('Error: ' + err.json().message);
           console.log('Error: ' + err.json().message);
         }
@@ -242,18 +247,19 @@ export class TaskService {
 
   getTask(id) {
     console.log('get Task:id');
-    this.http.get('http://'+this.server+':3000/tasks/' + id)
+    this.http.get('http://' + this.server + ':3000/tasks/' + id)
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
-        if(responseItem!=null){
-        responseItem.statusVal = 'active';
-        this.tasks.push(responseItem);}
+        if (responseItem != null) {
+          responseItem.statusVal = 'active';
+          this.tasks.push(responseItem);
+        }
         console.log(responseItem);
       },
       (err: any) => {
-        if(err.status == 0){
-          alert('Server down')
-        }else {
+        if (err.status == 0) {
+          alert('Server down');
+        } else {
           alert('Error: ' + err.json().message);
           console.log('Error: ' + err.json().message);
         }
@@ -263,15 +269,15 @@ export class TaskService {
 
   deleteTask(id) {
     console.log('delete Task:id');
-    this.http.delete('http://'+this.server+':3000/tasks/' + id)
+    this.http.delete('http://' + this.server + ':3000/tasks/' + id)
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem);
       },
       (err: any) => {
-        if(err.status == 0){
-          alert('Server down')
-        }else {
+        if (err.status == 0) {
+          alert('Server down');
+        } else {
           alert('Error: ' + err.json().error);
           console.log('Error: ' + err.json().error);
         }
@@ -282,15 +288,15 @@ export class TaskService {
   putTask(id, name, description, status) {
     console.log('post Task');
     const headers = new Headers({'Content-Type': 'application/json'});
-    this.http.put('http://'+this.server+':3000/tasks/' + id, {name, description, status}, headers)
+    this.http.put('http://' + this.server + ':3000/tasks/' + id, {name, description, status}, headers)
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem);
       },
       (err: any) => {
-        if(err.status == 0){
-          alert('Server down')
-        }else {
+        if (err.status == 0) {
+          alert('Server down');
+        } else {
           alert('Error: ' + err.json().error);
           console.log('Error: ' + err.json().error);
         }
@@ -299,16 +305,26 @@ export class TaskService {
   }
 
   startTask(id, changes) {
-    console.log('get Task:id');
-    this.http.put('http://'+this.server+':3000/tasks/start/' + id, {changes})
+    console.log('start Task');
+    this.http.put('http://' + this.server + ':3000/tasks/start/' + id, {changes})
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem);
+        this.task = responseItem.task;
+        this.tasks.forEach((task: any) => {
+          if (task._id === id) {
+            console.log('service');
+            console.log(task);
+            task = responseItem.task;
+            console.log('service');
+            console.log(task);
+          }
+        });
       },
       (err: any) => {
-        if(err.status == 0){
-          alert('Server down')
-        }else {
+        if (err.status == 0) {
+          alert('Server down');
+        } else {
           alert('Error: ' + err.json().error);
           console.log('Error: ' + err.json().error);
         }
@@ -317,16 +333,22 @@ export class TaskService {
   }
 
   pauseTask(id) {
-    console.log('get Task:id');
-    this.http.put('http://'+this.server+':3000/tasks/pause/' + id, {})
+    console.log('pause Task');
+    this.http.put('http://' + this.server + ':3000/tasks/pause/' + id, {})
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem);
+        this.task = responseItem.task;
+        this.tasks.forEach((task: any) => {
+          if (task._id === id) {
+            task = responseItem.task;
+          }
+        });
       },
       (err: any) => {
-        if(err.status == 0){
-          alert('Server down')
-        }else {
+        if (err.status == 0) {
+          alert('Server down');
+        } else {
           alert('Error: ' + err.json().message);
           console.log('Error: ' + err.json().message);
         }
@@ -335,16 +357,16 @@ export class TaskService {
   }
 
   stopTask(id) {
-    console.log('get Task:id');
-    this.http.put('http://'+this.server+':3000/tasks/stop/' + id, {})
+    console.log('stop Task');
+    this.http.put('http://' + this.server + ':3000/tasks/stop/' + id, {})
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem);
       },
       (err: any) => {
-        if(err.status == 0){
-          alert('Server down')
-        }else {
+        if (err.status == 0) {
+          alert('Server down');
+        } else {
           alert('Error: ' + err.json().message);
           console.log('Error: ' + err.json().message);
         }

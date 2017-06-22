@@ -1,0 +1,38 @@
+variables:
+  BRANCH: master
+stages:
+  - build
+  - tests
+  - deploy
+build:
+  stage: build
+  script:
+    - cd Backend/
+    - npm install
+    - npm run test
+  environment:
+    name: $CI_ENVIRONMENT_NAME
+    url: $CI_ENVIRONMENT_URL
+  only:
+    - $BRANCH
+tests:
+  stage: tests
+  script:
+    - cd Backend/
+    - npm run test
+  environment:
+    name: $CI_ENVIRONMENT_NAME
+    url: $CI_ENVIRONMENT_URL
+  only:
+  - $BRANCH
+deploy:
+  stage: deploy
+  script:
+    - cd Backend/
+    - npm install
+    - npm start
+  environment:
+    name: $CI_ENVIRONMENT_NAME
+    url: $CI_ENVIRONMENT_URL
+  only:
+    - $BRANCH
