@@ -320,21 +320,19 @@ export class TaskService {
   }
 
   pauseTask(id) {
-    console.log('pause Task');
-    this.http.put('http://'+this.server+':3000/tasks/pause/' + id, {})
+    this.http.put(`http://${this.server}:3000/tasks/pause/${id}`, {})
       .map(response => response.json()).subscribe(
-      (responseItem: any) => {
-        console.log(responseItem);
-      },
-      (err: any) => {
-        if(err.status == 0){
-          alert('Server down')
-        }else {
-          alert('Error: ' + err.json().message);
-          console.log('Error: ' + err.json().message);
+        (responseItem: any) => {
+          console.log(responseItem);
+        },
+        (err: any) => {
+          if (err.status === 0) {
+            alert('Server down');
+          } else {
+            alert('Error: ' + err.json().message);
+          }
         }
-      }
-    );
+      );
   }
 
   stopTask(id) {
@@ -354,5 +352,4 @@ export class TaskService {
       }
     );
   }
-
 }

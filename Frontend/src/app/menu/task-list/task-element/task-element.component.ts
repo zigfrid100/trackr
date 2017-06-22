@@ -10,10 +10,10 @@ import { MdDialog } from '@angular/material';
   styleUrls: ['./task-element.component.css']
 })
 export class TaskElementComponent implements OnInit {
+  running: boolean = false;
 
   @Input() task: any;
   @Input() index: any;
-  running: boolean = false;
   totaltime: any;
   starttime: any;
   endtime: any;
@@ -48,13 +48,7 @@ export class TaskElementComponent implements OnInit {
   }
 
   isRunning() {
-    for (const i of this.task.interval) {
-      if (i.run) {
-        return true;
-      }
-    }
-
-    return false;
+    return this.task.interval.filter(i => i.run).length > 0;
   }
 
   openDetails() {
