@@ -1,3 +1,5 @@
+variables:
+  BRANCH: master
 stages:
   - build
   - tests
@@ -5,26 +7,32 @@ stages:
 build:
   stage: build
   script:
-    - echo "test"
-tests:
-  stage: tests
-  script:
-    - apt-get update
-    - apt-get install -y sudo
-    - curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-    - apt-get update
-    - apt-get install -y -qq nodejs npm build-essential
-    - ln -s /usr/bin/nodejs /usr/bin/node
     - cd Backend/
     - npm install
     - npm run test
+  environment:
+    name: $CI_ENVIRONMENT_NAME
+    url: $CI_ENVIRONMENT_URL
+  only:
+    - $BRANCH
+tests:
+  stage: tests
+  script:
+    - cd Backend/
+    - npm run test
+  environment:
+    name: $CI_ENVIRONMENT_NAME
+    url: $CI_ENVIRONMENT_URL
+  only:
+  - $BRANCH
 deploy:
   stage: deploy
   script:
     - cd Backend/
+    - npm install
     - npm start
   environment:
-    name: production
-    url: https://51.254.103.142
+    name: $CI_ENVIRONMENT_NAME
+    url: $CI_ENVIRONMENT_URL
   only:
-  - master
+    - $BRANCH

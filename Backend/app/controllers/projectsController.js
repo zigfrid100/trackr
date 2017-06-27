@@ -2,7 +2,7 @@ const projectModel = require('./../models/project');
 const taskModel = require('./../models/task');
 
 exports.getProjects = (req, res) => {
-    projectModel.find()
+    projectModel.find().populate('tasks')
         .then(projects => {
             res.status(200)
                 .json(projects);
@@ -27,7 +27,7 @@ exports.postProject = (req, res) => {
 };
 
 exports.getProject = (req, res) => {
-    projectModel.findById(req.params.id)
+    projectModel.findById(req.params.id).populate('tasks')
         .then(project => {
             res.status(200)
                 .json(project)

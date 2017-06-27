@@ -19,28 +19,42 @@ export class TaskElementComponent implements OnInit {
   endtime: any;
 
   constructor(private taskService: TaskService, public dialog: MdDialog) {}
-
   ngOnInit() {
-    this.totaltime = Date.now() - Date.now();
-    this.task.interval.forEach((inter: any) => {
-      if (inter.stopDate != null && inter.stopDate !== '') {
-        this.totaltime += Date.parse(inter.stopDate) - Date.parse(inter.startDate);
-      }
-    } );
-    this.totaltime = Math.round(this.totaltime / 100) * 100;
+
+    this.calculateTotalTime();
     this.running = this.isRunning();
   }
 
   start() {
-    this.taskService.startTask(this.task._id, 'something');
-    this.starttime = Date.now();
+    this.taskService.startTask(this.task._id, ' ');
+    this.pausebtn = true;
+    this.updateTask();
+    this.timer();
+  }
+
+  updateTask () {
+    setTimeout(() => {
+      this.task = this.taskService.task;
+      console.log('Task updated');
+    }, 100);
+  }
+
+  timer() {
+    if (this.pausebtn) {
+      setTimeout(() => {
+        this.calculateTotalTime();
+        this.timer();
+      }, 100);
+    }
   }
 
   pause() {
     this.taskService.pauseTask(this.task._id);
-    this.endtime = Date.now();
-    this.totaltime += this.endtime - this.starttime;
-    this.totaltime = Math.round(this.totaltime / 100) * 100;
+    this.updateTask();
+    setTimeout(() => {
+      this.updateTask();
+      this.calculateTotalTime();
+    }, 1000);
   }
 
   stop() {
@@ -55,6 +69,20 @@ export class TaskElementComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogDetailsComponent);
     const instance = dialogRef.componentInstance;
     instance.task  = this.task;
-    instance.index = this.index;
+    console.log('dialogRef', dialogRef);
+  }
+
+  calculateTotalTime() {
+    this.totaltime = Date.now() - Date.now();
+    this.task.interval.forEach((inter: any) => {
+      if (inter.stopDate != null && inter.stopDate !== '') {
+        this.totaltime += Date.parse(inter.stopDate) - Date.parse(inter.startDate);
+      }else {
+        inter.stopDate = Date.now();
+        this.totaltime += inter.stopDate - Date.parse(inter.startDate);
+        inter.stopDate = null;
+      }
+    } );
+    this.totaltime = Math.round(this.totaltime / 100) * 100;
   }
 }
