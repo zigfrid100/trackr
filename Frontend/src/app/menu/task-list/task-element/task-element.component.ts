@@ -10,39 +10,51 @@ import { MdDialog } from '@angular/material';
   styleUrls: ['./task-element.component.css']
 })
 export class TaskElementComponent implements OnInit {
+  running: boolean = false;
 
   @Input() task: any;
-  startbtn: boolean = true;
-  pausebtn: boolean = false;
-  running: boolean = false;
+  @Input() index: any;
   totaltime: any;
   starttime: any;
   endtime: any;
 
-  constructor(private taskService: TaskService,public dialog: MdDialog) {}
+  constructor(private taskService: TaskService, public dialog: MdDialog) {}
   ngOnInit() {
-    this.totaltime = Date.now() - Date.now();
-    this.task.interval.forEach((inter: any) => {
-      if (inter.stopDate != null && inter.stopDate !== '') {
-        this.totaltime += Date.parse(inter.stopDate) - Date.parse(inter.startDate);
-      }
-    } );
-    this.totaltime = Math.round(this.totaltime / 100) * 100;
+
+    this.calculateTotalTime();
     this.running = this.isRunning();
-    this.startbtn = !this.running;
-    this.pausebtn = this.running;
   }
 
   start() {
-    this.taskService.startTask(this.task._id, 'something');
-    this.starttime = Date.now();
+    this.taskService.startTask(this.task._id, ' ');
+    this.pausebtn = true;
+    this.updateTask();
+    this.timer();
+  }
+
+  updateTask () {
+    setTimeout(() => {
+      this.task = this.taskService.task;
+      console.log('Task updated');
+    }, 100);
+  }
+
+  timer() {
+    if (this.pausebtn) {
+      setTimeout(() => {
+        this.calculateTotalTime();
+        this.timer();
+      }, 100);
+    }
   }
 
   pause() {
     this.taskService.pauseTask(this.task._id);
-    this.endtime = Date.now();
-    this.totaltime += this.endtime - this.starttime;
-    this.totaltime = Math.round(this.totaltime / 100) * 100;
+    this.updateTask();
+    setTimeout(() => {
+      this.updateTask();
+      this.calculateTotalTime();
+    }, 1000);
   }
 
   stop() {
@@ -50,20 +62,27 @@ export class TaskElementComponent implements OnInit {
   }
 
   isRunning() {
-    for (const i of this.task.interval) {
-      if (i.run) {
-        return true;
-      }
-    }
-
-    return false;
+    return this.task.interval.filter(i => i.run).length > 0;
   }
 
   openDetails() {
-    let dialogRef = this.dialog.open(DialogDetailsComponent);
-    let instance = dialogRef.componentInstance;
+    const dialogRef = this.dialog.open(DialogDetailsComponent);
+    const instance = dialogRef.componentInstance;
     instance.task  = this.task;
-    console.log('dialogRef',dialogRef);
+    console.log('dialogRef', dialogRef);
   }
 
+  calculateTotalTime() {
+    this.totaltime = Date.now() - Date.now();
+    this.task.interval.forEach((inter: any) => {
+      if (inter.stopDate != null && inter.stopDate !== '') {
+        this.totaltime += Date.parse(inter.stopDate) - Date.parse(inter.startDate);
+      }else {
+        inter.stopDate = Date.now();
+        this.totaltime += inter.stopDate - Date.parse(inter.startDate);
+        inter.stopDate = null;
+      }
+    } );
+    this.totaltime = Math.round(this.totaltime / 100) * 100;
+  }
 }
