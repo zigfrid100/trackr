@@ -17,6 +17,7 @@ export class TaskElementComponent implements OnInit {
   totaltime: any;
   starttime: any;
   endtime: any;
+  pausebtn:any;
 
   constructor(private taskService: TaskService, public dialog: MdDialog) {}
   ngOnInit() {

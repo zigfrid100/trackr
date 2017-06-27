@@ -14,6 +14,7 @@ export class DialogDetailsComponent implements OnInit {
   task: any;
   time: any;
   index: any;
+  ifHaveInterval: boolean;
 
   public scatter_ChartData = [['Date', 'Time']];
   public scatter_ChartOptions = {
@@ -32,9 +33,9 @@ export class DialogDetailsComponent implements OnInit {
       if (inter.stopDate != null && inter.stopDate !== '') {
         this.time = ((Date.parse(inter.stopDate) - Date.parse(inter.startDate))/1000)/60;
         this.scatter_ChartData.push([new Date(inter.startDate),this.time]);
-      }else{//TODO if interval empty
-        //this.time = 0;
-        //this.scatter_ChartData.push([new Date(Date.now()),this.time]);
+        this.ifHaveInterval = true;
+      }else{
+        this.ifHaveInterval = false;
       }
     } );
   }

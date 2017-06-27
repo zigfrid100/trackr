@@ -8,8 +8,11 @@
 </h2>
 
 </div>
+<div *ngIf="ifHaveInterval">
+  <div id="scatter_chart" [chartData]="scatter_ChartData"  [chartOptions] = "scatter_ChartOptions" chartType="ScatterChart" GoogleChart></div>
+</div>
+<div *ngIf="!ifHaveInterval">This Task doesn't have a Intervals</div>
 
-<div id="scatter_chart" [chartData]="scatter_ChartData"  [chartOptions] = "scatter_ChartOptions" chartType="ScatterChart" GoogleChart></div>
 <br><br><br>
 <button md-button (click)="dialogRef.close()">Cancel</button>
 <button md-button (click)="deleteTask(task._id) ; dialogRef.close()"  >Delete</button>

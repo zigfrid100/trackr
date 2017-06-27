@@ -351,7 +351,7 @@ export class TaskService {
           alert('Error: ' + err.json().message);
           console.log('Error: ' + err.json().message);
         }
-      );
+      });
   }
 
   stopTask(id) {
