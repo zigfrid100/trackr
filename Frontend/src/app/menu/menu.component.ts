@@ -41,8 +41,8 @@ export class MenuComponent implements OnInit {
     this.taskService.getTask(id);
   }
 
-  deleteTask(id) {
-    this.taskService.deleteTask(id);
+  deleteTask(id,index) {
+    this.taskService.deleteTask(id,index);
   }
 
   putTask(id) {

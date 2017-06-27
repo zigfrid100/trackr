@@ -10,11 +10,10 @@ import { MdDialog } from '@angular/material';
   styleUrls: ['./task-element.component.css']
 })
 export class TaskElementComponent implements OnInit {
+  running: boolean = false;
 
   @Input() task: any;
-  startbtn: boolean = true;
-  pausebtn: boolean = false;
-  running: boolean = false;
+  @Input() index: any;
   totaltime: any;
   starttime: any;
   endtime: any;
@@ -24,8 +23,6 @@ export class TaskElementComponent implements OnInit {
 
     this.calculateTotalTime();
     this.running = this.isRunning();
-    this.startbtn = !this.running;
-    this.pausebtn = this.running;
   }
 
   start() {
@@ -65,18 +62,12 @@ export class TaskElementComponent implements OnInit {
   }
 
   isRunning() {
-    for (const i of this.task.interval) {
-      if (i.run) {
-        return true;
-      }
-    }
-
-    return false;
+    return this.task.interval.filter(i => i.run).length > 0;
   }
 
   openDetails() {
-    let dialogRef = this.dialog.open(DialogDetailsComponent);
-    let instance = dialogRef.componentInstance;
+    const dialogRef = this.dialog.open(DialogDetailsComponent);
+    const instance = dialogRef.componentInstance;
     instance.task  = this.task;
     console.log('dialogRef', dialogRef);
   }
@@ -94,5 +85,4 @@ export class TaskElementComponent implements OnInit {
     } );
     this.totaltime = Math.round(this.totaltime / 100) * 100;
   }
-
 }

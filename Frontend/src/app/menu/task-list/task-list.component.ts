@@ -8,7 +8,7 @@ import { trigger, state, style } from '@angular/animations';
   styleUrls: ['./task-list.component.css'],
   providers:[TaskService],
   animations: [
-    trigger('projectState', [
+    trigger('taskState', [
       state('inactive', style({
         transform: 'scale(0)',
         display: 'none'
@@ -21,10 +21,11 @@ import { trigger, state, style } from '@angular/animations';
 })
 export class TaskListComponent implements OnInit {
 
-  private tasks: any[];// = [];
+  //public tasks: any[];// = [];
 
   constructor(private taskService: TaskService) {
-    this.tasks = taskService.tasks;
+    //this.tasks = taskService.tasks;
+
   }
 
   getTasks(){
@@ -38,12 +39,13 @@ export class TaskListComponent implements OnInit {
 
   deleteTask(pos: number, id: string) {
     if (!id) { return; }
-    this.taskService.deleteTask(id);
-    this.tasks.splice(pos, 1);
+    this.taskService.deleteTask(id,pos);
+    //this.tasks.splice(pos, 1);
   }
 
   ngOnInit() {
     this.getTasks();
+    console.log(this.taskService.tasks[0]);
   }
 
 }
