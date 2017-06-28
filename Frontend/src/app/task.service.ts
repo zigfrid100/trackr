@@ -190,6 +190,11 @@ export class TaskService {
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem);
+        this.tasks.length = 0;
+        this.projects.length = 0;
+        this.getTasks();
+        this.getProjects();
+       // window.location.reload(false);
       },
       (err: any) => {
         if (err.status == 0) {

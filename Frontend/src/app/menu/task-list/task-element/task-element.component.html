@@ -5,5 +5,8 @@
   <md-card-content class="example-card-content">
     <p>{{(totaltime)/1000}} s</p>
   </md-card-content>
-  <md-card-actions><button md-raised-button md-button class="example-card-button" (click)="openDetails()" >Details</button></md-card-actions>
+  <md-card-actions>
+    <button md-raised-button md-button class="example-card-button" (click)="openDetails()" >Details</button>
+    <button *ngIf="task.project != undefined" md-raised-button md-button class="example-card-button" (click)="removeFromProject()" >Remove from project</button>
+  </md-card-actions>
 </md-card>

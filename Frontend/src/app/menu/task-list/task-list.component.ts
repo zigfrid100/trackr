@@ -22,9 +22,15 @@ import { trigger, state, style } from '@angular/animations';
 export class TaskListComponent implements OnInit {
 
   private tasks: any[];// = [];
+  private projects: any[];// = [];
 
   constructor(private taskService: TaskService) {
     this.tasks = taskService.tasks;
+    this.projects = taskService.projects;
+  }
+
+  getProjects() {
+    this.taskService.getProjects();
   }
 
   getTasks(){
@@ -43,6 +49,7 @@ export class TaskListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getProjects();
     this.getTasks();
   }
 

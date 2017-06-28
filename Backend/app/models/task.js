@@ -42,7 +42,12 @@ const TaskSchema = new Schema({
         type: Number,
         required: false
     },
-    interval: [IntervalSchema]
+    interval: [IntervalSchema],
+    project: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Project',
+        required: false
+    }
 });
 
 // Registering a model Task with given mongoose schema

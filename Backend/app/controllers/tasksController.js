@@ -1,7 +1,7 @@
 const taskModel = require('./../models/task');
 
 exports.getTasks = (req, res) => {
-    taskModel.find()
+    taskModel.find({project: undefined})
         .then(tasks => {
             res.status(200)
                 .json(tasks);

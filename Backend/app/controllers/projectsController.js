@@ -2,7 +2,7 @@ const projectModel = require('./../models/project');
 const taskModel = require('./../models/task');
 
 exports.getProjects = (req, res) => {
-    projectModel.find()
+    projectModel.find().populate('tasks')
         .then(projects => {
             res.status(200)
                 .json(projects);
@@ -27,7 +27,7 @@ exports.postProject = (req, res) => {
 };
 
 exports.getProject = (req, res) => {
-    projectModel.findById(req.params.id)
+    projectModel.findById(req.params.id).populate('tasks')
         .then(project => {
             res.status(200)
                 .json(project)
@@ -74,6 +74,10 @@ exports.addTask = (req, res) => {
         .then( project => {
             taskModel.findById(req.params.taskid)
                 .then (task => {
+                    if(task.project != undefined) {
+                        return res.status(400)
+                            .json({error: "Task already exists in any project. Can not used in two projects!"});
+                    }
                     let exists = false;
                     for (let i=0; i<project.tasks.length; i++) {
                         if(JSON.stringify(project.tasks[i]) === JSON.stringify(task._id)) {
@@ -87,6 +91,14 @@ exports.addTask = (req, res) => {
                     if(!exists) {
                         Object.assign(project, project.tasks.push(task)).save()
                             .then(project => {
+                                Object.assign(task, task.project = project._id).save()
+                                    .then(task => {
+                                        console.log("task.project: " + task);
+                                    })
+                                    .catch(err => {
+                                        res.status(400)
+                                            .send(err);
+                                    });
                                 res.status(200)
                                     .json({message: "Task successfully added to project!", project});
                             })
@@ -114,7 +126,7 @@ exports.removeTask = (req, res) => {
                 .then (task => {
                     let exists = false;
                     for (let i=0; i<project.tasks.length; i++) {
-                        if(JSON.stringify(project.tasks[i]) === JSON.stringify(task._id)) {
+                        if(task != null && JSON.stringify(project.tasks[i]) === JSON.stringify(task._id)) {
                             exists = true;
                         } else {
                             exists = false;                        }
@@ -122,6 +134,14 @@ exports.removeTask = (req, res) => {
                     if(exists) {
                         Object.assign(project, project.tasks.pop(task)).save()
                             .then(project => {
+                                Object.assign(task, task.project = undefined).save()
+                                .then(task => {
+                                    console.log("task.project: " + task);
+                                })
+                                .catch(err => {
+                                    res.status(400)
+                                        .send(err);
+                                });
                                 res.status(200)
                                     .json({message: "Task successfully removed from project!", project});
                             })

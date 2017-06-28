@@ -3,7 +3,6 @@
  */
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const TaskSchema = require('./task');
 
 // Defining schema for the model Project
 const ProjectSchema = new Schema({

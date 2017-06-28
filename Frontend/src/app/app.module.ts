@@ -16,6 +16,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MdDialogModule } from '@angular/material';
 import { DialogDetailsComponent } from './menu/task-list/dialog-details/dialog-details.component';
 import { GoogleChart } from 'angular2-google-chart/directives/angular2-google-chart.directive';
+import { ProjectElementComponent } from './menu/task-list/project-element/project-element.component';
 
 
 const appRoutes: Routes = [
@@ -31,7 +32,8 @@ const appRoutes: Routes = [
     TaskElementComponent,
     StatisticsComponent,
     DialogDetailsComponent,
-    GoogleChart
+    GoogleChart,
+    ProjectElementComponent
   ],
   imports: [
     BrowserModule,
