@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { TaskListComponent } from './task-list/task-list.component';
 import { TaskElementComponent } from './task-list/task-element/task-element.component';
-import {TaskService} from "./task.service";
+import { TaskService} from './task.service';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { MdCheckboxModule, MdButtonModule, MdCardModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,7 +16,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { MdDialogModule } from '@angular/material';
 import { DialogDetailsComponent } from './task-list/dialog-details/dialog-details.component';
 import { GoogleChart } from 'angular2-google-chart/directives/angular2-google-chart.directive';
-
 
 const appRoutes: Routes = [
   { path: 'task-list', component: TaskListComponent },
