@@ -4,10 +4,10 @@ import { TaskService } from '../task.service';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css']
+  styleUrls: ['./menu.component.scss']
 })
-export class MenuComponent implements OnInit {
 
+export class MenuComponent implements OnInit {
   constructor(private taskService: TaskService) { }
 
   ngOnInit() {
@@ -41,8 +41,8 @@ export class MenuComponent implements OnInit {
     this.taskService.getTask(id);
   }
 
-  deleteTask(id,index) {
-    this.taskService.deleteTask(id,index);
+  deleteTask(id, index) {
+    this.taskService.deleteTask(id, index);
   }
 
   putTask(id) {
@@ -60,6 +60,4 @@ export class MenuComponent implements OnInit {
   stopTask(id) {
     this.taskService.stopTask(id);
   }
-
-
 }
