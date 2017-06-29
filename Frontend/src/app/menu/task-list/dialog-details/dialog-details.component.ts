@@ -6,7 +6,7 @@ import { TaskListComponent } from '../task-list.component';
 @Component({
   selector: 'app-dialog-details',
   templateUrl: './dialog-details.component.html',
-  styleUrls: ['./dialog-details.component.css'],
+  styleUrls: ['./dialog-details.component.scss'],
   providers: [ TaskService, TaskListComponent ]
 })
 

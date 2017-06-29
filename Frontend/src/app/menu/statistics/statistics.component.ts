@@ -4,7 +4,7 @@ import { TaskService } from '../../task.service';
 @Component({
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
-  styleUrls: ['./statistics.component.css'],
+  styleUrls: ['./statistics.component.scss'],
   providers:[TaskService]
 })
 export class StatisticsComponent implements OnInit {

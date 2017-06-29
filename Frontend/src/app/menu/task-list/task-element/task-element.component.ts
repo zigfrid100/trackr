@@ -7,7 +7,7 @@ import { MdDialog } from '@angular/material';
 @Component({
   selector: 'app-task-element',
   templateUrl: './task-element.component.html',
-  styleUrls: ['./task-element.component.css']
+  styleUrls: ['./task-element.component.scss']
 })
 export class TaskElementComponent implements OnInit {
   running: boolean = false;
