@@ -310,8 +310,9 @@ export class TaskService {
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem);
+        responseItem.task.statusVal = 'active';
         this.task = responseItem.task;
-        this.tasks.forEach((task: any) => {
+        this.tasks.forEach((task: any,i) => {
           if (task._id === id) {
             console.log('service');
             console.log(task);
@@ -338,10 +339,11 @@ export class TaskService {
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem);
-        this.task = responseItem.task;
-        this.tasks.forEach((task: any) => {
+        responseItem.task.statusVal = "inactive";
+        //this.task = responseItem.task;
+        this.tasks.forEach((task: any, i ) => {
           if (task._id === id) {
-            task = responseItem.task;
+            this.tasks[i] = responseItem.task;
           }
         });
       },
