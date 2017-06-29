@@ -1,11 +1,27 @@
-<table class="table table-hover">
-  <p>You have {{taskService.tasks.length}} Tasks.</p>
-  <tr *ngFor="let task of taskService.tasks;index as i">
-    <td> Task {{i+1}}: {{task.name}}</td>
-  </tr>
-</table>
+<h1>Statistics</h1>
 
-<br><br>
-<div >
-  <div id="pie_chart" [chartData]="pie_ChartData" [chartOptions] = "pie_ChartOptions" chartType="PieChart" GoogleChart></div>
-</div>
+<p>You have {{taskService.tasks.length}} tasks in 0 projects.</p>
+
+<md-tab-group class="trackr-tab-group">
+  <md-tab>
+    <ng-template md-tab-label>
+      <md-icon class="tab-icon" md-label-icon>list</md-icon> Tabular View
+    </ng-template>
+    <md-list>
+      <h3 md-subheader>Tasks</h3>
+      <md-list-item *ngFor="let task of taskService.tasks">
+        <md-icon md-label-icon>label</md-icon>
+        <h4 md-line>{{task.name}}</h4>
+        <p md-line>{{task.description || 'No description'}}</p>
+      </md-list-item>
+      <md-divider></md-divider>
+      <h3 md-subheader>Projects</h3>
+    </md-list>
+  </md-tab>
+  <md-tab>
+    <ng-template md-tab-label>
+      <md-icon class="tab-icon" md-label-icon>show_chart</md-icon> Chart View
+    </ng-template>
+    <div id="pie_chart" [chartData]="pie_ChartData" [chartOptions] = "pie_ChartOptions" chartType="PieChart" GoogleChart></div>
+  </md-tab>
+</md-tab-group>

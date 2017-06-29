@@ -2,11 +2,28 @@ import { Component, OnInit, Input } from '@angular/core';
 import { TaskService } from '../../task.service';
 import { DialogDetailsComponent } from '../dialog-details/dialog-details.component';
 import { MdDialog } from '@angular/material';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-task-element',
   templateUrl: './task-element.component.html',
-  styleUrls: ['./task-element.component.css']
+  styleUrls: ['./task-element.component.scss'],
+  animations: [
+    trigger('taskState', [
+      state('inactive', style({
+        transform: 'scale(1.0)'
+      })),
+      state('active', style({
+        transform: 'scale(1.1)'
+      })),
+      state('void', style({
+        transform: 'scale(1)',
+        display: 'none'
+      })),
+      transition('inactive => active', animate(300)),
+      transition('active => inactive', animate(300)),
+    ])
+  ]
 })
 
 export class TaskElementComponent implements OnInit {
@@ -17,7 +34,6 @@ export class TaskElementComponent implements OnInit {
   totaltime: any;
   starttime: any;
   endtime: any;
-  pausebtn: any;
 
   constructor(
     private taskService: TaskService, public dialog: MdDialog
@@ -36,35 +52,37 @@ export class TaskElementComponent implements OnInit {
   }
 
   start() {
+    this.toActiveStatus();
     this.taskService.startTask(this.task._id, ' ');
-    this.pausebtn = true;
+    this.running = true;
     this.updateTask();
     this.timer();
     this.pauseOtherTasks();
   }
 
-  updateTask () {
+  pause() {
+    this.toInactiveStatus();
+    this.taskService.pauseTask(this.task._id);
+    this.running = false;
+    setTimeout(() => {
+      this.updateTask();
+      this.calculateTotalTime();
+    }, 1000);
+  }
+
+  updateTask() {
     setTimeout(() => {
       this.task.interval = this.taskService.task.interval;
     }, 100);
   }
 
   timer() {
-    if (this.pausebtn) {
+    if (this.running) {
       setTimeout(() => {
         this.calculateTotalTime();
         this.timer();
       }, 100);
     }
-  }
-
-  pause() {
-    this.taskService.pauseTask(this.task._id);
-    this.updateTask();
-    setTimeout(() => {
-      this.updateTask();
-      this.calculateTotalTime();
-    }, 1000);
   }
 
   stop() {
@@ -97,10 +115,12 @@ export class TaskElementComponent implements OnInit {
   }
 
   toActiveStatus() {
+    this.running = true;
     this.task.statusVal = 'active';
   }
 
   toInactiveStatus() {
+    this.running = false;
     this.task.statusVal = 'inactive';
   }
 
@@ -133,6 +153,6 @@ export class TaskElementComponent implements OnInit {
       's': seconds
     };
 
-    return `${obj.h} : ${obj.m} : ${obj.s}`;
+    return `${obj.h}:${obj.m}:${obj.s}`;
   }
 }

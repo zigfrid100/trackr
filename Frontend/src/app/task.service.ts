@@ -144,7 +144,6 @@ export class TaskService {
         }
       }
     );
-
   }
 
   putProject(id, name, description, tasks) {
@@ -156,7 +155,7 @@ export class TaskService {
         console.log(responseItem);
       },
       (err: any) => {
-        if (err.status == 0) {
+        if (err.status === 0) {
           alert('Server down');
         } else {
           alert('Error: ' + err.json().message);
@@ -174,7 +173,7 @@ export class TaskService {
         console.log(responseItem);
       },
       (err: any) => {
-        if (err.status == 0) {
+        if (err.status === 0) {
           alert('Server down');
         } else {
           alert('Error: ' + err.json().message);
@@ -192,7 +191,7 @@ export class TaskService {
         console.log(responseItem);
       },
       (err: any) => {
-        if (err.status == 0) {
+        if (err.status === 0) {
           alert('Server down');
         } else {
           alert('Error: ' + err.json().message);
@@ -203,7 +202,6 @@ export class TaskService {
   }
 
   getTasks() {
-    console.log('get Tasks');
     this.http.get('http://' + this.server + ':3000/tasks/')
       .map(response => response.json()).subscribe(
       (responseItems: any[]) => {
@@ -219,7 +217,7 @@ export class TaskService {
         });
       },
       (err: any) => {
-        if (err.status == 0) {
+        if (err.status === 0) {
           alert('Server down');
         } else {
           alert('Error: ' + err.json().message);
@@ -228,7 +226,6 @@ export class TaskService {
       }
     );
   }
-
 
   postTask(name, description, status) {
     console.log('post Task');
@@ -241,7 +238,7 @@ export class TaskService {
         this.tasks.push(responseItem.task);
       },
       (err: any) => {
-        if (err.status == 0) {
+        if (err.status === 0) {
           alert('Server down');
         } else {
           alert('Error: ' + err.json().message);
@@ -252,7 +249,6 @@ export class TaskService {
   }
 
   getTask(id) {
-    console.log('get Task:id');
     this.http.get('http://' + this.server + ':3000/tasks/' + id)
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
@@ -260,20 +256,18 @@ export class TaskService {
           responseItem.statusVal = 'inactive';
           this.tasks.push(responseItem);
         }
-        console.log(responseItem);
       },
       (err: any) => {
-        if (err.status == 0) {
+        if (err.status === 0) {
           alert('Server down');
         } else {
           alert('Error: ' + err.json().message);
-          console.log('Error: ' + err.json().message);
         }
       }
     );
   }
 
-  deleteTask(id,index) {
+  deleteTask(id, index) {
     this.http.delete('http://'+this.server+':3000/tasks/' + id)
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
@@ -281,7 +275,7 @@ export class TaskService {
         console.log(this.tasks);
       },
       (err: any) => {
-        if (err.status == 0) {
+        if (err.status === 0) {
           alert('Server down');
         } else {
           alert('Error: ' + err.json().error);
@@ -344,8 +338,7 @@ export class TaskService {
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem);
-        responseItem.task.statusVal = "inactive";
-        //this.task = responseItem.task;
+        responseItem.task.statusVal = 'inactive';
         this.tasks.forEach((task: any, i ) => {
           if (task._id === id) {
             this.tasks[i] = responseItem.task;
@@ -353,7 +346,7 @@ export class TaskService {
         });
       },
       (err: any) => {
-        if (err.status == 0) {
+        if (err.status === 0) {
           alert('Server down');
         } else {
           alert('Error: ' + err.json().message);
@@ -370,7 +363,7 @@ export class TaskService {
         console.log(responseItem);
       },
       (err: any) => {
-        if (err.status == 0) {
+        if (err.status === 0) {
           alert('Server down');
         } else {
           alert('Error: ' + err.json().message);
