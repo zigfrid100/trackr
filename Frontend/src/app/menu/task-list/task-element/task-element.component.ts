@@ -9,15 +9,16 @@ import { MdDialog } from '@angular/material';
   templateUrl: './task-element.component.html',
   styleUrls: ['./task-element.component.scss']
 })
+
 export class TaskElementComponent implements OnInit {
-  running: boolean = false;
+  running = false;
 
   @Input() task: any;
   @Input() index: any;
   totaltime: any;
   starttime: any;
   endtime: any;
-  pausebtn:any;
+  pausebtn: any;
 
   constructor(private taskService: TaskService, public dialog: MdDialog) {}
   ngOnInit() {
@@ -88,42 +89,42 @@ export class TaskElementComponent implements OnInit {
     this.totaltime = Math.round(this.totaltime / 100) * 100;
     this.task.totaltime = this.totaltime;
   }
-  toActiveStatus(){
-    this.task.statusVal = "active";
+  toActiveStatus() {
+    this.task.statusVal = 'active';
   }
-  toInactiveStatus(){
-    this.task.statusVal = "inactive";
+  toInactiveStatus() {
+    this.task.statusVal = 'inactive';
   }
 
-  pauseOtherTasks(){
-    this.taskService.tasks.forEach((task: any,i)=>{
-     if(this.task._id === task._id){
-      }else{
-        task.interval.forEach((inter:any)=>{
-          if(inter.run){
+  pauseOtherTasks() {
+    this.taskService.tasks.forEach((task: any, i) => {
+     if (this.task._id === task._id) {
+      } else {
+        task.interval.forEach((inter: any) => {
+          if (inter.run) {
             this.taskService.pauseTask(task._id);
           }
-        })
+        });
       }
-    })
+    });
   }
 
-  showTotaltimeTime(){
-    let secs = Math.round(this.totaltime)/1000;
-    var hours = Math.floor(secs / (60 * 60));
+  showTotaltimeTime() {
+    const secs = Math.round(this.totaltime) / 1000;
+    const hours = Math.floor(secs / (60 * 60));
 
-    var divisor_for_minutes = secs % (60 * 60);
-    var minutes = Math.floor(divisor_for_minutes / 60);
+    const divisor_for_minutes = secs % (60 * 60);
+    const minutes = Math.floor(divisor_for_minutes / 60);
 
-    var divisor_for_seconds = divisor_for_minutes % 60;
-    var seconds = Math.ceil(divisor_for_seconds);
+    const divisor_for_seconds = divisor_for_minutes % 60;
+    const seconds = Math.ceil(divisor_for_seconds);
 
-    var obj = {
-      "h": hours,
-      "m": minutes,
-      "s": seconds
+    const obj = {
+      'h': hours,
+      'm': minutes,
+      's': seconds
     };
-    return obj.h +" : " + obj.m +" : " + obj.s;
-  }
 
+    return `${obj.h} : ${obj.m} : ${obj.s}`;
+  }
 }
