@@ -5,7 +5,7 @@
   <div>Name: <input type="text" name="name" [(ngModel)]="task.name">
     <button md-button (click)="save()">Save</button>
   </div>
-  <div>Description: <input type="text" name="description" [(ngModel)]="task.description">
+  <div>Description:
     <textarea rows="4" cols="50" [(ngModel)]="task.description">
 </textarea>
     <button md-button (click)="save">Save</button>
@@ -16,6 +16,7 @@
         {{inter.startDate}} bis {{inter.stopDate}}
       </option>
     </select>
+    <!--<input type="text" name="changes" [(ngModel)]="task.interval[inter_index].changes">-->
     Time: {{intervalTime/1000}}s
   </div>
 
@@ -24,7 +25,7 @@
 </div>
 
 
-<div id="scatter_chart" [chartData]="scatter_ChartData" [chartOptions]="scatter_ChartOptions" chartType="ScatterChart"
+<div id="line_chart" [chartData]="line_ChartData" [chartOptions]="line_ChartOptions" chartType="LineChart"
      GoogleChart></div>
 
 
