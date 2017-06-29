@@ -58,6 +58,4 @@ export class DialogDetailsComponent implements OnInit {
       }while (!selected);
 
   }
-
-
 }
