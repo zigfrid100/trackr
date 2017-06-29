@@ -59,9 +59,5 @@ export class DialogDetailsComponent implements OnInit {
 
   }
 
-  deleteTask(id: string) {
-    if (!id) { return; }
-    this.taskService.deleteTask(id, this.index);
-    this.task.statusVal = "void";
-  }
+
 }
