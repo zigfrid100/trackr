@@ -1,6 +1,13 @@
-<input type="search" id="search" #newTask newTask.value='' placeholder="Tippe hier, um eine Aufgabe zu suchen oder zu erstellen" [(ngModel)]="term">
+<h1>Dashboard</h1>
 
-<button class="plus-create" (click)="postNewTask(newTask.value)" >+Erstellen</button>
+<form id="search-form">
+    <md-input-container class="search-form-input-container">
+      <input mdInput name="term" type="search" id="search" #newTask newTask.value='' placeholder="Tippe hier, um eine Aufgabe zu suchen oder zu erstellen" [(ngModel)]="term">
+    </md-input-container>
+
+    <button md-raised-button color="primary" (click)="postNewTask(newTask.value)" >+ Erstellen</button>
+</form>
+
 <div *ngFor="let task of taskService.tasks |filter:term; index as i">
   <div class="card-float-left">
     <app-task-element [task]="task" [index]="i"></app-task-element>

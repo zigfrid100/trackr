@@ -1,32 +1,47 @@
 <div class="dialog-details">
-  <h1> Details for Task: {{task.name}} </h1>
-  <div>ID: {{task._id}}</div>
+  <h1>Details for Task {{task.name}}</h1>
 
-  <div>Name: <input type="text" name="name" [(ngModel)]="task.name">
-    <button md-button (click)="save()">Save</button>
-  </div>
-  <div>Description:
-    <textarea rows="4" cols="50" [(ngModel)]="task.description">
-</textarea>
-    <button md-button (click)="save">Save</button>
-  </div>
-  <div>
-    <select name="intervalSelction" [(ngModel)]="selectedInterval" (change)="updateTime()">
-      <option *ngFor="let inter of task.interval">
-        {{inter.startDate}} bis {{inter.stopDate}}
-      </option>
-    </select>
-    <!--<input type="text" name="changes" [(ngModel)]="task.interval[inter_index].changes">-->
-    Time: {{intervalTime/1000}}s
-  </div>
+  <p>You've spent {{task.totaltime/1000}}s on this task.</p>
 
-  Totaltime: {{task.totaltime/1000}}s
+  <md-tab-group class="trackr-tab-group">
+    <md-tab>
+      <ng-template md-tab-label>
+        <md-icon class="tab-icon" md-label-icon>list</md-icon> Statistics: Tabular View
+      </ng-template>
+      <md-list>
+        <h3 md-subheader>Intervalle</h3>
+        <md-list-item *ngFor="let inter of task.interval">
+          <md-icon md-label-icon>label</md-icon>
+          {{inter.startDate | date: 'dd.MM.yyyy H:ss'}} bis {{inter.stopDate | date: 'dd.MM.yyyy H:ss'}}
+        </md-list-item>
+      </md-list>
+    </md-tab>
+    <md-tab>
+      <ng-template md-tab-label>
+        <md-icon class="tab-icon" md-label-icon>show_chart</md-icon> Statistics: Chart View
+      </ng-template>
+      <md-list>
+        <h3 md-subheader>Statistics: Chart View</h3>
+        <div id="line_chart" [chartData]="line_ChartData" [chartOptions]="line_ChartOptions" chartType="LineChart" GoogleChart></div>
+      </md-list>
+    </md-tab>
+    <md-tab>
+      <ng-template md-tab-label>
+        <md-icon class="tab-icon" md-label-icon>redo</md-icon> Edit details
+      </ng-template>
+      <h3>Edit details</h3>
+      <md-input-container class="trackr-half-width-container">
+        <input placeholder="Name" mdInput type="text" name="name" [(ngModel)]="task.name">
+      </md-input-container>
+
+      <md-input-container class="trackr-half-width-container">
+        <input placeholder="Description" mdInput type="text" [(ngModel)]="task.description">
+      </md-input-container>
+
+      <div>
+        <button md-button md-raised-button color="primary" (click)="save">Save Task</button>
+      </div>
+    </md-tab>
+  </md-tab-group>
 </div>
-
-
-<div id="line_chart" [chartData]="line_ChartData" [chartOptions]="line_ChartOptions" chartType="LineChart"
-     GoogleChart></div>
-
-<br><br><br>
-<button md-button (click)="dialogRef.close()">Cancel</button>
 

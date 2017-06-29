@@ -9,7 +9,7 @@ import { TaskListComponent } from './task-list/task-list.component';
 import { TaskElementComponent } from './task-list/task-element/task-element.component';
 import { TaskService} from './task.service';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { MdCheckboxModule, MdButtonModule, MdCardModule } from '@angular/material';
+import { MdCheckboxModule, MdButtonModule, MdCardModule, MaterialModule, MdInputModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -39,6 +39,8 @@ const appRoutes: Routes = [
     MdButtonModule,
     MdCheckboxModule,
     MdCardModule,
+    MaterialModule,
+    MdInputModule,
     BrowserAnimationsModule,
     Ng2SearchPipeModule,
     MdDialogModule,
