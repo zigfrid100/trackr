@@ -3,6 +3,7 @@
   <div class="fa fa-play btn btn-default btn-start" aria-hidden="true" *ngIf="startbtn" (click)="start(); startbtn =false; pausebtn=true;"></div>
   <div class="fa fa-pause btn btn-default btn-start" aria-hidden="true" *ngIf="pausebtn" (click)="pause(); startbtn =true; pausebtn=false;"></div>
   <md-card-content class="example-card-content">
+    <p>{{task.description}}</p>
     <p>{{(totaltime)/1000}} s</p>
   </md-card-content>
   <md-card-actions>

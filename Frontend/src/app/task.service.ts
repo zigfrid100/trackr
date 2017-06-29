@@ -28,6 +28,13 @@ export class TaskService {
     this.online.subscribe(status => this.isonline = status);
   }
 
+  private resetData() {
+    this.tasks.length = 0;
+    this.projects.length = 0;
+    this.getTasks();
+    this.getProjects();
+  }
+
   getProjects() {
     console.log('get Project');
     this.http.get('http://' + this.server + ':3000/projects')
@@ -172,6 +179,7 @@ export class TaskService {
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem);
+        this.resetData();
       },
       (err: any) => {
         if (err.status == 0) {
@@ -190,10 +198,7 @@ export class TaskService {
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem);
-        this.tasks.length = 0;
-        this.projects.length = 0;
-        this.getTasks();
-        this.getProjects();
+        this.resetData();
        // window.location.reload(false);
       },
       (err: any) => {
