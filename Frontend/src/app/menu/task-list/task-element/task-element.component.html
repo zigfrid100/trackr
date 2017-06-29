@@ -1,7 +1,7 @@
-<md-card class="example-card">
+<md-card>
   <md-card-title class="example-card-title">{{task.name}}</md-card-title>
-  <div class="fa fa-play btn btn-default btn-start" aria-hidden="true" *ngIf="!running" (click)="start(); running = true;"></div>
-  <div class="fa fa-pause btn btn-default btn-start" aria-hidden="true" *ngIf="running" (click)="pause(); running = false;"></div>
+  <div class="fa fa-play btn btn-default btn-start" aria-hidden="true" *ngIf="!running" (click)="start(); toActiveStatus(); running = true;"></div>
+  <div class="fa fa-pause btn btn-default btn-start" aria-hidden="true" *ngIf="running" (click)="pause(); toInactiveStatus(); running = false;"></div>
   <md-card-content class="example-card-content">
     <p>{{(totaltime)/1000}} s</p>
   </md-card-content>

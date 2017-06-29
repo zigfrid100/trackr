@@ -35,7 +35,7 @@ export class TaskElementComponent implements OnInit {
 
   updateTask () {
     setTimeout(() => {
-      this.task = this.taskService.task;
+      this.task.interval = this.taskService.task.interval;
       console.log('Task updated');
     }, 100);
   }
@@ -85,5 +85,11 @@ export class TaskElementComponent implements OnInit {
       }
     } );
     this.totaltime = Math.round(this.totaltime / 100) * 100;
+  }
+  toActiveStatus(){
+    this.task.statusVal = "active";
+  }
+  toInactiveStatus(){
+    this.task.statusVal = "inactive";
   }
 }
