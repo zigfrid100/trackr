@@ -210,6 +210,11 @@ export class TaskService {
         console.log(responseItems);
         responseItems.forEach((responseItem: any) => {
           responseItem.statusVal = 'inactive';
+          responseItem.interval.forEach((inter:any)=>{
+            if(inter.run){
+              responseItem.statusVal = 'active';
+            }
+          });
           this.tasks.push(responseItem);
         });
       },

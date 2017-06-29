@@ -34,10 +34,8 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 })
 
 export class TaskListComponent implements OnInit {
-  //public tasks: any[];// = [];
 
   constructor(private taskService: TaskService) {
-    //this.tasks = taskService.tasks;
   }
 
   getTasks() {
