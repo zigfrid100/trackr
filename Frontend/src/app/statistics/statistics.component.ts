@@ -5,10 +5,10 @@ import { TaskService } from '../task.service';
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
   styleUrls: ['./statistics.component.css'],
-  providers:[TaskService]
+  providers: [TaskService]
 })
-export class StatisticsComponent implements OnInit {
 
+export class StatisticsComponent implements OnInit {
   public totaltime = 0;
   public pie_ChartData = [['Task', 'Hours per Day']];
   public pie_ChartOptions = {
@@ -22,9 +22,8 @@ export class StatisticsComponent implements OnInit {
   constructor(private taskService: TaskService) {
   }
 
-  getTasks(){
+  getTasks() {
     this.taskService.getTasks();
-    console.log(this.taskService.tasks);
   }
 
   ngOnInit() {
@@ -32,24 +31,23 @@ export class StatisticsComponent implements OnInit {
     this.showChart();
   }
 
-  showChart(){
-    setTimeout(()=>{
-      this.taskService.tasks.forEach((task : any) => {
+  showChart() {
+    setTimeout(() => {
+      this.taskService.tasks.forEach((task: any) => {
+        // FIXME use filter
         task.interval.forEach((inter: any) => {
-          if (inter.stopDate != null && inter.stopDate !== '') {
+          if (inter.stopDate) {
             this.totaltime += Date.parse(inter.stopDate) - Date.parse(inter.startDate);
           }
         });
-        this.totaltime = this.totaltime/1000/60;
-        this.pie_ChartData.push([task.name,this.totaltime]);
+        this.totaltime = this.totaltime / 1000 / 60;
+        this.pie_ChartData.push([task.name, this.totaltime]);
         this.totaltime = 0;
       });
-    },500);
+    }, 500);
   }
 
-  showUsedTime(){
-    let date = new Date(null, null, null, 0, 0, 1233);
-    console.log("Minutes: ",date.getMinutes());
+  showUsedTime() {
+    const date = new Date(null, null, null, 0, 0, 1233);
   }
-
 }
