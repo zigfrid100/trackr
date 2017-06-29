@@ -209,7 +209,7 @@ export class TaskService {
       (responseItems: any[]) => {
         console.log(responseItems);
         responseItems.forEach((responseItem: any) => {
-          responseItem.statusVal = 'active';
+          responseItem.statusVal = 'inactive';
           this.tasks.push(responseItem);
         });
       },
@@ -231,6 +231,7 @@ export class TaskService {
     this.http.post('http://' + this.server + ':3000/tasks', {name, description, status}, headers)
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
+        responseItem.task.statusVal = 'inactive';
         console.log(responseItem.task);
         this.tasks.push(responseItem.task);
       },
@@ -251,7 +252,7 @@ export class TaskService {
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         if (responseItem != null) {
-          responseItem.statusVal = 'active';
+          responseItem.statusVal = 'inactive';
           this.tasks.push(responseItem);
         }
         console.log(responseItem);
@@ -267,19 +268,18 @@ export class TaskService {
     );
   }
 
-  deleteTask(id) {
-    console.log('delete Task:id');
-    this.http.delete('http://' + this.server + ':3000/tasks/' + id)
+  deleteTask(id,index) {
+    this.http.delete('http://'+this.server+':3000/tasks/' + id)
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
-        console.log(responseItem);
+        this.tasks.splice(index,1);
+        console.log(this.tasks);
       },
       (err: any) => {
         if (err.status == 0) {
           alert('Server down');
         } else {
           alert('Error: ' + err.json().error);
-          console.log('Error: ' + err.json().error);
         }
       }
     );
@@ -310,8 +310,9 @@ export class TaskService {
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem);
+        responseItem.task.statusVal = 'active';
         this.task = responseItem.task;
-        this.tasks.forEach((task: any) => {
+        this.tasks.forEach((task: any,i) => {
           if (task._id === id) {
             console.log('service');
             console.log(task);
@@ -338,10 +339,11 @@ export class TaskService {
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem);
-        this.task = responseItem.task;
-        this.tasks.forEach((task: any) => {
+        responseItem.task.statusVal = "inactive";
+        //this.task = responseItem.task;
+        this.tasks.forEach((task: any, i ) => {
           if (task._id === id) {
-            task = responseItem.task;
+            this.tasks[i] = responseItem.task;
           }
         });
       },
@@ -352,8 +354,7 @@ export class TaskService {
           alert('Error: ' + err.json().message);
           console.log('Error: ' + err.json().message);
         }
-      }
-    );
+      });
   }
 
   stopTask(id) {
@@ -373,5 +374,4 @@ export class TaskService {
       }
     );
   }
-
 }

@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
-import {TaskService} from '../../../task.service';
+import { TaskService } from '../../../task.service';
+import { TaskListComponent } from '../task-list.component';
 
 @Component({
   selector: 'app-dialog-details',
   templateUrl: './dialog-details.component.html',
-  styleUrls: ['./dialog-details.component.css']
+  styleUrls: ['./dialog-details.component.css'],
+  providers: [ TaskService, TaskListComponent ]
 })
-export class DialogDetailsComponent implements OnInit {
 
+export class DialogDetailsComponent implements OnInit {
   task: any;
   time: any;
   inter_index: any;
@@ -20,7 +22,10 @@ export class DialogDetailsComponent implements OnInit {
     title: 'Task Statistics',
   };
 
-  constructor(private taskService: TaskService, public dialogRef: MdDialogRef<DialogDetailsComponent>) { }
+  constructor(
+    public dialogRef: MdDialogRef<DialogDetailsComponent>,
+    public taskService: TaskService,
+  ) {}
 
   ngOnInit() {
     this.inter_index = 0;
@@ -54,5 +59,9 @@ export class DialogDetailsComponent implements OnInit {
 
   }
 
-
+  deleteTask(id: string) {
+    if (!id) { return; }
+    this.taskService.deleteTask(id, this.index);
+    this.task.statusVal = "void";
+  }
 }

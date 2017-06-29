@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../task.service';
-import { trigger, state, style } from '@angular/animations';
+import {  trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-task-list',
@@ -8,23 +8,37 @@ import { trigger, state, style } from '@angular/animations';
   styleUrls: ['./task-list.component.css'],
   providers:[TaskService],
   animations: [
-    trigger('projectState', [
+    trigger('taskState', [
       state('inactive', style({
-        transform: 'scale(0)',
-        display: 'none'
+        backgroundColor: '#cfd8dc',
+        width: '300px',
+        height: '200px',
+        margin: '30px 30px 30px 30px',
+        transform: 'scale(1.0)',
       })),
       state('active',   style({
-        transform: 'scale(1)'
+        backgroundColor: '#FF650F',
+        width: '300px',
+        height: '200px',
+        margin: '30px 30px 30px 30px',
+        transform: 'scale(1.2)',
       })),
+      state('void',style({
+        transform: 'scale(1)',
+        display: 'none'
+      })),
+      transition('inactive => active', animate(1000)),
+      transition('active => inactive', animate(1000)),
     ])
   ]
 })
 export class TaskListComponent implements OnInit {
 
-  private tasks: any[];// = [];
+  //public tasks: any[];// = [];
 
   constructor(private taskService: TaskService) {
-    this.tasks = taskService.tasks;
+    //this.tasks = taskService.tasks;
+
   }
 
   getTasks(){
@@ -33,13 +47,6 @@ export class TaskListComponent implements OnInit {
 
   postNewTask(name: string) {
     this.taskService.postTask(name, 'empty', 2);
-    //location.reload();
-  }
-
-  deleteTask(pos: number, id: string) {
-    if (!id) { return; }
-    this.taskService.deleteTask(id);
-    this.tasks.splice(pos, 1);
   }
 
   ngOnInit() {

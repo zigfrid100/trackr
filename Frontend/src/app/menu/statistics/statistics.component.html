@@ -1,3 +1,11 @@
-<p class="statistic-data">
-  statistics works!
-</p>
+<table class="table table-hover">
+  <p>You have {{taskService.tasks.length}} Tasks.</p>
+  <tr *ngFor="let task of taskService.tasks;index as i">
+    <td> Task {{i+1}}: {{task.name}}</td>
+  </tr>
+</table>
+
+<br><br>
+<div >
+  <div id="pie_chart" [chartData]="pie_ChartData" [chartOptions] = "pie_ChartOptions" chartType="PieChart" GoogleChart></div>
+</div>

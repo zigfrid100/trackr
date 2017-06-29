@@ -34,10 +34,6 @@ const TaskSchema = new Schema({
         type: String,
         required: false
     },
-    status: {
-        type: Number,
-        required: false
-    },
     runPauseStop: {
         type: Number,
         required: false
