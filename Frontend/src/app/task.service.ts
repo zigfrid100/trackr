@@ -285,10 +285,10 @@ export class TaskService {
     );
   }
 
-  putTask(id, name, description, runPauseStop) {
+  putTask(id, name, description, status) {
     console.log('post Task');
     const headers = new Headers({'Content-Type': 'application/json'});
-    this.http.put('http://' + this.server + ':3000/tasks/' + id, {name, description, runPauseStop}, headers)
+    this.http.put('http://' + this.server + ':3000/tasks/' + id, {name, description, status}, headers)
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem);
