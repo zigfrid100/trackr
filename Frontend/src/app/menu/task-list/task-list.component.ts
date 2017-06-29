@@ -27,8 +27,8 @@ import {  trigger, state, style, animate, transition } from '@angular/animations
         transform: 'scale(1)',
         display: 'none'
       })),
-      transition('inactive => active', animate('1000ms ease-in')),
-      transition('active => inactive', animate('1000ms ease-out')),
+      transition('inactive => active', animate(1000)),
+      transition('active => inactive', animate(1000)),
     ])
   ]
 })
@@ -47,18 +47,10 @@ export class TaskListComponent implements OnInit {
 
   postNewTask(name: string) {
     this.taskService.postTask(name, 'empty', 2);
-    //location.reload();
-  }
-
-  deleteTask(pos: number, id: string) {
-    if (!id) { return; }
-    this.taskService.deleteTask(id,pos);
-    //this.tasks.splice(pos, 1);
   }
 
   ngOnInit() {
     this.getTasks();
-    console.log(this.taskService.tasks[0]);
   }
 
 }

@@ -31,6 +31,7 @@ export class TaskElementComponent implements OnInit {
     this.pausebtn = true;
     this.updateTask();
     this.timer();
+    this.pauseOtherTasks();
   }
 
   updateTask () {
@@ -92,4 +93,18 @@ export class TaskElementComponent implements OnInit {
   toInactiveStatus(){
     this.task.statusVal = "inactive";
   }
+
+  pauseOtherTasks(){
+    this.taskService.tasks.forEach((task: any,i)=>{
+     if(this.task._id === task._id){
+      }else{
+        task.interval.forEach((inter:any)=>{
+          if(inter.run){
+            this.taskService.pauseTask(task._id);
+          }
+        })
+      }
+    })
+  }
+
 }
