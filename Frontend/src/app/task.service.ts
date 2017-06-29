@@ -209,7 +209,7 @@ export class TaskService {
       (responseItems: any[]) => {
         console.log(responseItems);
         responseItems.forEach((responseItem: any) => {
-          responseItem.statusVal = 'active';
+          responseItem.statusVal = 'inactive';
           this.tasks.push(responseItem);
         });
       },
@@ -231,6 +231,7 @@ export class TaskService {
     this.http.post('http://' + this.server + ':3000/tasks', {name, description, status}, headers)
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
+        responseItem.task.statusVal = 'inactive';
         console.log(responseItem.task);
         this.tasks.push(responseItem.task);
       },
@@ -251,7 +252,7 @@ export class TaskService {
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         if (responseItem != null) {
-          responseItem.statusVal = 'active';
+          responseItem.statusVal = 'inactive';
           this.tasks.push(responseItem);
         }
         console.log(responseItem);
