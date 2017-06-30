@@ -44,7 +44,12 @@ exports.deleteTask = (req, res) => {
             if(task.project != undefined) {
                 projectModel.findById(task.project)
                     .then(project => {
-                        Object.assign(project, project.tasks.pop(task)).save();
+                        for(let i = 0; i < project.tasks.length; i++) {
+                            if(JSON.stringify(project.tasks[i]) === JSON.stringify(task._id)) {
+                                project.tasks.splice(i, 1);
+                                break;
+                            }
+                        }
                     })
                     .catch(err => {
                         res.status(400)
