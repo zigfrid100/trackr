@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { trigger, state, style } from '@angular/animations';
-import {TaskService} from "../../../task.service";
+import {TaskService} from "./../../task.service";
 
 @Component({
   selector: 'app-project-element',
@@ -22,7 +22,7 @@ export class ProjectElementComponent implements OnInit {
   @Input() project: any;
   @Input() tasks: any[];// = [];
 
-  showTasks: boolean = false;4
+  showTasks: boolean = false;
   addTasks: boolean = false;
 
   private taskId: string;

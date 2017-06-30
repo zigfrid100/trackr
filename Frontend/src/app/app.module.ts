@@ -16,7 +16,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MdDialogModule } from '@angular/material';
 import { DialogDetailsComponent } from './task-list/dialog-details/dialog-details.component';
 import { GoogleChart } from 'angular2-google-chart/directives/angular2-google-chart.directive';
-import { ProjectElementComponent } from './menu/task-list/project-element/project-element.component';
+import { ProjectElementComponent } from './task-list/project-element/project-element.component';
 
 const appRoutes: Routes = [
   { path: 'task-list', component: TaskListComponent },

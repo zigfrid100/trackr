@@ -155,4 +155,12 @@ export class TaskElementComponent implements OnInit {
 
     return `${obj.h}:${obj.m}:${obj.s}`;
   }
+
+  deleteTask() {
+    this.taskService.deleteTask(this.task._id);
+  }
+
+  removeFromProject() {
+    this.taskService.removeTaskFromProject(this.task.project,this.task._id);
+  }
 }

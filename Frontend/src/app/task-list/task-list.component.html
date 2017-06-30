@@ -8,8 +8,21 @@
     <button md-raised-button color="primary" (click)="postNewTask(newTask.value)" >+ Erstellen</button>
 </form>
 
-<div *ngFor="let task of taskService.tasks |filter:term; index as i">
-  <div class="card-float-left">
-    <app-task-element [task]="task" [index]="i"></app-task-element>
+<div class="col-md-12 col-sm-12 col-xs-12 no-project">
+  <h2>Your projects</h2>
+  <div *ngFor="let project of taskService.projects |filter:term; index as i">
+    <div class="card-float-left" [@projectState]="project.statusVal">
+      <app-project-element [project]="project" [tasks]="taskService.tasks" ></app-project-element>
+    </div>
+  </div>
+</div>
+
+
+<div class="col-md-12 col-sm-12 col-xs-12 no-project">
+  <h2>Tasks without projects</h2>
+  <div *ngFor="let task of taskService.tasks |filter:term; index as i">
+    <div class="card-float-left" [@projectState]="task.statusVal">
+      <app-task-element [task]="task" ></app-task-element>
+    </div>
   </div>
 </div>

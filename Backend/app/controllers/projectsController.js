@@ -93,7 +93,6 @@ exports.addTask = (req, res) => {
                             .then(project => {
                                 Object.assign(task, task.project = project._id).save()
                                     .then(task => {
-                                        console.log("task.project: " + task);
                                     })
                                     .catch(err => {
                                         res.status(400)
@@ -120,22 +119,30 @@ exports.addTask = (req, res) => {
 };
 
 exports.removeTask = (req, res) => {
+    let j = 0;
     projectModel.findById(req.params.id)
-        .then( project => {
+        .then(project => {
             taskModel.findById(req.params.taskid)
                 .then (task => {
                     let exists = false;
+                    let index;
                     for (let i=0; i<project.tasks.length; i++) {
                         if(task != null && JSON.stringify(project.tasks[i]) === JSON.stringify(task._id)) {
                             exists = true;
+                            index = i;
+                            break;
                         } else {
-                            exists = false;                        }
+                            exists = false;
+                        }
                     }
                     if(exists) {
-                        Object.assign(project, project.tasks.pop(task)).save()
+                          project.tasks.splice(index, 1);
+                        project.save()
                             .then(project => {
-                                Object.assign(task, task.project = undefined).save()
+                                task.project = undefined;
+                                task.save()
                                 .then(task => {
+                                    console.log("task: " + task);
                                 })
                                 .catch(err => {
                                     res.status(400)

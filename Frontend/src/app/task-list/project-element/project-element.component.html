@@ -11,8 +11,8 @@
     </div>
     <div *ngIf="addTasks == true">
       <div *ngFor="let task of tasks |filter:term; index as i">
-        <input type="radio" id="{{task._id}}" name="tasks" value="{{task._id}}" [(ngModel)]="taskId">
-        <label for="{{task._id}}"> {{task.name}}</label>
+          <input type="radio" id="{{task._id}}" name="tasks" value="{{task._id}}" [(ngModel)]="taskId">
+        <label for="{{task._id}}">{{task.name}}</label>
       </div>
       <button md-raised-button md-button class="example-card-button" (click)="addTask()" >add Tak</button>
     </div>

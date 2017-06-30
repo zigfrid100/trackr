@@ -277,11 +277,11 @@ export class TaskService {
     );
   }
 
-  deleteTask(id, index) {
+  deleteTask(id) {
     this.http.delete('http://'+this.server+':3000/tasks/' + id)
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
-        this.tasks.splice(index,1);
+        //this.tasks.splice(index,1);
         console.log(this.tasks);
         console.log(responseItem);
         this.resetData();
