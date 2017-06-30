@@ -283,6 +283,7 @@ export class TaskService {
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         console.log(responseItem);
+        this.resetData();
       },
       (err: any) => {
         if (err.status == 0) {

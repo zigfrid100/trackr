@@ -13,3 +13,8 @@
   padding-left: 0;
 }
 
+i {
+  cursor: pointer;
+  float: right;
+}
+

@@ -1,5 +1,11 @@
 <md-card class="example-card">
-  <md-card-title class="example-card-title">{{task.name}}</md-card-title>
+  <md-card-title class="example-card-title">{{task.name}}
+    <md-card-actions>
+      <i class="material-icons" (click)="deleteTask()" title="delete this task">delete</i>
+      <i class="material-icons" (click)="showJokeEdit = !showJokeEdit" title="edit task">border_color</i>
+      <i class="material-icons" (click)="openDetails()" title="show task detail">info</i>
+    </md-card-actions>
+  </md-card-title>
   <div class="fa fa-play btn btn-default btn-start" aria-hidden="true" *ngIf="startbtn" (click)="start(); startbtn =false; pausebtn=true;"></div>
   <div class="fa fa-pause btn btn-default btn-start" aria-hidden="true" *ngIf="pausebtn" (click)="pause(); startbtn =true; pausebtn=false;"></div>
   <md-card-content class="example-card-content">
@@ -11,3 +17,4 @@
     <button *ngIf="task.project != undefined" md-raised-button md-button class="example-card-button" (click)="removeFromProject()" >Remove from project</button>
   </md-card-actions>
 </md-card>
+

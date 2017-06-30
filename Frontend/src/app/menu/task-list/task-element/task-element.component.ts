@@ -64,6 +64,9 @@ export class TaskElementComponent implements OnInit {
     this.taskService.removeTaskFromProject(this.task.project,this.task._id);
   }
 
+
+
+
   isRunning() {
     for (const i of this.task.interval) {
       if (i.run) {
@@ -96,4 +99,7 @@ export class TaskElementComponent implements OnInit {
     this.task.totaltime = this.totaltime;
   }
 
+  deleteTask() {
+    this.taskService.deleteTask(this.task._id);
+  }
 }

@@ -136,7 +136,6 @@ exports.removeTask = (req, res) => {
                             .then(project => {
                                 Object.assign(task, task.project = undefined).save()
                                 .then(task => {
-                                    console.log("task.project: " + task);
                                 })
                                 .catch(err => {
                                     res.status(400)

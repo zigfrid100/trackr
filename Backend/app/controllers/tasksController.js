@@ -1,4 +1,5 @@
 const taskModel = require('./../models/task');
+const projectModel = require('./../models/project');
 
 exports.getTasks = (req, res) => {
     taskModel.find({project: undefined})
@@ -39,7 +40,17 @@ exports.getTask = (req, res) => {
 
 exports.deleteTask = (req, res) => {
     taskModel.findByIdAndRemove(req.params.id)
-        .then(() => {
+        .then(task => {
+            if(task.project != undefined) {
+                projectModel.findById(task.project)
+                    .then(project => {
+                        Object.assign(project, project.tasks.pop(task)).save();
+                    })
+                    .catch(err => {
+                        res.status(400)
+                            .send(err);
+                    });
+            }
             res.status(200)
                 .json({message: "Task successfully deleted!"});
         })
