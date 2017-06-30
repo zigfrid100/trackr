@@ -2,3 +2,22 @@
 * {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+.mat-card {
+  margin: 1em 1em 1em 1em;
+}
+.mat-card-content {
+  margin-bottom: 0.3em !important;
+}
+
+.no-project {
+  margin: 2em 2em 2em 2em;
+  padding-left: 0;
+}
+
+i {
+  cursor: pointer;
+  float: right;
+}
+

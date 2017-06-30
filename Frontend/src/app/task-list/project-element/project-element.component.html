@@ -1,0 +1,24 @@
+<md-card class="example-card">
+  <md-card-title class="example-card-title">{{project.name}}</md-card-title>
+  <md-card-content class="example-card-content">
+    <p>{{project.description}}</p>
+    <div *ngIf="showTasks == true">
+      <div *ngFor="let task of project.tasks |filter:term; index as i">
+        <div class="card-float-left" [@projectState]="task.statusVal">
+          <app-task-element [task]="task" ></app-task-element>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="addTasks == true">
+      <div *ngFor="let task of tasks |filter:term; index as i">
+          <input type="radio" id="{{task._id}}" name="tasks" value="{{task._id}}" [(ngModel)]="taskId">
+        <label for="{{task._id}}">{{task.name}}</label>
+      </div>
+      <button md-raised-button md-button class="example-card-button" (click)="addTask()" >add Tak</button>
+    </div>
+  </md-card-content>
+  <md-card-actions>
+    <button *ngIf="tasks.length > 0" md-raised-button md-button class="example-card-button" (click)="addTasks = !addTasks" >add Taks</button>
+    <button *ngIf="project.tasks.length > 0" md-raised-button md-button class="example-card-button" (click)="showTasks = !showTasks" >show Taks</button>
+  </md-card-actions>
+</md-card>
