@@ -25,6 +25,17 @@ const IntervalSchema = new Schema({
     }
 });
 
+/**
+ * Get the duration of an interval in seconds.
+ */
+IntervalSchema.methods.getDuration = function() {
+    if(!this.startDate || !this.stopDate) {
+        return 0;
+    }
+
+    return (this.stopDate.getTime() - this.startDate.getTime()) / 1000;
+}
+
 // Defining schema for the model Task
 const TaskSchema = new Schema({
     name: {
@@ -44,16 +55,42 @@ const TaskSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Project',
         required: false
+    },
+    total: {
+        type: Number,
+        required: false
     }
 });
 
+/**
+ * Remove to be deleted task reference from projects.
+ */
 TaskSchema.pre('remove', (next) => {
     Project.update(
-        { projects: self._id },
-        { $pull: { projects: self._id } },
+        { projects: this._id },
+        { $pull: { projects: this._id } },
         { multi: true },
         next
     )
+});
+
+/**
+ * Calculate the total time by summing up all interval times.
+ */
+TaskSchema.pre('save', function(next) {
+    if(!this.interval) {
+        self.total = 0;
+    } else {
+        total = 0;
+
+        for(const interval of this.interval) {
+            total += interval.getDuration();
+        }
+
+        this.total = total;
+    }
+
+    next();
 });
 
 // Registering a model Task with given mongoose schema
