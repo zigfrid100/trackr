@@ -39,11 +39,8 @@ export class StatisticsComponent implements OnInit {
   showChart() {
     setTimeout(() => {
       this.apiService.tasks.forEach((task: any) => {
-        // FIXME use filter
-        task.interval.forEach((inter: any) => {
-          if (inter.stopDate) {
-            this.totaltime += Date.parse(inter.stopDate) - Date.parse(inter.startDate);
-          }
+        task.interval.filter((inter) => inter.stopDate).forEach((inter: any) => {
+          this.totaltime += Date.parse(inter.stopDate) - Date.parse(inter.startDate);
         });
         this.totaltime = this.totaltime / 1000 / 60;
         this.pie_ChartData.push([task.name, this.totaltime]);
