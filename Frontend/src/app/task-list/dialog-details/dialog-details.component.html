@@ -1,7 +1,7 @@
 <div class="dialog-details">
   <h1>Details for Task {{task.name}}</h1>
 
-  <p>You've spent {{task.totaltime/1000}}s on this task.</p>
+  <p>You've spent {{task.total | duration}} on this task.</p>
 
   <md-tab-group class="trackr-tab-group">
     <md-tab>

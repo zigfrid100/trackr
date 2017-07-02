@@ -21,6 +21,7 @@
             <md-icon md-label-icon>label</md-icon>
             <h4 md-line>{{task.name}}</h4>
             <p md-line>{{task.description || 'No description'}}</p>
+            <p md-line>{{task.total | duration}}</p>
           </md-list-item>
           <md-divider></md-divider>
           <h3 md-subheader>Projects</h3>
