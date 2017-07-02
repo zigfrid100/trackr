@@ -232,6 +232,12 @@ export class ApiService {
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  public getProjectsForTask(id): Observable<any> {
+    return this.http.get(`http://${this.server}:3000/tasks/${id}/projects`)
+      .map(response => response.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
   public deleteTask(id) {
     this.http.delete(`http://${this.server}:3000/tasks/${id}`)
       .map(response => response.json()).subscribe(

@@ -33,6 +33,16 @@ exports.getTask = (req, res) => {
         });
 };
 
+exports.getProjects = (req, res) => {
+    projectModel.find({ tasks: req.params.id })
+        .then(projects => {
+            res.status(200).json(projects);
+        })
+        .catch(err => {
+            res.status(404).send(err);
+        })
+};
+
 exports.deleteTask = (req, res) => {
     taskModel.findByIdAndRemove(req.params.id)
         .then(task => {

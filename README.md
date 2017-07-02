@@ -54,6 +54,7 @@ Run `npm run test` from the `/Backend` directory.
 |--------|-----------------|---------------------------|----------------------------------------------------------------------------------------|
 | GET    | /tasks        |                           | Returns a list of all tasks                                                        |
 | GET    | /tasks/:id    |                           | Returns a particular task                                                          |
+| GET    | /tasks/:id/projects    |                           | Returns all projects for a task                                           |
 | DELETE | /tasks/:id    |                           | Deletes an existing task                                                           |
 | POST   | /tasks        | { name: STRING, description: STRING } | Adds a new task                                                        |
 | PUT    | /tasks/:id    | { name: STRING, description: STRING } | Updates an existing task                                               |

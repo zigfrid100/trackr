@@ -3,6 +3,7 @@ import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ApiService } from '../../api.service';
 import { TaskListComponent } from '../task-list.component';
 import { DurationPipe } from '../../duration.pipe';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-dialog-details',
@@ -13,6 +14,7 @@ import { DurationPipe } from '../../duration.pipe';
 
 export class DialogDetailsComponent implements OnInit {
   task: any;
+  projects: any[] = [];
   time: any;
   inter_index: any;
   selectedInterval: any;
@@ -26,8 +28,9 @@ export class DialogDetailsComponent implements OnInit {
   };
 
   constructor(
-    public dialogRef: MdDialogRef<DialogDetailsComponent>,
-    public apiService: ApiService,
+    private dialogRef: MdDialogRef<DialogDetailsComponent>,
+    private apiService: ApiService,
+    private notifications: NotificationsService
   ) {}
 
   ngOnInit() {
@@ -41,9 +44,21 @@ export class DialogDetailsComponent implements OnInit {
       time += ((Date.parse(inter.stopDate) - Date.parse(inter.startDate)) / 1000) / 60;
       this.line_ChartData.push([new Date(inter.stopDate), time]);
     });
+
+    this.loadProjects();
   }
 
-  save() {
+  public save() {
     this.apiService.putTask(this.task._id, this.task.name, this.task.description, this.task.runPauseStop);
+  }
+
+  private loadProjects() {
+    this.apiService.getProjectsForTask(this.task._id)
+      .subscribe(
+        projects => {
+          this.projects = projects;
+        },
+        err => this.notifications.error('Error', err.error)
+      );
   }
 }

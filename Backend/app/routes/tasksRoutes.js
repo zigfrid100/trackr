@@ -18,4 +18,7 @@ router.route('/:id')
     .delete(tasksController.deleteTask)
     .put(tasksController.putTask);
 
+router.route('/:id/projects')
+    .get(tasksController.getProjects)
+
 module.exports = router;
