@@ -15,9 +15,9 @@
 <div class="row">
   <div class="col-md-12">
     <h2>Your Projects</h2>
-    <div *ngFor="let project of taskService.projects | filter:term; index as i">
+    <div *ngFor="let project of apiService.projects | filter:term; index as i">
       <div class="card-float-left">
-        <app-project-element [project]="project" [tasks]="taskService.tasks"></app-project-element>
+        <app-project-element [project]="project" [tasks]="apiService.tasks"></app-project-element>
       </div>
     </div>
   </div>

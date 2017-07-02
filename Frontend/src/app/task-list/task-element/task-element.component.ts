@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TaskService } from '../../task.service';
+import { ApiService } from '../../api.service';
 import { DialogDetailsComponent } from '../dialog-details/dialog-details.component';
 import { MdDialog } from '@angular/material';
 import { trigger, state, style, animate, transition } from '@angular/animations';
@@ -36,7 +36,7 @@ export class TaskElementComponent implements OnInit {
   endtime: any;
 
   constructor(
-    private taskService: TaskService, public dialog: MdDialog
+    private apiService: ApiService, public dialog: MdDialog
   ) {}
 
   ngOnInit() {
@@ -53,7 +53,7 @@ export class TaskElementComponent implements OnInit {
 
   start() {
     this.toActiveStatus();
-    this.taskService.startTask(this.task._id, ' ');
+    this.apiService.startTask(this.task._id, ' ');
     this.running = true;
     this.updateTask();
     this.timer();
@@ -62,7 +62,7 @@ export class TaskElementComponent implements OnInit {
 
   pause() {
     this.toInactiveStatus();
-    this.taskService.pauseTask(this.task._id);
+    this.apiService.pauseTask(this.task._id);
     this.running = false;
     setTimeout(() => {
       this.updateTask();
@@ -72,7 +72,7 @@ export class TaskElementComponent implements OnInit {
 
   updateTask() {
     setTimeout(() => {
-      this.task.interval = this.taskService.task.interval;
+      this.task.interval = this.apiService.task.interval;
     }, 100);
   }
 
@@ -83,10 +83,6 @@ export class TaskElementComponent implements OnInit {
         this.timer();
       }, 100);
     }
-  }
-
-  stop() {
-    this.taskService.stopTask(this.task._id);
   }
 
   isRunning() {
@@ -126,11 +122,11 @@ export class TaskElementComponent implements OnInit {
 
   // FIXME use filter and map instead
   pauseOtherTasks() {
-    this.taskService.tasks.forEach((task: any, i) => {
+    this.apiService.tasks.forEach((task: any, i) => {
       if (this.task._id !== task._id) {
         task.interval.forEach((inter: any) => {
           if (inter.run) {
-            this.taskService.pauseTask(task._id);
+            this.apiService.pauseTask(task._id);
           }
         });
        }
@@ -157,10 +153,10 @@ export class TaskElementComponent implements OnInit {
   }
 
   deleteTask() {
-    this.taskService.deleteTask(this.task._id);
+    this.apiService.deleteTask(this.task._id);
   }
 
   removeFromProject() {
-    this.taskService.removeTaskFromProject(this.task.project,this.task._id);
+    this.apiService.removeTaskFromProject(this.task.project, this.task._id);
   }
 }

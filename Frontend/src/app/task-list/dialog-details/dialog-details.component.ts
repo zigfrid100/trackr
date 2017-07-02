@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
-import { TaskService } from '../../task.service';
+import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { ApiService } from '../../api.service';
 import { TaskListComponent } from '../task-list.component';
 
 @Component({
   selector: 'app-dialog-details',
   templateUrl: './dialog-details.component.html',
   styleUrls: ['./dialog-details.component.scss'],
-  providers: [ TaskService, TaskListComponent ]
+  providers: [ ApiService, TaskListComponent ]
 })
 
 export class DialogDetailsComponent implements OnInit {
@@ -24,7 +24,7 @@ export class DialogDetailsComponent implements OnInit {
 
   constructor(
     public dialogRef: MdDialogRef<DialogDetailsComponent>,
-    public taskService: TaskService,
+    public apiService: ApiService,
   ) {}
 
   ngOnInit() {
@@ -42,7 +42,7 @@ export class DialogDetailsComponent implements OnInit {
   }
 
   save() {
-    this.taskService.putTask(this.task._id, this.task.name, this.task.description, this.task.runPauseStop);
+    this.apiService.putTask(this.task._id, this.task.name, this.task.description, this.task.runPauseStop);
   }
 
   updateTime() {
