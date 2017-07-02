@@ -3,6 +3,7 @@ import { ApiService } from '../../api.service';
 import { DialogDetailsComponent } from '../dialog-details/dialog-details.component';
 import { MdDialog } from '@angular/material';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-task-element',
@@ -37,25 +38,24 @@ export class TaskElementComponent implements OnInit {
 
   constructor(
     private apiService: ApiService,
-    private dialog: MdDialog
+    private dialog: MdDialog,
+    private notifications: NotificationsService
   ) {}
 
   ngOnInit() {
     this.calculateTotalTime();
     this.running = this.isRunning();
     setTimeout(() => {
-      this.task.interval.forEach((inter: any) => {
-        if (inter.run) {
-          this.start();
-        }
-      });
+      if (this.task.interval.filter((interval) => interval.run).length > 0) {
+        this.toActiveStatus();
+        this.timer();
+      }
     }, 100);
   }
 
   start() {
     this.toActiveStatus();
     this.apiService.startTask(this.task._id, ' ');
-    this.running = true;
     this.updateTask();
     this.timer();
     this.pauseOtherTasks();
@@ -64,7 +64,6 @@ export class TaskElementComponent implements OnInit {
   pause() {
     this.toInactiveStatus();
     this.apiService.pauseTask(this.task._id);
-    this.running = false;
     setTimeout(() => {
       this.updateTask();
       this.calculateTotalTime();
@@ -73,7 +72,11 @@ export class TaskElementComponent implements OnInit {
 
   updateTask() {
     setTimeout(() => {
-      this.task.interval = this.apiService.task.interval;
+      this.apiService.getTask(this.task._id)
+        .subscribe(
+          task => this.task.interval = task.interval,
+          err => this.notifications.error('Error', err.error)
+        );
     }, 100);
   }
 
@@ -99,14 +102,14 @@ export class TaskElementComponent implements OnInit {
   calculateTotalTime() {
     this.totaltime = Date.now() - Date.now();
     this.task.interval.forEach((inter: any) => {
-      if (inter.stopDate != null && inter.stopDate !== '') {
+      if (inter.stopDate) {
         this.totaltime += Date.parse(inter.stopDate) - Date.parse(inter.startDate);
-      }else {
+      } else {
         inter.stopDate = Date.now();
         this.totaltime += inter.stopDate - Date.parse(inter.startDate);
         inter.stopDate = null;
       }
-    } );
+    });
     this.totaltime = Math.round(this.totaltime / 100) * 100;
     this.task.totaltime = this.totaltime;
   }
@@ -121,14 +124,11 @@ export class TaskElementComponent implements OnInit {
     this.task.statusVal = 'inactive';
   }
 
-  // FIXME use filter and map instead
   pauseOtherTasks() {
-    this.apiService.tasks.forEach((task: any, i) => {
+    this.apiService.tasks.forEach((task: any) => {
       if (this.task._id !== task._id) {
-        task.interval.forEach((inter: any) => {
-          if (inter.run) {
-            this.apiService.pauseTask(task._id);
-          }
+        task.interval.filter((interval) => interval.run).forEach((inter: any) => {
+          this.apiService.pauseTask(task._id);
         });
        }
     });

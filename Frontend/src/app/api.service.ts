@@ -184,6 +184,8 @@ export class ApiService {
   }
 
   getTasks() {
+    this.tasks = [];
+
     this.http.get(`http://${this.server}:3000/tasks/`)
       .map(response => response.json()).subscribe(
         (responseItems: any[]) => {
@@ -224,23 +226,10 @@ export class ApiService {
     );
   }
 
-  getTask(id) {
-    this.http.get(`http://${this.server}:3000/tasks/${id}`)
-      .map(response => response.json()).subscribe(
-        (responseItem: any) => {
-          if (responseItem) {
-            responseItem.statusVal = 'inactive';
-            this.tasks.push(responseItem);
-          }
-        },
-        (err: any) => {
-          if (err.status === 0) {
-            this.alertServerDown();
-          } else {
-            this.alertOther(err.json().error);
-          }
-        }
-    );
+  getTask(id): Observable<any> {
+    return this.http.get(`http://${this.server}:3000/tasks/${id}`)
+      .map(response => response.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   deleteTask(id) {
@@ -299,10 +288,7 @@ export class ApiService {
     this.http.put(`http://${this.server}:3000/tasks/${id}/pause`, {})
       .map(response => response.json()).subscribe(
         (responseItem: any) => {
-          responseItem.task.statusVal = 'inactive';
-          this.tasks.filter((task) => task._id === id).forEach((task: any, i) => {
-            this.tasks[i] = responseItem.task;
-          });
+          this.getTasks();
           this.notifications.info(`${responseItem.task.name} paused`, 'The Task is now paused.');
         },
         (err: any) => {
