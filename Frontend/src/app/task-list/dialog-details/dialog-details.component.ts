@@ -44,22 +44,4 @@ export class DialogDetailsComponent implements OnInit {
   save() {
     this.apiService.putTask(this.task._id, this.task.name, this.task.description, this.task.runPauseStop);
   }
-
-  updateTime() {
-    this.inter_index = 0;
-    this.intervalTime = Date.now() - Date.now();
-    this.intervalTime = Date.parse(this.selectedInterval.split(' bis ')[1]) - Date.parse(this.selectedInterval.split(' bis ')[0]);
-    this.intervalTime = Math.round(this.intervalTime / 100) * 100;
-    let i = 0;
-    let selected = false;
-
-    // FIXME wtf?
-    do {
-      if (this.task.interval[i].startDate === this.selectedInterval.split(' bis ')[0]) {
-        selected = true;
-        this.inter_index = i;
-      }
-      i++;
-    } while (!selected);
-  }
 }
