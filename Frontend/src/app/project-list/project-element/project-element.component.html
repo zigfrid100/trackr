@@ -2,14 +2,14 @@
   <md-card class="project-element">
     <md-card-header>
       <md-card-title>{{project.name}}</md-card-title>
-      <md-card-subtitle>{{project.tasks.length}} task(s)</md-card-subtitle>
+      <md-card-subtitle>{{tasks.length}} task(s)</md-card-subtitle>
     </md-card-header>
 
     <md-card-content>
       <p>{{project.description || 'No description'}}</p>
 
       <div *ngIf="addTasks">
-        <div *ngFor="let task of tasks; index as i">
+        <div *ngFor="let task of availableTasks; index as i">
             <input type="radio" id="{{task._id}}" name="tasks" value="{{task._id}}" [(ngModel)]="taskId">
           <label for="{{task._id}}">{{task.name}}</label>
         </div>
@@ -18,7 +18,7 @@
     </md-card-content>
     <md-card-actions>
       <button md-button (click)="deleteProject()"><i class="fa fa-trash"></i> Delete</button>
-      <button md-button *ngIf="tasks.length > 0" (click)="addTasks = !addTasks">Add Task</button>
+      <button md-button *ngIf="availableTasks && availableTasks.length > 0" (click)="addTasks = !addTasks">Add Task</button>
       <button md-button (click)="openDetails()">Details</button>
     </md-card-actions>
   </md-card>

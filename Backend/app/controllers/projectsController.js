@@ -135,11 +135,15 @@ exports.removeTask = (req, res) => {
 };
 
 exports.getTasks = (req, res) => {
-    projectModel.findById(req.params.id).populate('tasks')
+    taskModel.find(req.params.id).populate('tasks')
         .then(project => {
-            res.status(200).json(project.tasks);
+            if (project.tasks) {
+                res.status(200).json(project.tasks);
+            } else {
+                res.status(200).json([]);
+            }
         })
         .catch(err => {
-            res.status(400).send(err);
+            res.status(404).send(err);
         });
 };
