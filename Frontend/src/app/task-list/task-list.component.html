@@ -1,30 +1,19 @@
 <div class="row">
   <div class="col-md-12">
-    <h1>Dashboard</h1>
+    <h1>Tasks</h1>
 
     <form id="search-form">
         <md-input-container class="search-form-input-container">
-          <input mdInput name="term" type="search" id="search" #newTask newTask.value='' placeholder="Tippe hier, um eine Aufgabe zu suchen oder zu erstellen" [(ngModel)]="term">
+          <input mdInput name="term" type="search" id="search" #newTask newTask.value='' placeholder="Type here to search for a task or create one" [(ngModel)]="term">
         </md-input-container>
 
-        <button md-raised-button color="primary" (click)="postNewTask(newTask.value)" >+ Erstellen</button>
+        <button md-raised-button color="primary" (click)="postNewTask(newTask.value)" >+ Create</button>
     </form>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-md-12 no-project">
-    <h2>Projects</h2>
-    <div *ngFor="let project of taskService.projects | filter:term; index as i">
-      <div class="card-float-left">
-        <app-project-element [project]="project" [tasks]="taskService.tasks"></app-project-element>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-12 no-project">
+  <div class="col-md-12">
     <h2>Tasks</h2>
     <div *ngFor="let task of taskService.tasks | filter:term; index as i">
       <div class="card-float-left">

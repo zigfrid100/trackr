@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>Projects</h1>
+
+    <form id="search-form">
+        <md-input-container class="search-form-input-container">
+          <input mdInput name="term" type="search" id="search" #newProject newProject.value='' placeholder="Type here to search for a project or create one" [(ngModel)]="term">
+        </md-input-container>
+
+        <button md-raised-button color="primary" (click)="postNewProject(newProject.value)" >+ Create</button>
+    </form>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <h2>Your Projects</h2>
+    <div *ngFor="let project of taskService.projects | filter:term; index as i">
+      <div class="card-float-left">
+        <app-project-element [project]="project" [tasks]="taskService.tasks"></app-project-element>
+      </div>
+    </div>
+  </div>
+</div>

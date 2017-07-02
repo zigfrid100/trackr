@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { TaskListComponent } from './task-list/task-list.component';
+import { ProjectListComponent } from './project-list/project-list.component';
 import { TaskElementComponent } from './task-list/task-element/task-element.component';
 import { TaskService} from './task.service';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
@@ -16,10 +17,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { MdDialogModule } from '@angular/material';
 import { DialogDetailsComponent } from './task-list/dialog-details/dialog-details.component';
 import { GoogleChart } from 'angular2-google-chart/directives/angular2-google-chart.directive';
-import { ProjectElementComponent } from './task-list/project-element/project-element.component';
+import { ProjectElementComponent } from './project-list/project-element/project-element.component';
 
 const appRoutes: Routes = [
   { path: 'task-list', component: TaskListComponent },
+  { path: 'project-list', component: ProjectListComponent },
   { path: 'statistics', component: StatisticsComponent },
 ];
 
@@ -28,6 +30,7 @@ const appRoutes: Routes = [
     AppComponent,
     MenuComponent,
     TaskListComponent,
+    ProjectListComponent,
     TaskElementComponent,
     StatisticsComponent,
     DialogDetailsComponent,
