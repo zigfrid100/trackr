@@ -23,6 +23,10 @@ export class ProjectElementComponent implements OnInit {
     this.apiService.addTaskToProject(this.project._id, this.taskId);
   }
 
+  deleteProject() {
+    this.apiService.deleteProject(this.project._id);
+  }
+
   ngOnInit() {
   }
 }

@@ -24,6 +24,7 @@
     </div>
   </md-card-content>
   <md-card-actions>
+    <button md-button (click)="deleteProject()"><i class="fa fa-trash"></i> Delete</button>
     <button md-button *ngIf="tasks.length > 0" (click)="addTasks = !addTasks">Add Task</button>
     <button md-button *ngIf="project.tasks.length > 0" (click)="showTasks = !showTasks">Show Tasks</button>
   </md-card-actions>

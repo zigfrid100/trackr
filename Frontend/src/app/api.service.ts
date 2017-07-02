@@ -124,10 +124,7 @@ export class ApiService {
   deleteProject(id) {
     this.http.delete(`http://${this.server}:3000/projects/${id}`)
       .map(response => response.json()).subscribe(
-        (responseItem: any) => {
-          console.log(responseItem.message);
-          alert(responseItem.message);
-        },
+        (responseItem: any) => {},
         (err: any) => {
           if (err.status === 0) {
             alert('Server down');
