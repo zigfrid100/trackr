@@ -15,7 +15,7 @@
 <div class="row">
   <div class="col-md-12">
     <h2>Tasks</h2>
-    <div *ngFor="let task of taskService.tasks | filter:term; index as i">
+    <div *ngFor="let task of apiService.tasks | filter:term; index as i">
       <div class="card-float-left">
         <app-task-element [task]="task"></app-task-element>
       </div>

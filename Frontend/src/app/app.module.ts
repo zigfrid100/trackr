@@ -8,7 +8,7 @@ import { MenuComponent } from './menu/menu.component';
 import { TaskListComponent } from './task-list/task-list.component';
 import { ProjectListComponent } from './project-list/project-list.component';
 import { TaskElementComponent } from './task-list/task-element/task-element.component';
-import { TaskService} from './task.service';
+import { ApiService} from './api.service';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { MdCheckboxModule, MdButtonModule, MdCardModule, MaterialModule, MdInputModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -52,7 +52,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
   ],
   entryComponents: [DialogDetailsComponent],
-  providers: [TaskService],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

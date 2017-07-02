@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TaskService } from '../../task.service';
+import { ApiService } from '../../api.service';
 
 @Component({
   selector: 'app-project-element',
@@ -16,11 +16,11 @@ export class ProjectElementComponent implements OnInit {
 
   private taskId: string;
 
-  constructor(private taskService: TaskService) {
+  constructor(private apiService: ApiService) {
   }
 
   addTask() {
-    this.taskService.addTaskToProject(this.project._id, this.taskId);
+    this.apiService.addTaskToProject(this.project._id, this.taskId);
   }
 
   ngOnInit() {

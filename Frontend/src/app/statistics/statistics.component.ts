@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { TaskService } from '../task.service';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
   styleUrls: ['./statistics.component.scss'],
-  providers: [TaskService]
+  providers: [ApiService]
 })
 
 export class StatisticsComponent implements OnInit {
@@ -19,15 +19,15 @@ export class StatisticsComponent implements OnInit {
     fontSize: 21,
   };
 
-  constructor(private taskService: TaskService) {
+  constructor(private apiService: ApiService) {
   }
 
   getTasks() {
-    this.taskService.getTasks();
+    this.apiService.getTasks();
   }
 
   getProjects() {
-    this.taskService.getProjects();
+    this.apiService.getProjects();
   }
 
   ngOnInit() {
@@ -38,7 +38,7 @@ export class StatisticsComponent implements OnInit {
 
   showChart() {
     setTimeout(() => {
-      this.taskService.tasks.forEach((task: any) => {
+      this.apiService.tasks.forEach((task: any) => {
         // FIXME use filter
         task.interval.forEach((inter: any) => {
           if (inter.stopDate) {

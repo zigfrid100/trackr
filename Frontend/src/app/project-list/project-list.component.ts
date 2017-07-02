@@ -1,27 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { TaskService } from '../task.service';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
   styleUrls: ['./project-list.component.scss'],
-  providers: [TaskService]
+  providers: [ApiService]
 })
 
 export class ProjectListComponent implements OnInit {
-  constructor(private taskService: TaskService) {
+  constructor(private apiService: ApiService) {
   }
 
   getTasks() {
-    this.taskService.getTasks();
+    this.apiService.getTasks();
   }
 
   getProjects() {
-    this.taskService.getProjects();
+    this.apiService.getProjects();
   }
 
   postNewProject(name: string) {
-    this.taskService.postProject(name, '');
+    this.apiService.postProject(name, '');
     this.getProjects();
     this.getTasks();
   }
