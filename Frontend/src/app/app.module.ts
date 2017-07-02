@@ -16,6 +16,7 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MdDialogModule } from '@angular/material';
 import { DialogDetailsComponent } from './task-list/dialog-details/dialog-details.component';
+import { ProjectDialogDetailsComponent } from './project-list/project-dialog-details/project-dialog-details.component';
 import { GoogleChart } from 'angular2-google-chart/directives/angular2-google-chart.directive';
 import { ProjectElementComponent } from './project-list/project-element/project-element.component';
 import { SimpleNotificationsModule } from 'angular2-notifications';
@@ -35,6 +36,7 @@ const appRoutes: Routes = [
     TaskElementComponent,
     StatisticsComponent,
     DialogDetailsComponent,
+    ProjectDialogDetailsComponent,
     GoogleChart,
     ProjectElementComponent
   ],
@@ -53,7 +55,10 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     SimpleNotificationsModule.forRoot()
   ],
-  entryComponents: [DialogDetailsComponent],
+  entryComponents: [
+    DialogDetailsComponent,
+    ProjectDialogDetailsComponent
+  ],
   providers: [ApiService],
   bootstrap: [AppComponent]
 })
