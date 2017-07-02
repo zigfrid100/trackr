@@ -19,7 +19,7 @@ exports.postProject = (req, res) => {
             res.status(200).json({message: 'Project successfully added!', project});
         })
         .catch(err => {
-            res.status(400).send(err);
+            res.status(400).send({error: 'You have to provide a name for your project'});
         })
 };
 

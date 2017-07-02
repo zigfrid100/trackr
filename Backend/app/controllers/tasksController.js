@@ -19,7 +19,7 @@ exports.postTask = (req, res) => {
             res.status(200).json({message: 'Task successfully added!', task: task});
         })
         .catch(err => {
-            res.status(400).send(err);
+            res.status(400).send({error: 'You have to provide a name for your task'});
         })
 };
 
