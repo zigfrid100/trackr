@@ -3,6 +3,7 @@
  */
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Project = require('mongoose').model('Project');
 
 const IntervalSchema = new Schema({
     changes: {
@@ -44,6 +45,15 @@ const TaskSchema = new Schema({
         ref: 'Project',
         required: false
     }
+});
+
+TaskSchema.pre('remove', (next) => {
+    Project.update(
+        { projects: self._id },
+        { $pull: { projects: self._id } },
+        { multi: true },
+        next
+    )
 });
 
 // Registering a model Task with given mongoose schema

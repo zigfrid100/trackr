@@ -78,6 +78,30 @@ describe('tasks', () => {
                     });
             });
         });
+
+        it('should delete the task from all projects it belongs to', (done) => {
+            let task = new Task({ name: 'Testtask' });
+
+            task.save((_err, task) => {
+                let project = new Project({ name: 'Testproject', tasks: [task._id] });
+
+                project.save((_err, project) => {
+                    chai.request(server)
+                        .delete(`/tasks/${task.id}`)
+                        .end((_err, res) => {
+                            res.should.have.status(200);
+                            chai.request(server)
+                                .get(`/projects/${project.id}`)
+                                .end((_err, res) => {
+                                    res.should.have.status(200);
+                                    res.body.should.have.property('tasks').eql([]);
+                                });
+
+                            done();
+                        });
+                });
+            });
+        });
     });
 
     describe('PUT /tasks/:id', () => {
