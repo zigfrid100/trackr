@@ -289,7 +289,7 @@ export class ApiService {
   }
 
   startTask(id, changes) {
-    this.http.put(`http://${this.server}:3000/tasks/start/${id}`, {changes})
+    this.http.put(`http://${this.server}:3000/tasks/${id}/start`, {changes})
       .map(response => response.json()).subscribe(
         (responseItem: any) => {
           responseItem.task.statusVal = 'active';
@@ -307,7 +307,7 @@ export class ApiService {
   }
 
   pauseTask(id) {
-    this.http.put(`http://${this.server}:3000/tasks/pause/${id}`, {})
+    this.http.put(`http://${this.server}:3000/tasks/${id}/pause`, {})
       .map(response => response.json()).subscribe(
         (responseItem: any) => {
           responseItem.task.statusVal = 'inactive';

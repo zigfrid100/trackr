@@ -121,13 +121,13 @@ describe('tasks', () => {
         });
     });
 
-    describe('PUT /tasks/pause/:id', () => {
+    describe('PUT /tasks/:id/pause', () => {
         it('should pause a task', (done) => {
             let task = new Task({ name: 'Testtask' });
 
             task.save((_err, task) => {
                 chai.request(server)
-                    .put(`/tasks/pause/${task.id}`)
+                    .put(`/tasks/${task.id}/pause`)
                     .end((_err, res) => {
                         res.should.have.status(200);
                         res.body.task.name.should.eql('Testtask');
@@ -138,13 +138,13 @@ describe('tasks', () => {
         });
     });
 
-    describe('PUT /tasks/start/:id', () => {
+    describe('PUT /tasks/:id/start', () => {
         it('should start a task', (done) => {
             let task = new Task({ name: 'Testtask' });
 
             task.save((_err, task) => {
                 chai.request(server)
-                    .put(`/tasks/start/${task.id}`)
+                    .put(`/tasks/${task.id}/start`)
                     .end((_err, res) => {
                         res.should.have.status(200);
                         res.body.task.name.should.eql('Testtask');
