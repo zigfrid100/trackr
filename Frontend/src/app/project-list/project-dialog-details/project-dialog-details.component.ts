@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ApiService } from '../../api.service';
 import { ProjectListComponent } from '../project-list.component';
 import { NotificationsService } from 'angular2-notifications';
 import { DurationPipe } from '../../duration.pipe';
+import { MD_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-project-dialog-details',
@@ -26,19 +27,20 @@ export class ProjectDialogDetailsComponent implements OnInit {
   constructor(
     private dialogRef: MdDialogRef<ProjectDialogDetailsComponent>,
     private apiService: ApiService,
-    private notifications: NotificationsService
-  ) {}
+    private notifications: NotificationsService,
+    @Inject(MD_DIALOG_DATA) public data: any
+  ) {
+    this.project = data.project;
+    this.tasks = data.tasks;
+  }
 
   ngOnInit() {
     this.dialogRef.updateSize('80%', '80%');
-    this.loadTasks();
   }
 
   removeTask(task_id) {
     this.apiService.removeTaskFromProject(this.project._id, task_id);
-    setTimeout(() => {
-      this.loadTasks();
-    }, 100);
+    this.tasks = this.tasks.filter((task) => task._id !== task_id);
   }
 
   loadChart() {
@@ -50,17 +52,6 @@ export class ProjectDialogDetailsComponent implements OnInit {
         this.line_ChartData.push([new Date(inter.stopDate), time]);
       });
     });
-  }
-
-  loadTasks() {
-    this.apiService.getTasksOfProject(this.project._id)
-      .subscribe(
-        tasks => {
-          this.tasks = tasks;
-          this.loadChart();
-        },
-        err => this.notifications.error('Error', err.error)
-      );
   }
 
   save() {

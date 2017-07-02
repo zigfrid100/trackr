@@ -39,6 +39,8 @@ export class ApiService {
   }
 
   public getProjects() {
+    this.projects = [];
+
     this.http.get(`http://${this.server}:3000/projects`)
       .map(response => response.json()).subscribe(
         (responseItems: any[]) => {
@@ -95,7 +97,7 @@ export class ApiService {
   public getTasksOfProject(id): Observable<any[]> {
     return this.http.get(`http://${this.server}:3000/projects/${id}/tasks`)
       .map(response => response.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+      .catch((error: any) => Observable.throw(error || 'Server error'));
   }
 
   public getProject(id) {
@@ -191,6 +193,7 @@ export class ApiService {
         (responseItems: any[]) => {
           responseItems.forEach((responseItem: any) => {
             responseItem.statusVal = 'inactive';
+
             if (responseItem.interval.filter((inter) => inter.run).length > 0) {
               responseItem.statusVal = 'active';
             }
@@ -205,6 +208,12 @@ export class ApiService {
           }
         }
     );
+  }
+
+  public getTasksAsync(): Observable<any[]> {
+    return this.http.get(`http://${this.server}:3000/tasks/`)
+      .map(response => response.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   public postTask(name, description, status) {

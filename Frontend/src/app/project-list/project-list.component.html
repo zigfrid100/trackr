@@ -18,7 +18,7 @@
 
     <div class="row">
       <div *ngFor="let project of apiService.projects | filter:term; index as i">
-        <app-project-element [project]="project" [tasks]="filteredTasks(apiService.tasks, project._id)"></app-project-element>
+        <app-project-element [project]="project"></app-project-element>
       </div>
     </div>
 
