@@ -20,5 +20,9 @@
         <app-task-element [task]="task"></app-task-element>
       </div>
     </div>
+
+    <div *ngIf="apiService.tasks.length < 1">
+      <p>There are no tasks yet. Create one by typing the tasks name and clicking on "Create"</p>
+    </div>
   </div>
 </div>

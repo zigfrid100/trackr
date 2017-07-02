@@ -9,7 +9,13 @@
         <ng-template md-tab-label>
           <md-icon class="tab-icon" md-label-icon>list</md-icon> Tabular View
         </ng-template>
-        <md-list>
+
+        <div *ngIf="apiService.tasks.length < 1">
+          <h2>No Tasks found</h2>
+          <p>There are no tasks yet. <a routerLink="/task-list">Create a task</a></p>
+        </div>
+
+        <md-list *ngIf="apiService.tasks.length > 0">
           <h3 md-subheader>Tasks</h3>
           <md-list-item *ngFor="let task of apiService.tasks">
             <md-icon md-label-icon>label</md-icon>
@@ -30,7 +36,13 @@
         <ng-template md-tab-label>
           <md-icon class="tab-icon" md-label-icon>show_chart</md-icon> Chart View
         </ng-template>
-        <div id="pie_chart" [chartData]="pie_ChartData" [chartOptions] = "pie_ChartOptions" chartType="PieChart" GoogleChart></div>
+
+        <div *ngIf="apiService.tasks.length < 1">
+          <h2>No Tasks found</h2>
+          <p>There are no tasks yet. <a routerLink="/task-list">Create a task</a></p>
+        </div>
+
+        <div *ngIf="apiService.tasks.length > 0" id="pie_chart" [chartData]="pie_ChartData" [chartOptions] = "pie_ChartOptions" chartType="PieChart" GoogleChart></div>
       </md-tab>
     </md-tab-group>
   </div>

@@ -20,5 +20,9 @@
         <app-project-element [project]="project" [tasks]="apiService.tasks"></app-project-element>
       </div>
     </div>
+
+    <div *ngIf="apiService.projects.length < 1">
+      <p>There are no projects yet. Create one by typing the projects name and clicking on "Create"</p>
+    </div>
   </div>
 </div>
