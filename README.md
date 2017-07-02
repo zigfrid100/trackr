@@ -57,8 +57,8 @@ Run `npm run test` from the `/Backend` directory.
 | DELETE | /tasks/:id    |                           | Deletes an existing task                                                           |
 | POST   | /tasks        | { name: STRING, description: STRING } | Adds a new task                                                        |
 | PUT    | /tasks/:id    | { name: STRING, description: STRING } | Updates an existing task                                               |
-| PUT    | /tasks/pause/:id |                          | Pauses a task                                         |
-| PUT    | /tasks/start/:id |                  | Starts a task                                                       |
+| PUT    | /tasks/:id/pause |                          | Pauses a task                                         |
+| PUT    | /tasks/:id/start |                  | Starts a task                                                       |
 
 
 ## MongoDB Schemas

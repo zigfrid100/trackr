@@ -7,10 +7,10 @@ router.route('/')
     .get(tasksController.getTasks)
     .post(tasksController.postTask);
 
-router.route('/start/:id')
+router.route('/:id/start')
 	.put(tasksController.startTask);
 
-router.route('/pause/:id')
+router.route('/:id/pause')
 	.put(tasksController.pauseTask);
 
 router.route('/:id')
