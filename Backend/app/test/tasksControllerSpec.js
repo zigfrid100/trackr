@@ -48,6 +48,19 @@ describe('tasks', () => {
                     });
             });
         });
+
+        it('should correctly calculate the total time', (done) => {
+            const intervals = [
+                { startDate: new Date(1499003864449), stopDate: new Date(1499003868314), run: false },
+                { startDate: new Date(1499003855926), stopDate: new Date(1499003861704), run: false }
+            ]
+            const task = new Task({ name: 'Testtask', interval: intervals });
+
+            task.save((_err, task) => {
+                task.total.should.eql(9.643);
+                done();
+            });
+        })
     });
 
     describe('POST /tasks', () => {

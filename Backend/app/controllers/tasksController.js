@@ -12,10 +12,11 @@ exports.getTasks = (req, res) => {
 };
 
 exports.postTask = (req, res) => {
+    delete(req.body.total);
     const newTask = new taskModel(req.body);
     newTask.save()
         .then(task => {
-            res.status(200).json({message: 'Task successfully added!', task});
+            res.status(200).json({message: 'Task successfully added!', task: task});
         })
         .catch(err => {
             res.status(400).send(err);
@@ -35,21 +36,7 @@ exports.getTask = (req, res) => {
 exports.deleteTask = (req, res) => {
     taskModel.findByIdAndRemove(req.params.id)
         .then(task => {
-            if (task.project) {
-                projectModel.findById(task.project)
-                    .then(project => {
-                        for(let i = 0; i < project.tasks.length; i++) {
-                            if(JSON.stringify(project.tasks[i]) === JSON.stringify(task._id)) {
-                                project.tasks.splice(i, 1);
-                                break;
-                            }
-                        }
-                    })
-                    .catch(err => {
-                        res.status(400).send(err);
-                    });
-            }
-            res.status(200).json({message: "Task successfully deleted!"});
+            res.status(200).json({message: 'Task successfully deleted!'});
         })
         .catch(err => {
             res.status(400).send(err)
@@ -59,9 +46,10 @@ exports.deleteTask = (req, res) => {
 exports.putTask = (req, res) => {
     taskModel.findById(req.params.id)
         .then(task => {
+            delete(req.body.total);
             Object.assign(task, req.body).save()
                 .then(task => {
-                    res.status(200).json({message: "Task successfully updated!", task});
+                    res.status(200).json({message: 'Task successfully updated!', task: task});
                 })
                 .catch(err => {
                     res.status(400).send(err);
@@ -83,18 +71,16 @@ exports.startTask = (req, res) => {
             // Add a new interval
             task.interval.push({startDate: Date.now(), run:true});
             task.runPauseStop = 0;
-            task.save().then(task => {
-                res.status(200)
-                    .json({message: 'Task successfully started!', task: task});
-            })
-            .catch(err => {
-                res.status(400)
-                    .send(err)
-            });
+            task.save()
+                .then(task => {
+                    res.status(200).json({message: 'Task successfully started!', task: task});
+                })
+                .catch(err => {
+                    res.status(400).send(err)
+                });
         })
         .catch(err => {
-            res.status(400)
-                .send(err);
+            res.status(400).send(err);
         });
 };
 
@@ -108,12 +94,13 @@ exports.pauseTask = (req, res) => {
 
             task.runPauseStop = 1;
 
-            task.save().then(task => {
-                res.status(200).json({message: 'Task successfully paused!', task: task});
-            })
-            .catch(err => {
-                res.status(400).send(err)
-            });
+            task.save()
+                .then(task => {
+                    res.status(200).json({message: 'Task successfully paused!', task: task});
+                })
+                .catch(err => {
+                    res.status(400).send(err)
+                });
         })
         .catch(err => {
             res.status(400).send(err);
