@@ -13,9 +13,6 @@ router.route('/start/:id')
 router.route('/pause/:id')
 	.put(tasksController.pauseTask);
 
-router.route('/stop/:id')
-	.put(tasksController.stopTask);
-
 router.route('/:id')
     .get(tasksController.getTask)
     .delete(tasksController.deleteTask)

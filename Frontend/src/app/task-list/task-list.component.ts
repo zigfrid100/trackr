@@ -17,7 +17,7 @@ export class TaskListComponent implements OnInit {
   }
 
   postNewTask(name: string) {
-    this.apiService.postTask(name, 'empty', 2);
+    this.apiService.postTask(name, '', 2);
   }
 
   getProjects() {
