@@ -36,7 +36,8 @@ export class TaskElementComponent implements OnInit {
   endtime: any;
 
   constructor(
-    private apiService: ApiService, public dialog: MdDialog
+    private apiService: ApiService,
+    private dialog: MdDialog
   ) {}
 
   ngOnInit() {

@@ -51,7 +51,7 @@ export class ApiService {
           if (err.status === 0) {
             this.alertServerDown();
           } else {
-            this.alertOther(err.json().message);
+            this.alertOther(err.json().error);
           }
         }
     );
@@ -70,7 +70,7 @@ export class ApiService {
           if (err.status === 0) {
             this.alertServerDown();
           } else {
-            this.alertOther(err.json().message);
+            this.alertOther(err.json().error);
           }
         }
     );
@@ -86,27 +86,16 @@ export class ApiService {
           if (err.status === 0) {
             this.alertServerDown();
           } else {
-            this.alertOther(err.json().message);
+            this.alertOther(err.json().error);
           }
         }
     );
   }
 
-  getTasksOfProject(id) {
-    this.http.get(`http://${this.server}:3000/projects/tasks/${id}`)
-      .map(response => response.json()).subscribe(
-        (responseItem: any) => {
-          responseItem.statusVal = 'active';
-          this.projects.push(responseItem);
-        },
-        (err: any) => {
-          if (err.status === 0) {
-            this.alertServerDown();
-          } else {
-            this.alertOther(err.json().message);
-          }
-        }
-    );
+  getTasksOfProject(id): Observable<any[]> {
+    return this.http.get(`http://${this.server}:3000/projects/${id}/tasks`)
+      .map(response => response.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   getProject(id) {
@@ -120,7 +109,7 @@ export class ApiService {
           if (err.status === 0) {
             this.alertServerDown();
           } else {
-            this.alertOther(err.json().message);
+            this.alertOther(err.json().error);
           }
         }
     );
@@ -137,7 +126,7 @@ export class ApiService {
           if (err.status === 0) {
             this.alertServerDown();
           } else {
-            this.alertOther(err.json().message);
+            this.alertOther(err.json().error);
           }
         }
     );
@@ -154,7 +143,7 @@ export class ApiService {
           if (err.status === 0) {
             this.alertServerDown();
           } else {
-            this.alertOther(err.json().message);
+            this.alertOther(err.json().error);
           }
         }
     );
@@ -171,14 +160,14 @@ export class ApiService {
           if (err.status === 0) {
             this.alertServerDown();
           } else {
-            this.alertOther(err.json().message);
+            this.alertOther(err.json().error);
           }
         }
     );
   }
 
   removeTaskFromProject(projectid, taskid) {
-    this.http.delete(`http://${this.server}:3000/projects/${projectid}'/tasks/${taskid}`)
+    this.http.delete(`http://${this.server}:3000/projects/${projectid}/tasks/${taskid}`)
       .map(response => response.json()).subscribe(
         (responseItem: any) => {
           this.resetData();
@@ -188,7 +177,7 @@ export class ApiService {
           if (err.status === 0) {
             this.alertServerDown();
           } else {
-            this.alertOther(err.json().message);
+            this.alertOther(err.json().error);
           }
         }
     );
@@ -210,7 +199,7 @@ export class ApiService {
           if (err.status === 0) {
             this.alertServerDown();
           } else {
-            this.alertOther(err.json().message);
+            this.alertOther(err.json().error);
           }
         }
     );
@@ -229,7 +218,7 @@ export class ApiService {
           if (err.status === 0) {
             this.alertServerDown();
           } else {
-            this.alertOther(err.json().message);
+            this.alertOther(err.json().error);
           }
         }
     );
@@ -248,7 +237,7 @@ export class ApiService {
           if (err.status === 0) {
             this.alertServerDown();
           } else {
-            this.alertOther(err.json().message);
+            this.alertOther(err.json().error);
           }
         }
     );
@@ -265,7 +254,7 @@ export class ApiService {
           if (err.status === 0) {
             this.alertServerDown();
           } else {
-            this.alertOther(err.json().message);
+            this.alertOther(err.json().error);
           }
         }
     );
@@ -282,7 +271,7 @@ export class ApiService {
           if (err.status === 0) {
             this.alertServerDown();
           } else {
-            this.alertOther(err.json().message);
+            this.alertOther(err.json().error);
           }
         }
     );
@@ -300,7 +289,7 @@ export class ApiService {
           if (err.status === 0) {
             this.alertServerDown();
           } else {
-            this.alertOther(err.json().message);
+            this.alertOther(err.json().error);
           }
         }
     );
@@ -320,7 +309,7 @@ export class ApiService {
           if (err.status === 0) {
             this.alertServerDown();
           } else {
-            this.alertOther(err.json().message);
+            this.alertOther(err.json().error);
           }
         }
     );

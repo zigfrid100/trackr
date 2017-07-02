@@ -66,7 +66,7 @@ exports.addTask = (req, res) => {
                 .then (task => {
                     if(task.project) {
                         return res.status(400)
-                            .json({error: 'Task already exists in a project and can not be used in two projects!'});
+                            .json({error: 'Task already assigned to a project!'});
                     }
 
                     // Check if task is already assigned to the project

@@ -1,0 +1,38 @@
+<div class="dialog-details">
+  <h1>Details for Project {{project.name}}</h1>
+
+  <md-tab-group class="trackr-tab-group">
+    <md-tab>
+      <ng-template md-tab-label>
+        <md-icon class="tab-icon" md-label-icon>list</md-icon> Tasks
+      </ng-template>
+      <md-list>
+        <h3 md-subheader>Tasks</h3>
+        <p *ngIf="tasks.length < 1">There are no tasks in this project</p>
+        <md-list-item *ngFor="let task of tasks">
+          <button class="delete-button" md-button (click)="removeTask(task._id)"><i class="fa fa-trash"></i> Remove from project</button>
+          <h4 md-line>{{task.name}}</h4>
+          <p md-line>{{task.description || 'No description'}}</p>
+        </md-list-item>
+      </md-list>
+    </md-tab>
+    <md-tab>
+      <ng-template md-tab-label>
+        <md-icon class="tab-icon" md-label-icon>redo</md-icon> Edit details
+      </ng-template>
+      <h3>Edit details</h3>
+      <md-input-container class="trackr-half-width-container">
+        <input placeholder="Name" mdInput type="text" name="name" [(ngModel)]="project.name">
+      </md-input-container>
+
+      <md-input-container class="trackr-half-width-container">
+        <input placeholder="Description" mdInput type="text" [(ngModel)]="project.description">
+      </md-input-container>
+
+      <div>
+        <button md-button md-raised-button color="primary" (click)="save()">Save Project</button>
+      </div>
+    </md-tab>
+  </md-tab-group>
+</div>
+
