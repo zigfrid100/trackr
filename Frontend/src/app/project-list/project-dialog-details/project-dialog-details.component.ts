@@ -19,6 +19,8 @@ export class ProjectDialogDetailsComponent implements OnInit {
   public line_ChartOptions = {
     legend: 'none',
     title: 'Project Statistics',
+    hAxis: { title: 'Date' },
+    vAxis: { title: 'Duration' }
   };
 
   constructor(

@@ -16,11 +16,11 @@ export class ApiService {
 
   public projects: any[];
   public tasks: any[];
-  public task: any;
 
   constructor(
     private http: Http,
-    private notifications: NotificationsService) {
+    private notifications: NotificationsService
+  ) {
     this.projects = [];
     this.tasks = [];
     this.online = Observable.merge(
@@ -38,7 +38,7 @@ export class ApiService {
     this.getProjects();
   }
 
-  getProjects() {
+  public getProjects() {
     this.http.get(`http://${this.server}:3000/projects`)
       .map(response => response.json()).subscribe(
         (responseItems: any[]) => {
@@ -57,13 +57,13 @@ export class ApiService {
     );
   }
 
-  postProject(name, description) {
+  public postProject(name, description) {
     const headers = new Headers({'Content-Type': 'application/json'});
     this.http.post(`http://${this.server}:3000/projects`, {name, description}, headers)
       .map(response => response.json()).subscribe(
         (responseItem: any) => {
           this.projects.push(responseItem);
-          this.notifications.success(`${responseItem.project.name} created`, 'Project has been created!');
+          this.notifications.success(`${responseItem.project.name} created`, 'Your project has been created!');
           this.resetData();
         },
         (err: any) => {
@@ -76,7 +76,7 @@ export class ApiService {
     );
   }
 
-  postProjectWithTasks(name, description, tasks) {
+  public postProjectWithTasks(name, description, tasks) {
     const headers = new Headers({'Content-Type': 'application/json'});
     this.http.post(`http://${this.server}:3000/projects`, {name, description, tasks}, headers)
       .map(response => response.json()).subscribe(
@@ -92,13 +92,13 @@ export class ApiService {
     );
   }
 
-  getTasksOfProject(id): Observable<any[]> {
+  public getTasksOfProject(id): Observable<any[]> {
     return this.http.get(`http://${this.server}:3000/projects/${id}/tasks`)
       .map(response => response.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  getProject(id) {
+  public getProject(id) {
     this.http.get(`http://${this.server}:3000/projects/${id}`)
       .map(response => response.json()).subscribe(
         (responseItem: any) => {
@@ -115,12 +115,12 @@ export class ApiService {
     );
   }
 
-  deleteProject(id) {
+  public deleteProject(id) {
     this.http.delete(`http://${this.server}:3000/projects/${id}`)
       .map(response => response.json()).subscribe(
         (responseItem: any) => {
           this.resetData();
-          this.notifications.info('Project deleted', '');
+          this.notifications.info('Project deleted', 'Your project has been deleted');
         },
         (err: any) => {
           if (err.status === 0) {
@@ -132,12 +132,12 @@ export class ApiService {
     );
   }
 
-  putProject(id, name, description, tasks) {
+  public putProject(id, name, description, tasks) {
     const headers = new Headers({'Content-Type': 'application/json'});
     this.http.put(`http://${this.server}:3000/projects/${id}`, {name, description, tasks})
       .map(response => response.json()).subscribe(
         (responseItem: any) => {
-          this.notifications.info(`${responseItem.project.name} updated`, '');
+          this.notifications.info(`${responseItem.project.name} updated`, 'Your project has been updated');
         },
         (err: any) => {
           if (err.status === 0) {
@@ -149,12 +149,12 @@ export class ApiService {
     );
   }
 
-  addTaskToProject(projectid, taskid) {
+  public addTaskToProject(projectid, taskid) {
     this.http.post(`http://${this.server}:3000/projects/${projectid}/tasks/${taskid}`, {})
       .map(response => response.json()).subscribe(
         (responseItem: any) => {
           this.resetData();
-          this.notifications.info(`${responseItem.project.name} updated`, 'The Task has been added to the Project.');
+          this.notifications.info(`${responseItem.project.name} updated`, 'The task has been added to the project.');
         },
         (err: any) => {
           if (err.status === 0) {
@@ -166,12 +166,12 @@ export class ApiService {
     );
   }
 
-  removeTaskFromProject(projectid, taskid) {
+  public removeTaskFromProject(projectid, taskid) {
     this.http.delete(`http://${this.server}:3000/projects/${projectid}/tasks/${taskid}`)
       .map(response => response.json()).subscribe(
         (responseItem: any) => {
           this.resetData();
-          this.notifications.info(`${responseItem.project.name} updated`, 'The Task has been removed from the Project.');
+          this.notifications.info(`${responseItem.project.name} updated`, 'The task has been removed from the project.');
         },
         (err: any) => {
           if (err.status === 0) {
@@ -183,7 +183,7 @@ export class ApiService {
     );
   }
 
-  getTasks() {
+  public getTasks() {
     this.tasks = [];
 
     this.http.get(`http://${this.server}:3000/tasks/`)
@@ -207,14 +207,14 @@ export class ApiService {
     );
   }
 
-  postTask(name, description, status) {
+  public postTask(name, description, status) {
     const headers = new Headers({'Content-Type': 'application/json'});
     this.http.post(`http://${this.server}:3000/tasks`, {name, description, status}, headers)
       .map(response => response.json()).subscribe(
         (responseItem: any) => {
           responseItem.task.statusVal = 'inactive';
           this.tasks.push(responseItem.task);
-          this.notifications.success(`${responseItem.task.name} created`, 'Task has been created!');
+          this.notifications.success(`${responseItem.task.name} created`, 'Your task has been created!');
         },
         (err: any) => {
           if (err.status === 0) {
@@ -226,18 +226,18 @@ export class ApiService {
     );
   }
 
-  getTask(id): Observable<any> {
+  public getTask(id): Observable<any> {
     return this.http.get(`http://${this.server}:3000/tasks/${id}`)
       .map(response => response.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  deleteTask(id) {
+  public deleteTask(id) {
     this.http.delete(`http://${this.server}:3000/tasks/${id}`)
       .map(response => response.json()).subscribe(
         (responseItem: any) => {
           this.resetData();
-          this.notifications.info('Deleted', 'Task has been deleted!');
+          this.notifications.info('Deleted', 'Your task has been deleted!');
         },
         (err: any) => {
           if (err.status === 0) {
@@ -249,12 +249,12 @@ export class ApiService {
     );
   }
 
-  putTask(id, name, description, runPauseStop) {
+  public putTask(id, name, description, runPauseStop) {
     const headers = new Headers({'Content-Type': 'application/json'});
     this.http.put(`http://${this.server}:3000/tasks/${id}`, {name, description, runPauseStop}, headers)
       .map(response => response.json()).subscribe(
         (responseItem: any) => {
-          this.notifications.success(`${responseItem.task.name} updated`, '');
+          this.notifications.success(`${responseItem.task.name} updated`, 'Your task has been updated');
         },
         (err: any) => {
           if (err.status === 0) {
@@ -266,13 +266,11 @@ export class ApiService {
     );
   }
 
-  startTask(id, changes) {
+  public startTask(id, changes) {
     this.http.put(`http://${this.server}:3000/tasks/${id}/start`, {changes})
       .map(response => response.json()).subscribe(
         (responseItem: any) => {
-          responseItem.task.statusVal = 'active';
-          this.task = responseItem.task;
-          this.notifications.info(`${responseItem.task.name} started`, 'The Task is now running.');
+          this.notifications.info(`${responseItem.task.name} started`, 'Your task is now running');
         },
         (err: any) => {
           if (err.status === 0) {
@@ -284,12 +282,12 @@ export class ApiService {
     );
   }
 
-  pauseTask(id) {
+  public pauseTask(id) {
     this.http.put(`http://${this.server}:3000/tasks/${id}/pause`, {})
       .map(response => response.json()).subscribe(
         (responseItem: any) => {
           this.getTasks();
-          this.notifications.info(`${responseItem.task.name} paused`, 'The Task is now paused.');
+          this.notifications.info(`${responseItem.task.name} paused`, 'Your task is now paused');
         },
         (err: any) => {
           if (err.status === 0) {
@@ -302,7 +300,7 @@ export class ApiService {
   }
 
   private alertServerDown() {
-    this.notifications.error('No Connection Error', 'The server does not seem to be running!');
+    this.notifications.error('Connection Error', 'The server does not seem to be running!');
   }
 
   private alertOther(message) {
