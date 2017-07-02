@@ -99,7 +99,7 @@ exports.addTask = (req, res) => {
                                             .send(err);
                                     });
                                 res.status(200)
-                                    .json({message: "Task successfully added to project!", project});
+                                    .json({message: "Task successfully added to project!", project: project});
                             })
                             .catch(err => {
                                 res.status(400)
@@ -136,13 +136,12 @@ exports.removeTask = (req, res) => {
                         }
                     }
                     if(exists) {
-                          project.tasks.splice(index, 1);
+                        project.tasks.splice(index, 1);
                         project.save()
                             .then(project => {
                                 task.project = undefined;
                                 task.save()
                                 .then(task => {
-                                    console.log("task: " + task);
                                 })
                                 .catch(err => {
                                     res.status(400)

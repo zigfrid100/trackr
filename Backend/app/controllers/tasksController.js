@@ -85,29 +85,6 @@ exports.putTask = (req, res) => {
 };
 
 exports.startTask = (req, res) => {
-    //pause actual run task
-    /*taskModel.find({runPauseStop: 0})
-        .then(tasks => {
-            // Stop all running tasks
-            tasks.forEach(task => {
-                task.interval.filter(interval => interval.run).map((interval) => {
-                    Object.assign(interval, {stopDate: Date.now(), run: false})
-                });
-                task.runPauseStop = 1;
-                task.save().then(task => {
-                    console.log("task: " + task);
-                })
-                    .catch(err => {
-                        res.status(400)
-                            .send(err)
-                    });
-            })
-    })
-        .catch(err => {
-            res.status(400)
-                .send(err);
-        });*/
-
     taskModel.findById(req.params.id).populate('interval')
         .then(task => {
             // Stop all running intervals
@@ -120,7 +97,7 @@ exports.startTask = (req, res) => {
             task.runPauseStop = 0;
             task.save().then(task => {
                 res.status(200)
-                    .json({message: "Task successfully started!", task});
+                    .json({message: 'Task successfully started!', task: task});
             })
             .catch(err => {
                 res.status(400)
@@ -145,7 +122,7 @@ exports.pauseTask = (req, res) => {
 
             task.save().then(task => {
                 res.status(200)
-                    .json({message: "Task successfully paused", task});
+                    .json({message: 'Task successfully paused!', task: task});
             })
             .catch(err => {
                 res.status(400)

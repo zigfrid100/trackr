@@ -97,21 +97,37 @@ describe('tasks', () => {
         });
     });
 
-    describe('PUT /tasks/:id/pause', () => {
+    describe('PUT /tasks/pause/:id', () => {
         it('should pause a task', (done) => {
-            done();
+            let task = new Task({ name: 'Testtask' });
+
+            task.save((_err, task) => {
+                chai.request(server)
+                    .put(`/tasks/pause/${task.id}`)
+                    .end((_err, res) => {
+                        res.should.have.status(200);
+                        res.body.task.name.should.eql('Testtask');
+                        res.body.message.should.eql('Task successfully paused!');
+                        done();
+                    });
+            });
         });
     });
 
-    describe('PUT /tasks/:id/stop', () => {
-        it('should stop a task', (done) => {
-            done();
-        });
-    });
-
-    describe('PUT /tasks/:id/start', () => {
+    describe('PUT /tasks/start/:id', () => {
         it('should start a task', (done) => {
-            done();
+            let task = new Task({ name: 'Testtask' });
+
+            task.save((_err, task) => {
+                chai.request(server)
+                    .put(`/tasks/start/${task.id}`)
+                    .end((_err, res) => {
+                        res.should.have.status(200);
+                        res.body.task.name.should.eql('Testtask');
+                        res.body.message.should.eql('Task successfully started!');
+                        done();
+                    });
+            });
         });
     });
 });

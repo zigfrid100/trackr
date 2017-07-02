@@ -153,4 +153,23 @@ describe('projects', () => {
             });
         });
     });
+
+    describe('POST /tasks/:id/tasks/:tasksid', () => {
+        it('should add a task to the project', (done) => {
+            let project = new Project({ name: 'Testproject' });
+            let task = new Task({ name: 'Testtask' });
+
+            task.save((_err, task) => {
+                project.save((_err, project) => {
+                    chai.request(server)
+                        .post(`/projects/${project.id}/tasks/${task.id}`)
+                        .end((_err, res) => {
+                            res.should.have.status(200);
+                            res.body.project.tasks.length.should.eql(1);
+                            done();
+                        });
+                });
+            });
+        });
+    });
 });
