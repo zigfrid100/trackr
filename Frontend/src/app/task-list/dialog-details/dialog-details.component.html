@@ -1,7 +1,7 @@
 <div class="dialog-details">
   <h1>Details for Task {{task.name}}</h1>
 
-  <p>You've spent {{task.total | duration}} on this task.</p>
+  <p>You've spent <strong>{{task.total | duration}}</strong> on this task.</p>
 
   <md-tab-group class="trackr-tab-group">
     <md-tab>
@@ -9,7 +9,10 @@
         <md-icon class="tab-icon" md-label-icon>list</md-icon> Statistics: Tabular View
       </ng-template>
       <md-list>
-        <h3 md-subheader>Intervalle</h3>
+        <h3 md-subheader>Intervals</h3>
+
+        <md-list-item *ngIf="task.interval.length < 1">There are no intervals yet</md-list-item>
+
         <md-list-item *ngFor="let inter of task.interval">
           <md-icon md-label-icon>label</md-icon>
           {{inter.startDate | date: 'dd.MM.yyyy H:ss'}} bis {{inter.stopDate | date: 'dd.MM.yyyy H:ss'}}
@@ -22,7 +25,10 @@
       </ng-template>
       <md-list>
         <h3 md-subheader>Statistics: Chart View</h3>
-        <div id="line_chart" [chartData]="line_ChartData" [chartOptions]="line_ChartOptions" chartType="LineChart" GoogleChart></div>
+
+        <md-list-item *ngIf="task.interval.length < 1">There are no intervals yet</md-list-item>
+
+        <div *ngIf="task.interval.length > 0" id="line_chart" [chartData]="line_ChartData" [chartOptions]="line_ChartOptions" chartType="LineChart" GoogleChart></div>
       </md-list>
     </md-tab>
     <md-tab>

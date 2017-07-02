@@ -1,7 +1,7 @@
 <div class="dialog-details">
   <h1>Details for Project {{project.name}}</h1>
 
-  <p>You've spent {{totalTime() | duration}} on this project.</p>
+  <p>You've spent <strong>{{totalTime() | duration}}</strong> on this project.</p>
 
   <md-tab-group class="trackr-tab-group">
     <md-tab>
@@ -10,12 +10,14 @@
       </ng-template>
       <md-list>
         <h3 md-subheader>Tasks</h3>
-        <p *ngIf="tasks.length < 1">There are no tasks in this project</p>
+
+        <md-list-item *ngIf="tasks && tasks.length < 1">There are no tasks in this project</md-list-item>
+
         <md-list-item *ngFor="let task of tasks">
-          <button class="delete-button" md-button (click)="removeTask(task._id)"><i class="fa fa-trash"></i> Remove from project</button>
           <h4 md-line>{{task.name}}</h4>
           <p md-line>{{task.description || 'No description'}}</p>
-          <p md-line>{{task.total | duration}}</p>
+          <p md-line>{{task.total | duration}} total time</p>
+          <p md-line><button md-raised-button color="warn" (click)="removeTask(task._id)"><i class="fa fa-trash"></i> Remove from project</button></p>
         </md-list-item>
       </md-list>
     </md-tab>
@@ -25,7 +27,10 @@
       </ng-template>
       <md-list>
         <h3 md-subheader>Statistics: Chart View</h3>
-        <div id="line_chart" [chartData]="line_ChartData" [chartOptions]="line_ChartOptions" chartType="LineChart" GoogleChart></div>
+
+        <md-list-item *ngIf="tasks && tasks.length < 1">There are no tasks in this project</md-list-item>
+
+        <div *ngIf="tasks && tasks.length > 0" id="line_chart" [chartData]="line_ChartData" [chartOptions]="line_ChartOptions" chartType="LineChart" GoogleChart></div>
       </md-list>
     </md-tab>
     <md-tab>

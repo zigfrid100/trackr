@@ -2,4 +2,7 @@
 * {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+body div.simple-notification-wrapper { z-index:10000; }
+
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';

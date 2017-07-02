@@ -1,18 +1,19 @@
-<md-card class="task-element" [@taskState]="task.statusVal">
-  <md-card-header>
-    <md-card-title>{{task.name}}</md-card-title>
-    <md-card-subtitle>{{showTotaltimeTime()}}</md-card-subtitle>
-  </md-card-header>
+<div class="col-md-4 col-sm-12">
+  <md-card class="task-element" [@taskState]="task.statusVal">
+    <md-card-header>
+      <md-card-title>{{task.name}}</md-card-title>
+      <md-card-subtitle>{{showTotaltimeTime()}}</md-card-subtitle>
+    </md-card-header>
 
-  <md-card-content>
-    <p>{{task.description || 'No description'}}</p>
-  </md-card-content>
+    <md-card-content>
+      <p>{{task.description || 'No description'}}</p>
+    </md-card-content>
 
-  <md-card-actions>
-    <button md-button *ngIf="!running" (click)="start()"><i class="fa fa-play"></i> Start</button>
-    <button md-button *ngIf="running" (click)="pause()"><i class="fa fa-pause"></i> Pause</button>
-    <button md-button (click)="deleteTask()"><i class="fa fa-trash"></i> Delete</button>
-    <button md-button *ngIf="task.project" (click)="removeFromProject()">Remove from project</button>
-    <button md-button (click)="openDetails()">Details</button>
-  </md-card-actions>
-</md-card>
+    <md-card-actions>
+      <button md-button *ngIf="!running" (click)="start()"><i class="fa fa-play"></i> Start</button>
+      <button md-button *ngIf="running" (click)="pause()"><i class="fa fa-pause"></i> Pause</button>
+      <button md-button (click)="deleteTask()"><i class="fa fa-trash"></i> Delete</button>
+      <button md-button (click)="openDetails()">Details</button>
+    </md-card-actions>
+  </md-card>
+</div>

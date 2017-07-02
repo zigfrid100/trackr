@@ -12,9 +12,9 @@ export class StatisticsComponent implements OnInit {
   public totaltime = 0;
   public pie_ChartData = [['Task', 'Hours per Day']];
   public pie_ChartOptions = {
-    title: 'My Task Activities (min.)',
-    width: 1200,
-    height: 800,
+    title: 'Time distribution',
+    width: 1000,
+    height: 500,
     is3D: true,
     fontSize: 21,
   };

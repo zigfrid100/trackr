@@ -21,6 +21,8 @@ export class DialogDetailsComponent implements OnInit {
   public line_ChartOptions = {
     legend: 'none',
     title: 'Task Statistics',
+    hAxis: { title: 'Date' },
+    vAxis: { title: 'Duration' }
   };
 
   constructor(
