@@ -26,8 +26,13 @@ export class StatisticsComponent implements OnInit {
     this.taskService.getTasks();
   }
 
+  getProjects() {
+    this.taskService.getProjects();
+  }
+
   ngOnInit() {
     this.getTasks();
+    this.getProjects();
     this.showChart();
   }
 
