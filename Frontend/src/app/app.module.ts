@@ -20,6 +20,7 @@ import { ProjectDialogDetailsComponent } from './project-list/project-dialog-det
 import { GoogleChart } from 'angular2-google-chart/directives/angular2-google-chart.directive';
 import { ProjectElementComponent } from './project-list/project-element/project-element.component';
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import { DurationPipe } from './duration.pipe';
 
 const appRoutes: Routes = [
   { path: 'task-list', component: TaskListComponent },
@@ -38,7 +39,8 @@ const appRoutes: Routes = [
     DialogDetailsComponent,
     ProjectDialogDetailsComponent,
     GoogleChart,
-    ProjectElementComponent
+    ProjectElementComponent,
+    DurationPipe
   ],
   imports: [
     BrowserModule,
