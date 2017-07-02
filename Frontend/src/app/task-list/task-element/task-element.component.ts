@@ -43,11 +43,11 @@ export class TaskElementComponent implements OnInit {
     this.calculateTotalTime();
     this.running = this.isRunning();
     setTimeout(() => {
-      this.task.interval.forEach((inter:any ) =>{
-          if(inter.run){
-            this.start();
-          }
-      })
+      this.task.interval.forEach((inter: any) => {
+        if (inter.run) {
+          this.start();
+        }
+      });
     }, 100);
   }
 

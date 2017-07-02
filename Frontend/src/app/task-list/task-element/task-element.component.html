@@ -1,4 +1,4 @@
-<md-card [@taskState]="task.statusVal">
+<md-card class="task-element" [@taskState]="task.statusVal">
   <md-card-header>
     <md-card-title>{{task.name}}</md-card-title>
     <md-card-subtitle>{{showTotaltimeTime()}}</md-card-subtitle>
@@ -9,10 +9,10 @@
   </md-card-content>
 
   <md-card-actions>
-    <button md-button *ngIf="!running" (click)="start()"><i class="fa fa-play"></i></button>
-    <button md-button *ngIf="running" (click)="pause()"><i class="fa fa-pause"></i></button>
-    <button md-button (click)="deleteTask()"><i class="material-icons" title="delete this task">delete</i></button>
-    <button *ngIf="task.project != undefined" md-raised-button md-button (click)="removeFromProject()" >Remove from project</button>
-    <button md-button class="example-card-button" (click)="openDetails()">Details</button>
+    <button md-button *ngIf="!running" (click)="start()"><i class="fa fa-play"></i> Start</button>
+    <button md-button *ngIf="running" (click)="pause()"><i class="fa fa-pause"></i> Pause</button>
+    <button md-button (click)="deleteTask()"><i class="fa fa-trash"></i> Delete</button>
+    <button md-button *ngIf="task.project" (click)="removeFromProject()">Remove from project</button>
+    <button md-button (click)="openDetails()">Details</button>
   </md-card-actions>
 </md-card>
