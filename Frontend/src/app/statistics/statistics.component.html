@@ -18,6 +18,12 @@
           </md-list-item>
           <md-divider></md-divider>
           <h3 md-subheader>Projects</h3>
+          <md-list-item *ngFor="let project of taskService.projects">
+            <md-icon md-label-icon>label</md-icon>
+            <h4 md-line>{{project.name}}</h4>
+            <p md-line>{{project.description || 'No description'}}</p>
+            <p md-line>{{project.tasks.length}} task(s)</p>
+          </md-list-item>
         </md-list>
       </md-tab>
       <md-tab>
