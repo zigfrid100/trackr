@@ -36,7 +36,6 @@ export class TaskService {
   }
 
   getProjects() {
-    console.log('get Project');
     this.http.get('http://' + this.server + ':3000/projects')
       .map(response => response.json()).subscribe(
       (responseItems: any[]) => {
@@ -47,7 +46,7 @@ export class TaskService {
         });
       },
       (err: any) => {
-        if (err.status == 0) {
+        if (err.status === 0) {
           alert('Server down');
         } else {
           alert('Error: ' + err.json().message);
@@ -58,27 +57,23 @@ export class TaskService {
   }
 
   postProject(name, description) {
-    console.log('post Project');
     const headers = new Headers({'Content-Type': 'application/json'});
-    this.http.post('http://' + this.server + ':3000/projects', {name, description}, headers)
+    this.http.post(`http://${this.server}:3000/projects`, {name, description}, headers)
       .map(response => response.json()).subscribe(
-      (responseItem: any) => {
-        console.log(responseItem);
-        this.projects.push(responseItem);
-      },
-      (err: any) => {
-        if (err.status == 0) {
-          alert('Server down');
-        } else {
-          alert('Error: ' + err.json().message);
-          console.log('Error: ' + err.json().message);
+        (responseItem: any) => {
+          this.projects.push(responseItem);
+        },
+        (err: any) => {
+          if (err.status === 0) {
+            alert('Server down');
+          } else {
+            alert('Error: ' + err.json().message);
+          }
         }
-      }
     );
   }
 
   postProjectWithTasks(name, description, tasks) {
-    console.log('post Project');
     const headers = new Headers({'Content-Type': 'application/json'});
     this.http.post('http://' + this.server + ':3000/projects', {name, description, tasks}, headers)
       .map(response => response.json()).subscribe(
@@ -97,7 +92,6 @@ export class TaskService {
   }
 
   getTasksOfProject(id) {
-    console.log('get TasksOfProject:id');
     this.http.get('http://' + this.server + ':3000/projects/tasks/' + id)
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
@@ -116,7 +110,6 @@ export class TaskService {
   }
 
   getProject(id) {
-    console.log('get Project:id');
     this.http.get('http://' + this.server + ':3000/projects/' + id)
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
@@ -135,7 +128,6 @@ export class TaskService {
   }
 
   deleteProject(id) {
-    console.log('delete Jokes:id');
     this.http.delete('http://' + this.server + ':3000/projects/' + id)
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
@@ -154,7 +146,6 @@ export class TaskService {
   }
 
   putProject(id, name, description, tasks) {
-    console.log('put Project');
     const headers = new Headers({'Content-Type': 'application/json'});
     this.http.put('http://' + this.server + ':3000/projects/' + id, {name, description, tasks})
       .map(response => response.json()).subscribe(
@@ -173,7 +164,6 @@ export class TaskService {
   }
 
   addTaskToProject(projectid, taskid) {
-    console.log('add task to project');
     this.http.post('http://' + this.server + ':3000/projects/' + projectid + '/tasks/' + taskid, {})
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
@@ -192,13 +182,10 @@ export class TaskService {
   }
 
   removeTaskFromProject(projectid, taskid) {
-    console.log('remove task from project');
     this.http.delete('http://' + this.server + ':3000/projects/' + projectid + '/tasks/' + taskid)
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
-        console.log(responseItem);
         this.resetData();
-       // window.location.reload(false);
       },
       (err: any) => {
         if (err.status === 0) {
@@ -238,13 +225,11 @@ export class TaskService {
   }
 
   postTask(name, description, status) {
-    console.log('post Task');
     const headers = new Headers({'Content-Type': 'application/json'});
     this.http.post('http://' + this.server + ':3000/tasks', {name, description, status}, headers)
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
         responseItem.task.statusVal = 'inactive';
-        console.log(responseItem.task);
         this.tasks.push(responseItem.task);
       },
       (err: any) => {
@@ -297,7 +282,6 @@ export class TaskService {
   }
 
   putTask(id, name, description, runPauseStop) {
-    console.log('post Task');
     const headers = new Headers({'Content-Type': 'application/json'});
     this.http.put('http://' + this.server + ':3000/tasks/' + id, {name, description, runPauseStop}, headers)
       .map(response => response.json()).subscribe(
@@ -316,7 +300,6 @@ export class TaskService {
   }
 
   startTask(id, changes) {
-    console.log('start Task');
     this.http.put('http://' + this.server + ':3000/tasks/start/' + id, {changes})
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
@@ -325,11 +308,7 @@ export class TaskService {
         this.task = responseItem.task;
         this.tasks.forEach((task: any,i) => {
           if (task._id === id) {
-            console.log('service');
-            console.log(task);
             task = responseItem.task;
-            console.log('service');
-            console.log(task);
           }
         });
       },
@@ -345,7 +324,6 @@ export class TaskService {
   }
 
   pauseTask(id) {
-    console.log('pause Task');
     this.http.put('http://' + this.server + ':3000/tasks/pause/' + id, {})
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
@@ -368,7 +346,6 @@ export class TaskService {
   }
 
   stopTask(id) {
-    console.log('stop Task');
     this.http.put('http://' + this.server + ':3000/tasks/stop/' + id, {})
       .map(response => response.json()).subscribe(
       (responseItem: any) => {
