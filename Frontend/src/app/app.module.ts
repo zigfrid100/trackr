@@ -18,6 +18,7 @@ import { MdDialogModule } from '@angular/material';
 import { DialogDetailsComponent } from './task-list/dialog-details/dialog-details.component';
 import { GoogleChart } from 'angular2-google-chart/directives/angular2-google-chart.directive';
 import { ProjectElementComponent } from './project-list/project-element/project-element.component';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 const appRoutes: Routes = [
   { path: 'task-list', component: TaskListComponent },
@@ -50,6 +51,7 @@ const appRoutes: Routes = [
     Ng2SearchPipeModule,
     MdDialogModule,
     RouterModule.forRoot(appRoutes),
+    SimpleNotificationsModule.forRoot()
   ],
   entryComponents: [DialogDetailsComponent],
   providers: [ApiService],

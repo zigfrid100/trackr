@@ -1,10 +1,11 @@
-import {Injectable} from '@angular/core';
-import {Http, Headers, Response, RequestOptions} from '@angular/http';
+import { Injectable } from '@angular/core';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { NotificationsService } from 'angular2-notifications';
 
-import {Observable} from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
-import {forEach} from '@angular/router/src/utils/collection';
-import {errorHandler} from '@angular/platform-browser/src/browser';
+import { forEach} from '@angular/router/src/utils/collection';
+import { errorHandler } from '@angular/platform-browser/src/browser';
 
 @Injectable()
 export class ApiService {
@@ -17,7 +18,9 @@ export class ApiService {
   public tasks: any[];
   public task: any;
 
-  constructor(private http: Http) {
+  constructor(
+    private http: Http,
+    private notifications: NotificationsService) {
     this.projects = [];
     this.tasks = [];
     this.online = Observable.merge(
@@ -46,9 +49,9 @@ export class ApiService {
         },
         (err: any) => {
           if (err.status === 0) {
-            alert('Server down');
+            this.alertServerDown();
           } else {
-            alert('Error: ' + err.json().message);
+            this.alertOther(err.json().message);
           }
         }
     );
@@ -60,12 +63,13 @@ export class ApiService {
       .map(response => response.json()).subscribe(
         (responseItem: any) => {
           this.projects.push(responseItem);
+          this.notifications.success(`${responseItem.project.name} created`, 'Project has been created!');
         },
         (err: any) => {
           if (err.status === 0) {
-            alert('Server down');
+            this.alertServerDown();
           } else {
-            alert('Error: ' + err.json().message);
+            this.alertOther(err.json().message);
           }
         }
     );
@@ -79,9 +83,9 @@ export class ApiService {
         },
         (err: any) => {
           if (err.status === 0) {
-            alert('Server down');
+            this.alertServerDown();
           } else {
-            alert('Error: ' + err.json().message);
+            this.alertOther(err.json().message);
           }
         }
     );
@@ -96,9 +100,9 @@ export class ApiService {
         },
         (err: any) => {
           if (err.status === 0) {
-            alert('Server down');
+            this.alertServerDown();
           } else {
-            alert('Error: ' + err.json().message);
+            this.alertOther(err.json().message);
           }
         }
     );
@@ -113,9 +117,9 @@ export class ApiService {
         },
         (err: any) => {
           if (err.status === 0) {
-            alert('Server down');
+            this.alertServerDown();
           } else {
-            alert('Error: ' + err.json().message);
+            this.alertOther(err.json().message);
           }
         }
     );
@@ -124,12 +128,14 @@ export class ApiService {
   deleteProject(id) {
     this.http.delete(`http://${this.server}:3000/projects/${id}`)
       .map(response => response.json()).subscribe(
-        (responseItem: any) => {},
+        (responseItem: any) => {
+          this.notifications.info('Project deleted', '');
+        },
         (err: any) => {
           if (err.status === 0) {
-            alert('Server down');
+            this.alertServerDown();
           } else {
-            alert('Error: ' + err.json().message);
+            this.alertOther(err.json().message);
           }
         }
     );
@@ -140,13 +146,13 @@ export class ApiService {
     this.http.put(`http://${this.server}:3000/projects/${id}`, {name, description, tasks})
       .map(response => response.json()).subscribe(
         (responseItem: any) => {
-          console.log(responseItem);
+          this.notifications.info(`${responseItem.project.name} updated`, '');
         },
         (err: any) => {
           if (err.status === 0) {
-            alert('Server down');
+            this.alertServerDown();
           } else {
-            alert('Error: ' + err.json().message);
+            this.alertOther(err.json().message);
           }
         }
     );
@@ -157,12 +163,13 @@ export class ApiService {
       .map(response => response.json()).subscribe(
         (responseItem: any) => {
           this.resetData();
+          this.notifications.info(`${responseItem.project.name} updated`, 'The Task has been added to the Project.');
         },
         (err: any) => {
           if (err.status === 0) {
-            alert('Server down');
+            this.alertServerDown();
           } else {
-            alert('Error: ' + err.json().message);
+            this.alertOther(err.json().message);
           }
         }
     );
@@ -173,12 +180,13 @@ export class ApiService {
       .map(response => response.json()).subscribe(
         (responseItem: any) => {
           this.resetData();
+          this.notifications.info(`${responseItem.project.name} updated`, 'The Task has been removed from the Project.');
         },
         (err: any) => {
           if (err.status === 0) {
-            alert('Server down');
+            this.alertServerDown();
           } else {
-            alert('Error: ' + err.json().message);
+            this.alertOther(err.json().message);
           }
         }
     );
@@ -198,9 +206,9 @@ export class ApiService {
         },
         (err: any) => {
           if (err.status === 0) {
-            alert('Server down');
+            this.alertServerDown();
           } else {
-            alert('Error: ' + err.json().message);
+            this.alertOther(err.json().message);
           }
         }
     );
@@ -213,12 +221,13 @@ export class ApiService {
         (responseItem: any) => {
           responseItem.task.statusVal = 'inactive';
           this.tasks.push(responseItem.task);
+          this.notifications.success(`${responseItem.task.name} created`, 'Task has been created!');
         },
         (err: any) => {
           if (err.status === 0) {
-            alert('Server down');
+            this.alertServerDown();
           } else {
-            alert('Error: ' + err.json().message);
+            this.alertOther(err.json().message);
           }
         }
     );
@@ -235,9 +244,9 @@ export class ApiService {
         },
         (err: any) => {
           if (err.status === 0) {
-            alert('Server down');
+            this.alertServerDown();
           } else {
-            alert('Error: ' + err.json().message);
+            this.alertOther(err.json().message);
           }
         }
     );
@@ -248,12 +257,13 @@ export class ApiService {
       .map(response => response.json()).subscribe(
         (responseItem: any) => {
           this.resetData();
+          this.notifications.info('Deleted', 'Task has been deleted!');
         },
         (err: any) => {
           if (err.status === 0) {
-            alert('Server down');
+            this.alertServerDown();
           } else {
-            alert('Error: ' + err.json().error);
+            this.alertOther(err.json().message);
           }
         }
     );
@@ -264,13 +274,13 @@ export class ApiService {
     this.http.put(`http://${this.server}:3000/tasks/${id}`, {name, description, runPauseStop}, headers)
       .map(response => response.json()).subscribe(
         (responseItem: any) => {
+          this.notifications.success(`${responseItem.task.name} updated`, '');
         },
         (err: any) => {
           if (err.status === 0) {
-            alert('Server down');
+            this.alertServerDown();
           } else {
-            alert('Error: ' + err.json().error);
-            console.log('Error: ' + err.json().error);
+            this.alertOther(err.json().message);
           }
         }
     );
@@ -282,13 +292,13 @@ export class ApiService {
         (responseItem: any) => {
           responseItem.task.statusVal = 'active';
           this.task = responseItem.task;
+          this.notifications.info(`${responseItem.task.name} started`, 'The Task is now running.');
         },
         (err: any) => {
           if (err.status === 0) {
-            alert('Server down');
+            this.alertServerDown();
           } else {
-            alert('Error: ' + err.json().error);
-            console.log('Error: ' + err.json().error);
+            this.alertOther(err.json().message);
           }
         }
     );
@@ -302,14 +312,23 @@ export class ApiService {
           this.tasks.filter((task) => task._id === id).forEach((task: any, i) => {
             this.tasks[i] = responseItem.task;
           });
+          this.notifications.info(`${responseItem.task.name} paused`, 'The Task is now paused.');
         },
         (err: any) => {
           if (err.status === 0) {
-            alert('Server down');
+            this.alertServerDown();
           } else {
-            alert('Error: ' + err.json().message);
+            this.alertOther(err.json().message);
           }
         }
     );
+  }
+
+  private alertServerDown() {
+    this.notifications.error('No Connection Error', 'The server does not seem to be running!');
+  }
+
+  private alertOther(message) {
+    this.notifications.error('Error', message);
   }
 }

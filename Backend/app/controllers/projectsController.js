@@ -13,9 +13,10 @@ exports.getProjects = (req, res) => {
 
 exports.postProject = (req, res) => {
     const newProject = new projectModel(req.body);
+
     newProject.save()
         .then(project => {
-            res.status(200).json({message: "Project successfully added!", project });
+            res.status(200).json({message: 'Project successfully added!', project});
         })
         .catch(err => {
             res.status(400).send(err);
@@ -35,7 +36,7 @@ exports.getProject = (req, res) => {
 exports.deleteProject = (req, res) => {
    projectModel.findByIdAndRemove(req.params.id)
         .then(() => {
-            res.status(200).json({message: "Project successfully deleted!"});
+            res.status(200).json({message: 'Project successfully deleted!'});
         })
         .catch(err => {
             res.status(400).send(err)
@@ -47,7 +48,7 @@ exports.putProject = (req, res) => {
         .then(project => {
             Object.assign(project, req.body).save()
                 .then(project => {
-                    res.status(200).json({message: "Project successfully updated!", project});
+                    res.status(200).json({message: 'Project successfully updated!', project});
                 })
                 .catch(err => {
                     res.status(400).send(err);
