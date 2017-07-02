@@ -22,8 +22,6 @@ export class ProjectListComponent implements OnInit {
 
   postNewProject(name: string) {
     this.apiService.postProject(name, '');
-    this.getProjects();
-    this.getTasks();
   }
 
   ngOnInit() {

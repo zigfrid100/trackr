@@ -4,12 +4,10 @@ const projectModel = require('./../models/project');
 exports.getTasks = (req, res) => {
     taskModel.find()
         .then(tasks => {
-            res.status(200)
-                .json(tasks);
+            res.status(200).json(tasks);
         })
         .catch(err => {
-            res.status(500)
-                .send(err);
+            res.status(500).send(err);
         });
 };
 
@@ -17,31 +15,27 @@ exports.postTask = (req, res) => {
     const newTask = new taskModel(req.body);
     newTask.save()
         .then(task => {
-            res.status(200)
-                .json({message: "Task successfully added!", task});
+            res.status(200).json({message: 'Task successfully added!', task});
         })
         .catch(err => {
-            res.status(400)
-                .send(err);
+            res.status(400).send(err);
         })
 };
 
 exports.getTask = (req, res) => {
     taskModel.findById(req.params.id).populate('interval')
         .then(task => {
-            res.status(200)
-                .json(task)
+            res.status(200).json(task)
         })
         .catch(err => {
-            res.status(400)
-                .send(err);
+            res.status(400).send(err);
         });
 };
 
 exports.deleteTask = (req, res) => {
     taskModel.findByIdAndRemove(req.params.id)
         .then(task => {
-            if(task.project != undefined) {
+            if (task.project) {
                 projectModel.findById(task.project)
                     .then(project => {
                         for(let i = 0; i < project.tasks.length; i++) {
@@ -52,16 +46,13 @@ exports.deleteTask = (req, res) => {
                         }
                     })
                     .catch(err => {
-                        res.status(400)
-                            .send(err);
+                        res.status(400).send(err);
                     });
             }
-            res.status(200)
-                .json({message: "Task successfully deleted!"});
+            res.status(200).json({message: "Task successfully deleted!"});
         })
         .catch(err => {
-            res.status(400)
-                .send(err)
+            res.status(400).send(err)
         });
 };
 
@@ -70,17 +61,14 @@ exports.putTask = (req, res) => {
         .then(task => {
             Object.assign(task, req.body).save()
                 .then(task => {
-                    res.status(200)
-                        .json({message: "Task successfully updated!", task});
+                    res.status(200).json({message: "Task successfully updated!", task});
                 })
                 .catch(err => {
-                    res.status(400)
-                        .send(err);
+                    res.status(400).send(err);
                 })
         })
         .catch(err => {
-            res.status(400)
-                .send(err);
+            res.status(400).send(err);
         });
 };
 
@@ -121,16 +109,13 @@ exports.pauseTask = (req, res) => {
             task.runPauseStop = 1;
 
             task.save().then(task => {
-                res.status(200)
-                    .json({message: 'Task successfully paused!', task: task});
+                res.status(200).json({message: 'Task successfully paused!', task: task});
             })
             .catch(err => {
-                res.status(400)
-                    .send(err)
+                res.status(400).send(err)
             });
         })
         .catch(err => {
-            res.status(400)
-                .send(err);
+            res.status(400).send(err);
         });
 };
