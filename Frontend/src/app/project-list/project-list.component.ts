@@ -24,6 +24,10 @@ export class ProjectListComponent implements OnInit {
     this.apiService.postProject(name, '');
   }
 
+  filteredTasks(tasks, project_id) {
+    return tasks.filter((task) => task.project !== project_id);
+  }
+
   ngOnInit() {
     this.getProjects();
     this.getTasks();

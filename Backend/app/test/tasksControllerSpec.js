@@ -49,6 +49,25 @@ describe('tasks', () => {
             });
         });
 
+        it('should return the projects for a single task', (done) => {
+            let task = new Task({ name: 'Testtask' });
+
+            task.save((_err, task) => {
+                let project = new Project({ name: 'Testproject', tasks: [task._id] });
+
+                project.save((_err, project) => {
+                    chai.request(server)
+                        .get(`/tasks/${task.id}/projects`)
+                        .end((_err, res) => {
+                            res.should.have.status(200);
+                            res.body.should.be.a('array');
+                            res.body.length.should.eql(1);
+                            done();
+                        });
+                });
+            });
+        })
+
         it('should correctly calculate the total time', (done) => {
             const intervals = [
                 { startDate: new Date(1499003864449), stopDate: new Date(1499003868314), run: false },
