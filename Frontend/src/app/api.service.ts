@@ -64,6 +64,7 @@ export class ApiService {
         (responseItem: any) => {
           this.projects.push(responseItem);
           this.notifications.success(`${responseItem.project.name} created`, 'Project has been created!');
+          this.resetData();
         },
         (err: any) => {
           if (err.status === 0) {
@@ -129,6 +130,7 @@ export class ApiService {
     this.http.delete(`http://${this.server}:3000/projects/${id}`)
       .map(response => response.json()).subscribe(
         (responseItem: any) => {
+          this.resetData();
           this.notifications.info('Project deleted', '');
         },
         (err: any) => {
