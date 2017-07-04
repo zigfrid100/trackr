@@ -21,7 +21,8 @@ app.use(bodyParser.text());
 
 // error handling
 app.use((err, req, res, next) => {
-  console.error(err);
+  //console.error(err);
+    console.log(err);
   res.status(500).send('Something broke!');
   next(err);
 });
