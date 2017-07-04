@@ -251,7 +251,7 @@ export class ApiService {
     this.http.delete(`http://${this.server}:3000/tasks/${id}`)
       .map(response => response.json()).subscribe(
         (responseItem: any) => {
-          this.resetData();
+          this.tasks = this.tasks.filter( (task) => task._id !== id);
           this.notifications.info('Deleted', 'Your task has been deleted!');
         },
         (err: any) => {
