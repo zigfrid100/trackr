@@ -36,6 +36,9 @@ app.use('/tasks', tasksRoutes);
 const usersRoutes = require('./app/routes/usersRoutes');
 app.use('/users', usersRoutes);
 
+const applicationsRoutes = require('./app/routes/applicationsRoutes');
+app.use('/app', applicationsRoutes);
+
 
 app.listen(config.port, () => {
     console.log('Server running');

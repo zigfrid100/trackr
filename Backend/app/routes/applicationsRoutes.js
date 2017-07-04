@@ -1,3 +1,7 @@
-/**
- * Created by raynn on 04.07.2017.
- */
+const express = require('express');
+const router = express.Router();
+
+const applicationsController = require('./../controllers/applicationsController');
+
+router.route('/')
+    .get(applicationsController.exitApplication());
