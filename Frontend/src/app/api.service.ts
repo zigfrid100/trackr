@@ -285,6 +285,8 @@ export class ApiService {
     this.http.put(`http://${this.server}:3000/tasks/${id}/start`, {changes})
       .map(response => response.json()).subscribe(
         (responseItem: any) => {
+          this.tasks.find( ( taskf ) => taskf._id === id).interval = responseItem.task.interval;
+          this.tasks.find( ( taskf ) => taskf._id === id).run = responseItem.task.run;
           this.notifications.info(`${responseItem.task.name} started`, 'Your task is now running');
         },
         (err: any) => {
@@ -301,12 +303,8 @@ export class ApiService {
     this.http.put(`http://${this.server}:3000/tasks/${id}/pause`, {})
       .map(response => response.json()).subscribe(
         (responseItem: any) => {
-          this.getTask(id).subscribe(
-            task => {
-              this.tasks.find( ( taskf ) => taskf._id === id).interval = task.interval;
-            },
-            err => this.notifications.error('Error', err.error)
-          );
+              this.tasks.find( ( taskf ) => taskf._id === id).interval = responseItem.task.interval;
+              this.tasks.find( ( taskf ) => taskf._id === id).run = responseItem.task.run;
           this.notifications.info(`${responseItem.task.name} paused`, 'Your task is now paused');
         },
         (err: any) => {
