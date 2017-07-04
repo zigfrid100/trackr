@@ -30,7 +30,11 @@ deploy:
   script:
     - cd Backend/
     - npm install
-    - npm start
+    - npm start &
+    - cd ..
+    - cd Frontend/
+    - npm install
+    - ng serve &
   environment:
     name: $CI_ENVIRONMENT_NAME
     url: $CI_ENVIRONMENT_URL
