@@ -93,10 +93,10 @@ __________________________
     start: Datetime
     end: Datetime
 
-## Jenkins CI
+## Live Server
 ____________
 
-51.254.103.142:8080
+Frontend: http://51.254.103.142:4200/
 
-Login: `user`
-Password: `KD7!nd_J89ds`
+Mongod and Backend also running on same ip
+
