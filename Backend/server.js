@@ -21,8 +21,7 @@ app.use(bodyParser.text());
 
 // error handling
 app.use((err, req, res, next) => {
-  //console.error(err);
-    console.log(err);
+  console.error(err);
   res.status(500).send('Something broke!');
   next(err);
 });
@@ -36,9 +35,6 @@ app.use('/tasks', tasksRoutes);
 
 const usersRoutes = require('./app/routes/usersRoutes');
 app.use('/users', usersRoutes);
-
-const applicationsRoutes = require('./app/routes/applicationsRoutes');
-app.use('/app', applicationsRoutes);
 
 
 app.listen(config.port, () => {
