@@ -86,6 +86,7 @@ __________________________
     runPauseStop: Number // 0 if running, 1 if paused, 2 if stopped
     interval: [Interval]
     project: Project
+    total: Number
  
 ### Interval
 
