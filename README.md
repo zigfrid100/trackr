@@ -63,7 +63,6 @@ Run `npm run test` from the `/Backend` directory.
 
 
 ## MongoDB Schemas
-__________________________
 
 ### User
 
@@ -95,7 +94,6 @@ __________________________
     end: Datetime
 
 ## Jenkins CI
-____________
 
 51.254.103.142:8080
 
