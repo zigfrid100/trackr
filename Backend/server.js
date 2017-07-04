@@ -19,13 +19,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(bodyParser.text());
 
-// error handling
-app.use((err, req, res, next) => {
-  console.error(err);
-  res.status(500).send('Something broke!');
-  next(err);
-});
-
 /*===================== ROUTES ============================*/
 const projectsRoutes = require('./app/routes/projectsRoutes');
 app.use('/projects', projectsRoutes);
@@ -36,6 +29,12 @@ app.use('/tasks', tasksRoutes);
 const usersRoutes = require('./app/routes/usersRoutes');
 app.use('/users', usersRoutes);
 
+// error handling
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).send('Something broke!');
+  next(err);
+});
 
 app.listen(config.port, () => {
     console.log('Server running');
