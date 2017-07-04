@@ -14,15 +14,9 @@ const should = chai.should();
 chai.use(chaiHttp);
 
 describe('tasks', () => {
-    const exampleTask = {
-        name: 'Testtask'
-    };
-
     beforeEach((done) => {
         Task.remove({}, () => {
-            Project.remove({}, () => {
-                done();
-            });
+            done();
         });
     });
 
@@ -41,7 +35,9 @@ describe('tasks', () => {
 
     describe('GET /tasks/:id', () => {
         it('should return a single task', (done) => {
-            new Task(exampleTask).save((_err, task) => {
+            let task = new Task({ name: 'Testtask' });
+
+            task.save((_err, task) => {
                 chai.request(server)
                     .get(`/tasks/${task.id}`)
                     .end((_err, res) => {
@@ -54,7 +50,9 @@ describe('tasks', () => {
         });
 
         it('should return the projects for a single task', (done) => {
-            new Task(exampleTask).save((_err, task) => {
+            let task = new Task({ name: 'Testtask' });
+
+            task.save((_err, task) => {
                 let project = new Project({ name: 'Testproject', tasks: [task._id] });
 
                 project.save((_err, project) => {
@@ -75,8 +73,7 @@ describe('tasks', () => {
                 { startDate: new Date(1499003864449), stopDate: new Date(1499003868314), run: false },
                 { startDate: new Date(1499003855926), stopDate: new Date(1499003861704), run: false }
             ]
-
-            const task = Object.assign(new Task(exampleTask), { interval: intervals });
+            const task = new Task({ name: 'Testtask', interval: intervals });
 
             task.save((_err, task) => {
                 task.total.should.eql(9.643);
@@ -87,9 +84,11 @@ describe('tasks', () => {
 
     describe('POST /tasks', () => {
         it('should create a task', (done) => {
+            let task = { name: 'Testtask' };
+
             chai.request(server)
                 .post('/tasks')
-                .send(exampleTask)
+                .send(task)
                 .end((_err, res) => {
                     res.should.have.status(200);
                     res.body.task.name.should.eql('Testtask');
@@ -100,7 +99,9 @@ describe('tasks', () => {
 
     describe('DELETE /tasks/:id', () => {
         it('should delete a task', (done) => {
-            new Task(exampleTask).save((_err, task) => {
+            let task = new Task({ name: 'Testtask' });
+
+            task.save((_err, task) => {
                 chai.request(server)
                     .delete(`/tasks/${task.id}`)
                     .end((_err, res) => {
@@ -111,7 +112,9 @@ describe('tasks', () => {
         });
 
         it('should delete the task from all projects it belongs to', (done) => {
-            new Task(exampleTask).save((_err, task) => {
+            let task = new Task({ name: 'Testtask' });
+
+            task.save((_err, task) => {
                 let project = new Project({ name: 'Testproject', tasks: [task._id] });
 
                 project.save((_err, project) => {
@@ -135,7 +138,9 @@ describe('tasks', () => {
 
     describe('PUT /tasks/:id', () => {
         it('should update a task', (done) => {
-            new Task(exampleTask).save((_err, task) => {
+            let task = new Task({ name: 'Testtask' });
+
+            task.save((_err, task) => {
                 chai.request(server)
                     .put(`/tasks/${task.id}`)
                     .send({ name: 'Test' })
@@ -150,7 +155,9 @@ describe('tasks', () => {
 
     describe('PUT /tasks/:id/pause', () => {
         it('should pause a task', (done) => {
-            new Task(exampleTask).save((_err, task) => {
+            let task = new Task({ name: 'Testtask' });
+
+            task.save((_err, task) => {
                 chai.request(server)
                     .put(`/tasks/${task.id}/pause`)
                     .end((_err, res) => {
@@ -165,35 +172,15 @@ describe('tasks', () => {
 
     describe('PUT /tasks/:id/start', () => {
         it('should start a task', (done) => {
-            new Task(exampleTask).save((_err, task) => {
+            let task = new Task({ name: 'Testtask' });
+
+            task.save((_err, task) => {
                 chai.request(server)
                     .put(`/tasks/${task.id}/start`)
                     .end((_err, res) => {
                         res.should.have.status(200);
                         res.body.task.name.should.eql('Testtask');
                         res.body.message.should.eql('Task successfully started!');
-                        done();
-                    });
-            });
-        });
-
-        it('should stop all other tasks upon starting a task', (done) => {
-            new Task(exampleTask).save((_err, task) => {
-                chai.request(server)
-                    .put(`/tasks/${task.id}/start`)
-                    .end((_err, res) => {
-                        res.should.have.status(200);
-                        res.body.task.interval[0].run.should.eql(true);
-                            new Task(exampleTask).save((_err, task) => {
-                                chai.request(server)
-                                    .put(`/tasks/${task.id}/start`)
-                                    .end((_err, res) => {
-                                        res.should.have.status(200);
-                                        res.body.task.interval[0].run.should.eql(true);
-                                        Task.count({ 'interval.run': true }).should.eql(1);
-                                        done();
-                                    });
-                            });
                         done();
                     });
             });

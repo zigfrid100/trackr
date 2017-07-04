@@ -63,6 +63,7 @@ Run `npm run test` from the `/Backend` directory.
 
 
 ## MongoDB Schemas
+__________________________
 
 ### User
 
@@ -85,7 +86,6 @@ Run `npm run test` from the `/Backend` directory.
     runPauseStop: Number // 0 if running, 1 if paused, 2 if stopped
     interval: [Interval]
     project: Project
-    total: Number
  
 ### Interval
 
@@ -94,6 +94,7 @@ Run `npm run test` from the `/Backend` directory.
     end: Datetime
 
 ## Jenkins CI
+____________
 
 51.254.103.142:8080
 
