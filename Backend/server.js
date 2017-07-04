@@ -21,7 +21,8 @@ app.use(bodyParser.text());
 
 // error handling
 app.use((err, req, res, next) => {
-  console.error(err);
+  //console.error(err);
+    console.log(err);
   res.status(500).send('Something broke!');
   next(err);
 });
@@ -38,6 +39,7 @@ app.use('/users', usersRoutes);
 
 const applicationsRoutes = require('./app/routes/applicationsRoutes');
 app.use('/app', applicationsRoutes);
+
 
 app.listen(config.port, () => {
     console.log('Server running');

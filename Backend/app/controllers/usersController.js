@@ -7,7 +7,7 @@ exports.getUsers = (req, res) => {
                 .json(users);
         })
         .catch(err => {
-            res.status(500)
+            res.status(400)
                 .send(err);
         });
 };
@@ -17,7 +17,7 @@ exports.postUser = (req, res) => {
     newUser.save()
         .then(user => {
             res.status(200)
-                .json({message: 'User successfully created!', user: user});
+                .json({message: "User successfully created!", user});
         })
         .catch(err => {
             res.status(400)
@@ -32,7 +32,7 @@ exports.getUser = (req, res) => {
                 .json(user)
         })
         .catch(err => {
-            res.status(404)
+            res.status(400)
                 .send(err);
         });
 };
@@ -41,10 +41,10 @@ exports.deleteUser = (req, res) => {
     userModel.findByIdAndRemove(req.params.id)
         .then(() => {
             res.status(200)
-                .json({message: 'User successfully deleted!'});
+                .json({message: "User successfully deleted!"});
         })
         .catch(err => {
-            res.status(404)
+            res.status(400)
                 .send(err)
         });
 };
@@ -55,7 +55,7 @@ exports.putUser = (req, res) => {
             Object.assign(user, req.body).save()
                 .then(user => {
                     res.status(200)
-                        .json({message: 'User successfully updated!', user: user});
+                        .json({message: "User successfully updated!", user});
                 })
                 .catch(err => {
                     res.status(400)
@@ -63,7 +63,7 @@ exports.putUser = (req, res) => {
                 })
         })
         .catch(err => {
-            res.status(404)
+            res.status(400)
                 .send(err);
         });
 };
