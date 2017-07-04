@@ -1,5 +1,5 @@
 variables:
-  BRANCH: issue44
+  BRANCH: master
 stages:
   - build
   - tests
