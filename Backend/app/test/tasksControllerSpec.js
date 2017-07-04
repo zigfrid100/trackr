@@ -176,5 +176,27 @@ describe('tasks', () => {
                     });
             });
         });
+
+        it('should stop all other tasks upon starting a task', (done) => {
+            new Task(exampleTask).save((_err, task) => {
+                chai.request(server)
+                    .put(`/tasks/${task.id}/start`)
+                    .end((_err, res) => {
+                        res.should.have.status(200);
+                        res.body.task.interval[0].run.should.eql(true);
+                            new Task(exampleTask).save((_err, task) => {
+                                chai.request(server)
+                                    .put(`/tasks/${task.id}/start`)
+                                    .end((_err, res) => {
+                                        res.should.have.status(200);
+                                        res.body.task.interval[0].run.should.eql(true);
+                                        Task.count({ 'interval.run': true }).should.eql(1);
+                                        done();
+                                    });
+                            });
+                        done();
+                    });
+            });
+        });
     });
 });
