@@ -301,7 +301,14 @@ export class ApiService {
     this.http.put(`http://${this.server}:3000/tasks/${id}/pause`, {})
       .map(response => response.json()).subscribe(
         (responseItem: any) => {
-          this.getTasks();
+          console.log(this.tasks.find((task) => task._id === id));
+          console.log(this.getTask(id));
+          this.getTask(id).subscribe(
+            task => {
+              this.tasks.find( ( taskf ) => taskf._id === id).interval = task.interval;
+            },
+            err => this.notifications.error('Error', err.error)
+          );
           this.notifications.info(`${responseItem.task.name} paused`, 'Your task is now paused');
         },
         (err: any) => {
