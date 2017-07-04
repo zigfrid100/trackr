@@ -5,18 +5,18 @@ const projectsController = require('./../controllers/projectsController');
 
 router.route('/')
     .get(projectsController.getProjects)
-    .post((req, res) => projectsController.postProject(req, res));
+    .post(projectsController.postProject);
 
 router.route('/:id/tasks')
-    .get((req, res) => projectsController.getTasks(req, res));
+    .get(projectsController.getTasks);
 
 router.route('/:id')
 	.get(projectsController.getProject)
 	.delete(projectsController.deleteProject)
-	.put((req, res) => projectsController.putProject(req, res));
+	.put(projectsController.putProject);
 
 router.route('/:id/tasks/:taskid')
-	.delete((req, res) => projectsController.removeTask(req, res))
-    .post((req, res) => projectsController.addTask(req, res));
+	.delete(projectsController.removeTask)
+    .post(projectsController.addTask);
 
 module.exports = router;

@@ -64,11 +64,6 @@ exports.addTask = (req, res) => {
         .then(project => {
             taskModel.findById(req.params.taskid)
                 .then (task => {
-                    if(task.project) {
-                        return res.status(400)
-                            .json({error: 'Task already assigned to a project!'});
-                    }
-
                     // Check if task is already assigned to the project
                     if (project.tasks.indexOf(task._id) !== -1) {
                         res.status(400).json({error: 'Task is already assigned to the project!'});
@@ -102,7 +97,7 @@ exports.removeTask = (req, res) => {
         .then(project => {
             // Get the task
             taskModel.findById(req.params.taskid)
-                .then (task => {
+                .then(task => {
                     // Check if task is assigned to the project
                     const index = project.tasks.indexOf(task._id)
                     if (index !== -1) {
@@ -111,12 +106,12 @@ exports.removeTask = (req, res) => {
                         project.save().then(project => {
                             task.project = undefined;
                             task.save()
-                                .then(task => {})
+                                .then(task => {
+                                    res.status(200).json({message: 'Task successfully removed from project!', project: project});
+                                })
                                 .catch(err => {
                                     res.status(500).send(err);
                                 });
-
-                            res.status(200).json({message: 'Task successfully removed from project!', project: project});
                         })
                         .catch(err => {
                             res.status(500).send(err);
