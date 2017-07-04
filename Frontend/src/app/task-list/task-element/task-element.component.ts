@@ -56,6 +56,7 @@ export class TaskElementComponent implements OnInit {
   start() {
     this.toActiveStatus();
     this.apiService.startTask(this.task._id, ' ');
+    this.running = this.isRunning();
     this.updateTask();
     this.timer();
     this.pauseOtherTasks();
@@ -81,12 +82,15 @@ export class TaskElementComponent implements OnInit {
   }
 
   timer() {
+
+    setTimeout(() => {
+      this.running = this.isRunning();
     if (this.running) {
-      setTimeout(() => {
         this.calculateTotalTime();
         this.timer();
-      }, 100);
-    }
+    }else {
+      this.toInactiveStatus();
+    }}, 100);
   }
 
   isRunning() {
